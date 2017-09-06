@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+wget -c §{release_link} -O "§{package_name}-§{release_version}.tar.gz"
+
+##DEBHELPER##

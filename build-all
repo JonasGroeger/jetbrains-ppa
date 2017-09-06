@@ -1,0 +1,246 @@
+#!/usr/bin/env python3
+import argparse
+import copy
+import glob
+import json
+import os
+import shutil
+import subprocess
+import urllib.request
+from email.utils import formatdate
+from pathlib import Path
+from string import Template
+
+HERE = os.path.abspath(os.path.dirname(__file__))
+JETBRAINS_API_URL = 'https://data.services.jetbrains.com/products/releases?code={}'
+
+
+class BuildException(Exception):
+    pass
+
+
+class LawfulTemplate(Template):
+    delimiter = '§'
+
+
+class PackageConfiguration(object):
+    def __init__(self, package_name) -> None:
+        with open('{}/{}/project.json'.format(HERE, package_name), encoding='UTF-8') as config_file:
+            config = json.load(config_file)
+            self.product_code = config['product_code']
+            self.exe_file = config['exe_file']
+            self.app_name = config['app_name']
+            self.startup_wm_class = config['startup_wm_class']
+            self.java_export = config['java_export']
+            self.package_name = config['package_name']
+            self.package_desc = config['package_desc']
+            self.build_for = config['build_for']
+
+            self.package_timestamp = formatdate(localtime=True)
+
+            # Need variable insertion
+            self.package_desktop_file = LawfulTemplate('\n'.join(config['package_desktop_file'])) \
+                .substitute(self.__dict__)
+            self.package_exe_file = LawfulTemplate('\n'.join(config['package_exe_file'])) \
+                .substitute(self.__dict__)
+
+    def include_release_info(self, release_info):
+        cl = copy.copy(self)
+        cl.release_date = release_info['date']
+        cl.release_type = release_info['type']
+        cl.release_version = release_info['version']
+        cl.release_major_version = release_info['majorVersion']
+        cl.release_build = release_info['build']
+        cl.release_notes_link = release_info.get('notesLink', "No changelog included")
+        cl.release_link = release_info['link']
+        cl.release_size = release_info['size']
+        cl.release_checksum = release_info['checksum']
+
+        return cl
+
+
+class PackageFinder(object):
+    def __init__(self, folder: str, filename: str = 'project.json') -> None:
+        self.folder = Path(os.path.abspath(folder))
+        self.filename = filename
+
+    def find(self):
+        filters = [
+            lambda s: s.is_dir(),
+            lambda s: not s.name.startswith("."),
+            lambda s: Path(self.folder, s, self.filename).is_file(),
+        ]
+
+        iterator = self.folder.iterdir()
+
+        packages = []
+        for path in iterator:
+            invalid = False
+            for filter_func in filters:
+                if not filter_func(path):
+                    invalid = True
+                    break
+
+            if not invalid:
+                packages.append(path.name)
+
+        return packages
+
+
+class JetbrainsAPI(object):
+    def __init__(self, jetbrains_api_url) -> None:
+        self.url = jetbrains_api_url
+
+    def _get_checksum(self, url):
+        resource = urllib.request.urlopen(url)
+        if resource.code != 200:
+            raise BuildException(
+                "Requesting {} (code={}) failed with the following reason: {}".format(url, resource.code,
+                                                                                      resource.reason)
+            )
+
+        content = resource.read().decode('utf-8')
+        sha256_hash, _ = content.split(' ')
+        return sha256_hash
+
+    def get_latest_release_info(self, product_code):
+        url = self.url.format(product_code)
+
+        resource = urllib.request.urlopen(url)
+        if resource.code != 200:
+            raise BuildException(
+                "Requesting {} (code={}) failed with the following reason: {}".format(
+                    url, resource.code, resource.reason
+                )
+            )
+
+        content = resource.read().decode('UTF-8')
+        versions = json.loads(content)[product_code]
+
+        latest_version = versions[0]
+
+        if latest_version['type'] != 'release':
+            raise BuildException('Latest version of {} is not a release.'.format(product_code))
+
+        # Keep only Linux
+        for k in ['link', 'size', 'checksumLink']:
+            latest_version[k] = latest_version['downloads']['linux'][k]
+        del latest_version['downloads']
+
+        # Get checksum
+        latest_version['checksum'] = self._get_checksum(latest_version['checksumLink'])
+        del latest_version['checksumLink']
+
+        return latest_version
+
+
+class PackageBuilder(object):
+    def __init__(self, distribution, config) -> None:
+        self.distribution = distribution
+        self.config = config
+        self.package_name = self.config.package_name
+
+    def generate_debian_folder(self):
+        os.makedirs('{}/{}/debian/source'.format(HERE, self.package_name), exist_ok=True)
+
+    def _copy_template(self, filename):
+        full_filename_read = '{}/templates/{}.tmpl'.format(HERE, filename)
+        full_filename_write = '{}/{}/debian/{}'.format(HERE, self.package_name, filename)
+
+        with open(full_filename_read, mode='r', encoding="utf-8") as f_read:
+            content = f_read.read()
+
+            content_after_templating = self.do_templating(content)
+
+            with open(full_filename_write, mode='w', encoding='utf-8') as f_write:
+                f_write.write(content_after_templating)
+
+    def do_templating(self, content):
+        template = LawfulTemplate(content)
+        return template.substitute(self.config.__dict__, release_distribution=self.distribution.split('/')[1])
+
+    def copy_template_files(self):
+        template_files = [
+            'source/format',
+            'source/include-binaries',
+            'changelog',
+            'compat',
+            'control',
+            'copyright',
+            'install',
+            'postinst',
+            'postrm',
+            'preinst',
+            'rules',
+        ]
+
+        for f in template_files:
+            self._copy_template(f)
+
+    def build_source_package(self, signing_key=None):
+        cmd = ['debuild', '-S']
+
+        env_copy = os.environ.copy()
+        env_copy['DEBUILD_DPKG_BUILDPACKAGE_OPTS'] = '--passphrase-file {} --batch --no-tty --no-use-agent'.format(
+            Path(HERE, 'gpg-passphrase').as_posix()
+        )
+
+        print(env_copy)
+
+        if signing_key:
+            cmd += ['-k' + signing_key]
+        else:
+            cmd += ['-us', '-uc']
+
+        print("Running in " + '{}/{} :: '.format(HERE, self.package_name))
+        print(' '.join(cmd))
+        subprocess.Popen(cmd, cwd='{}/{}'.format(HERE, self.package_name), env=env_copy).wait()
+
+    def move_generated_files(self):
+        for file in glob.glob('{}/{}_*'.format(HERE, self.package_name)):
+            destination = Path(HERE, 'dist', self.package_name, self.distribution).as_posix()
+            os.makedirs(destination, exist_ok=True)
+            shutil.move(file, destination)
+
+    def clean(self):
+        subprocess.Popen(['git', 'clean', '-fdx', self.package_name]).wait()
+
+    def write_files_from_config(self):
+        with open('{}/{}/{}.desktop'.format(HERE, self.package_name, self.package_name), 'w', encoding='UTF-8') as f:
+            f.write(self.config.package_desktop_file)
+
+        with open('{}/{}/{}'.format(HERE, self.package_name, self.package_name), 'w', encoding='UTF-8') as f:
+            f.write(self.config.package_exe_file)
+
+
+class Package(object):
+    def __init__(self, config, distribution) -> None:
+        self.config = config
+        self.distribution = distribution
+
+    def build(self, signing_key=None):
+        packager = PackageBuilder(self.distribution, self.config)
+        packager.generate_debian_folder()
+        packager.copy_template_files()
+        packager.write_files_from_config()
+        packager.build_source_package(signing_key)
+        packager.move_generated_files()
+        packager.clean()
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('k', help='GPG Key ID to sign the generated packages with.', metavar="GPG_KEY_ID")
+    args = parser.parse_args()
+
+    gpg_key_id = args.k
+
+    packages = PackageFinder(".").find()
+    for package in packages:
+        package_config = PackageConfiguration(package)
+        latest_release_info = JetbrainsAPI(JETBRAINS_API_URL).get_latest_release_info(package_config.product_code)
+        package_config_with_release_info = package_config.include_release_info(latest_release_info)
+
+        for dist in package_config_with_release_info.build_for:
+            p = Package(package_config_with_release_info, dist)
+            p.build(signing_key=gpg_key_id)

@@ -1,0 +1,48 @@
+{
+  "product_code": "IIC",
+  "exe_file": "bin/idea.sh",
+  "app_name": "IntelliJ IDEA Community",
+  "startup_wm_class": "jetbrains-idea-ce",
+  "java_export": "IDEA_JDK",
+
+  "package_name": "intellij-idea-community",
+  "package_desc": "Java, Groovy, Scala and Android development.",
+  "package_desktop_file": [
+    "[Desktop Entry]",
+    "Name=§{app_name}",
+    "Comment=§{package_desc}",
+    "Exec=§{package_name} %u",
+    "Icon=§{package_name}",
+    "Terminal=false",
+    "Type=Application",
+    "Categories=Development;IDE;",
+    "StartupWMClass=§{startup_wm_class}"
+  ],
+  "package_exe_file": [
+    "#!/bin/sh",
+    "export §{java_export}=\"$JAVA_HOME\"",
+    "exec \"/usr/share/§{package_name}/§{exe_file}\" \"$@\""
+  ],
+  "build_for": [
+    "debian/jessie",
+    "debian/stretch",
+    "debian/buster",
+
+    "ubuntu/trusty",
+    "ubuntu/xenial",
+    "ubuntu/zesty",
+    "ubuntu/artful",
+
+    "elementaryos/freya",
+    "elementaryos/loki",
+    "elementaryos/juno",
+
+    "linuxmint/quaia",
+    "linuxmint/rebecca",
+    "linuxmint/rafaela",
+    "linuxmint/rosa",
+    "linuxmint/sarah",
+    "linuxmint/serena",
+    "linuxmint/sonya"
+  ]
+}
