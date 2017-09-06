@@ -185,8 +185,6 @@ class PackageBuilder(object):
             Path(HERE, 'gpg-passphrase').as_posix()
         )
 
-        print(env_copy)
-
         if signing_key:
             cmd += ['-k' + signing_key]
         else:
