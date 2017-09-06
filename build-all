@@ -203,7 +203,7 @@ class PackageBuilder(object):
             shutil.move(file, destination)
 
     def clean(self):
-        subprocess.Popen(['git', 'clean', '-fdx', self.package_name]).wait()
+        subprocess.Popen(['git', 'clean', '-fdx', '--exclude', 'gpg-passphrase', self.package_name]).wait()
 
     def write_files_from_config(self):
         with open('{}/{}/{}.desktop'.format(HERE, self.package_name, self.package_name), 'w', encoding='UTF-8') as f:
