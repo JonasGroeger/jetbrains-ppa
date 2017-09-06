@@ -41,7 +41,7 @@ To build the packages, run `./build-all`. Selective building is currently not
 supported. Every package is contained in a folder with its respective name. On
 completion, you can find all built packages in the `dist` directory:
 
-$ tree dist
+    $ tree dist
     dist
     ├── intellij-idea-community
     │   ├── debian
