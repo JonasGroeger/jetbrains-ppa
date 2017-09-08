@@ -157,7 +157,7 @@ class PackageBuilder(object):
 
     def do_templating(self, content):
         template = LawfulTemplate(content)
-        return template.substitute(self.config.__dict__, release_distribution=self.distribution.split('/')[1])
+        return template.substitute(self.config.__dict__, release_distribution=self.distribution)
 
     def copy_template_files(self):
         template_files = [
@@ -233,12 +233,13 @@ if __name__ == '__main__':
 
     gpg_key_id = args.k
 
-    packages = PackageFinder(".").find()
+    packages = PackageFinder(".", 'project.json').find()
     for package in packages:
         package_config = PackageConfiguration(package)
         latest_release_info = JetbrainsAPI(JETBRAINS_API_URL).get_latest_release_info(package_config.product_code)
         package_config_with_release_info = package_config.include_release_info(latest_release_info)
 
-        for dist in package_config_with_release_info.build_for:
-            p = Package(package_config_with_release_info, dist)
-            p.build(signing_key=gpg_key_id)
+        dist = package_config_with_release_info.build_for:
+        p = Package(package_config_with_release_info, dist)
+        p.build(signing_key=gpg_key_id)
+

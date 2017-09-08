@@ -23,26 +23,5 @@
     "export §{java_export}=\"$JAVA_HOME\"",
     "exec \"/usr/share/§{package_name}/§{exe_file}\" \"$@\""
   ],
-  "build_for": [
-    "debian/jessie",
-    "debian/stretch",
-    "debian/buster",
-
-    "ubuntu/trusty",
-    "ubuntu/xenial",
-    "ubuntu/zesty",
-    "ubuntu/artful",
-
-    "elementaryos/freya",
-    "elementaryos/loki",
-    "elementaryos/juno",
-
-    "linuxmint/quaia",
-    "linuxmint/rebecca",
-    "linuxmint/rafaela",
-    "linuxmint/rosa",
-    "linuxmint/sarah",
-    "linuxmint/serena",
-    "linuxmint/sonya"
-  ]
+  "build_for": "ubuntu/artful"
 }
