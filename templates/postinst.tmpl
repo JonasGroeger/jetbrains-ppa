@@ -10,7 +10,7 @@ mkdir -p "§{package_name}"
 # Move downloaded .tar.gz
 mv "§{package_name}-§{release_version}.tar.gz" "§{package_name}"
 
-cd "${package_name}"
+cd "§{package_name}"
 
 ## Extract the package
 tar -xzf "§{package_name}-§{release_version}.tar.gz" --strip-components 1

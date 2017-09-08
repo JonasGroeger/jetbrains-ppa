@@ -239,14 +239,16 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('signing_key', help='GPG Key ID to sign the generated packages with.', metavar="GPG_KEY_ID")
     parser.add_argument('distribution', help='The distribution to build the package for.', metavar="DISTRIBUTION")
+    parser.add_argument('--version_suffix', help='The version suffix. For example -1 or -2 for debian packages', metavar="VERSION_SUFFX", default='')
     args = parser.parse_args()
 
     gpg_key_id = args.signing_key
     distribution = args.distribution
+    version_suffix = args.version_suffix
 
     found_packages = PackageFinder(".", 'project.json').find()
     for found_package in found_packages:
-        config = PackageConfiguration(found_package, {'distribution': distribution})
+        config = PackageConfiguration(found_package, {'distribution': distribution, 'version_suffix': version_suffix})
         release_info = JetbrainsAPI(JETBRAINS_API_URL).get_latest_release_info(config.product_code)
         config = config.add(release_info)
 
