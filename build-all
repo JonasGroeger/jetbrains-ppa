@@ -232,7 +232,7 @@ class Package(object):
         packager.write_files_from_config()
         packager.build_source_package(signing_key)
         packager.move_generated_files()
-        packager.clean()
+        #  packager.clean()
 
 
 def main():
