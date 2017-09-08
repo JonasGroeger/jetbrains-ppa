@@ -24,8 +24,12 @@ class LawfulTemplate(Template):
 
 
 class PackageConfiguration(object):
-    def __init__(self, package_name) -> None:
-        with open('{}/{}/project.json'.format(HERE, package_name), encoding='UTF-8') as config_file:
+    def __init__(self, found_package) -> None:
+        self.package = found_package
+        self._read_configuration()
+
+    def _read_configuration(self):
+        with open(self.package.config_file, encoding='UTF-8') as config_file:
             config = json.load(config_file)
             self.product_code = config['product_code']
             self.exe_file = config['exe_file']
@@ -44,19 +48,17 @@ class PackageConfiguration(object):
             self.package_exe_file = LawfulTemplate('\n'.join(config['package_exe_file'])) \
                 .substitute(self.__dict__)
 
-    def include_release_info(self, release_info):
-        cl = copy.copy(self)
-        cl.release_date = release_info['date']
-        cl.release_type = release_info['type']
-        cl.release_version = release_info['version']
-        cl.release_major_version = release_info['majorVersion']
-        cl.release_build = release_info['build']
-        cl.release_notes_link = release_info.get('notesLink', "No changelog included")
-        cl.release_link = release_info['link']
-        cl.release_size = release_info['size']
-        cl.release_checksum = release_info['checksum']
-
-        return cl
+    def add(self, release_info):
+        self.release_date = release_info['date']
+        self.release_type = release_info['type']
+        self.release_version = release_info['version']
+        self.release_major_version = release_info['majorVersion']
+        self.release_build = release_info['build']
+        self.release_notes_link = release_info.get('notesLink', "No changelog included")
+        self.release_link = release_info['link']
+        self.release_size = release_info['size']
+        self.release_checksum = release_info['checksum']
+        returns self
 
 
 class PackageFinder(object):
@@ -82,9 +84,13 @@ class PackageFinder(object):
                     break
 
             if not invalid:
-                packages.append(path.name)
+                packages.append(FoundPackage(Path(path, filename)))
 
         return packages
+
+class FoundPackage(object):
+    def __init__(self, config_file):
+        self.config_file = config_file
 
 
 class JetbrainsAPI(object):
@@ -134,13 +140,14 @@ class JetbrainsAPI(object):
         return latest_version
 
 
-class PackageBuilder(object):
-    def __init__(self, distribution, config) -> None:
-        self.distribution = distribution
+class DebianPackageBuilder(object, artifact_destination='dist'):
+    def __init__(self, config) -> None:
         self.config = config
         self.package_name = self.config.package_name
+        self.distribution = self.config.build_for
+        self.artifact_destination = artifact_destination
 
-    def generate_debian_folder(self):
+    def generate_packaging_folder(self):
         os.makedirs('{}/{}/debian/source'.format(HERE, self.package_name), exist_ok=True)
 
     def _copy_template(self, filename):
@@ -157,7 +164,7 @@ class PackageBuilder(object):
 
     def do_templating(self, content):
         template = LawfulTemplate(content)
-        return template.substitute(self.config.__dict__, release_distribution=self.distribution)
+        return template.substitute(self.config.__dict__)
 
     def copy_template_files(self):
         template_files = [
@@ -196,7 +203,7 @@ class PackageBuilder(object):
 
     def move_generated_files(self):
         for file in glob.glob('{}/{}_*'.format(HERE, self.package_name)):
-            destination = Path(HERE, 'dist', self.package_name, self.distribution).as_posix()
+            destination = Path(HERE, self.artifact_destination, self.package_name).as_posix()
             os.makedirs(destination, exist_ok=True)
             shutil.move(file, destination)
 
@@ -212,13 +219,12 @@ class PackageBuilder(object):
 
 
 class Package(object):
-    def __init__(self, config, distribution) -> None:
+    def __init__(self, config) -> None:
         self.config = config
-        self.distribution = distribution
 
     def build(self, signing_key=None):
-        packager = PackageBuilder(self.distribution, self.config)
-        packager.generate_debian_folder()
+        packager = DebianPackageBuilder(self.config)
+        packager.generate_packaging_folder()
         packager.copy_template_files()
         packager.write_files_from_config()
         packager.build_source_package(signing_key)
@@ -226,20 +232,23 @@ class Package(object):
         packager.clean()
 
 
-if __name__ == '__main__':
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('k', help='GPG Key ID to sign the generated packages with.', metavar="GPG_KEY_ID")
     args = parser.parse_args()
 
     gpg_key_id = args.k
 
-    packages = PackageFinder(".", 'project.json').find()
-    for package in packages:
-        package_config = PackageConfiguration(package)
-        latest_release_info = JetbrainsAPI(JETBRAINS_API_URL).get_latest_release_info(package_config.product_code)
-        package_config_with_release_info = package_config.include_release_info(latest_release_info)
+    found_packages = PackageFinder(".", 'project.json').find()
+    for found_package in found_packages:
+        config = PackageConfiguration(found_package)
+        release_info = JetbrainsAPI(JETBRAINS_API_URL).get_latest_release_info(config.product_code)
+        config = config.add(release_info)
 
-        dist = package_config_with_release_info.build_for:
-        p = Package(package_config_with_release_info, dist)
-        p.build(signing_key=gpg_key_id)
+        package = Package(config)
+        package.build(signing_key=gpg_key_id)
 
+
+
+if __name__ == '__main__':
+    main()
