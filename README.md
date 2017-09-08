@@ -44,38 +44,35 @@ completion, you can find all built packages in the `dist` directory:
     $ tree dist
     dist
     ├── intellij-idea-community
-    │   ├── debian
-    │   │   ├── buster
-    │   │   │   ├── intellij-idea-community_2017.2.3.dsc
-    │   │   │   ├── intellij-idea-community_2017.2.3_source.build
-    │   │   │   ├── intellij-idea-community_2017.2.3_source.changes
-    │   │   │   └── intellij-idea-community_2017.2.3.tar.xz
-    │   │   ├── jessie
-    │   │   │   ├── intellij-idea-community_2017.2.3.dsc
-    │   │   │   ├── intellij-idea-community_2017.2.3_source.build
-    │   │   │   ├── intellij-idea-community_2017.2.3_source.changes
-    │   │   │   └── intellij-idea-community_2017.2.3.tar.xz
-    │   │   └── stretch
-    │   │       ├── intellij-idea-community_2017.2.3.dsc
-    │   │       ├── intellij-idea-community_2017.2.3_source.build
-    │   │       ├── intellij-idea-community_2017.2.3_source.changes
-    │   │       └── intellij-idea-community_2017.2.3.tar.xz
-    │   ├── elementaryos
-    │   │   ├── freya
-    │   │   │   ├── intellij-idea-community_2017.2.3.dsc
-    │   │   │   ├── intellij-idea-community_2017.2.3_source.build
-    │   │   │   ├── intellij-idea-community_2017.2.3_source.changes
-    │   │   │   └── intellij-idea-community_2017.2.3.tar.xz
-    │   │   ├── juno
-    │   │   │   ├── intellij-idea-community_2017.2.3.dsc
-    │   │   │   ├── intellij-idea-community_2017.2.3_source.build
-    │   │   │   ├── intellij-idea-community_2017.2.3_source.changes
-    │   │   │   └── intellij-idea-community_2017.2.3.tar.xz
-    <SNIP>
+    │   ├── intellij-idea-community_2017.2.3.dsc
+    │   ├── intellij-idea-community_2017.2.3_source.build
+    │   ├── intellij-idea-community_2017.2.3_source.changes
+    │   └── intellij-idea-community_2017.2.3.tar.xz
+    ├── intellij-idea-ultimate
+    │   ├── intellij-idea-ultimate_2017.2.3.dsc
+    │   ├── intellij-idea-ultimate_2017.2.3_source.build
+    │   ├── intellij-idea-ultimate_2017.2.3_source.changes
+    │   └── intellij-idea-ultimate_2017.2.3.tar.xz
+    ├── pycharm-community
+    │   ├── pycharm-community_2017.2.3.dsc
+    │   ├── pycharm-community_2017.2.3_source.build
+    │   ├── pycharm-community_2017.2.3_source.changes
+    │   └── pycharm-community_2017.2.3.tar.xz
+    ├── pycharm-education
+    │   ├── pycharm-education_4.0.dsc
+    │   ├── pycharm-education_4.0_source.build
+    │   ├── pycharm-education_4.0_source.changes
+    │   └── pycharm-education_4.0.tar.xz
+    └── pycharm-professional
+        ├── pycharm-professional_2017.2.3.dsc
+        ├── pycharm-professional_2017.2.3_source.build
+        ├── pycharm-professional_2017.2.3_source.changes
+        └── pycharm-professional_2017.2.3.tar.xz
 
 Currently, only source packages are built since they are then uploaded to
-[my Launchpad PPA repository](TODO: Add link). If you want to build binary
-packages, look for `debuild` in `build-all` and remove the `-S` flag.
+[the Launchpad PPA repository](https://launchpad.net/~jonas-groeger/+archive/ubuntu/jetbrains).
+If you want to build binary packages (`.deb` files), look for `debuild` in `build-all` and remove
+the `-S` flag.
 
 # Continuous Delivery
 
