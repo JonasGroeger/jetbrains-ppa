@@ -4,7 +4,6 @@
   "app_name": "IntelliJ IDEA Community",
   "startup_wm_class": "jetbrains-idea-ce",
   "java_export": "IDEA_JDK",
-
   "package_name": "intellij-idea-community",
   "package_desc": "Java, Groovy, Scala and Android development.",
   "package_desktop_file": [
@@ -22,6 +21,5 @@
     "#!/bin/sh",
     "export §{java_export}=\"$JAVA_HOME\"",
     "exec \"/usr/share/§{package_name}/§{exe_file}\" \"$@\""
-  ],
-  "build_for": "debian/artful"
+  ]
 }

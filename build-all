@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import argparse
-import copy
 import glob
 import json
 import os
@@ -24,12 +23,12 @@ class LawfulTemplate(Template):
 
 
 class PackageConfiguration(object):
-    def __init__(self, found_package) -> None:
+    def __init__(self, found_package, extra_args) -> None:
         self.package = found_package
-        self._read_configuration()
+        self._read_configuration(extra_args)
 
-    def _read_configuration(self):
-        with open(self.package.config_file, encoding='UTF-8') as config_file:
+    def _read_configuration(self, extra_args):
+        with open(self.package.config_file.as_posix(), encoding='UTF-8') as config_file:
             config = json.load(config_file)
             self.product_code = config['product_code']
             self.exe_file = config['exe_file']
@@ -38,7 +37,6 @@ class PackageConfiguration(object):
             self.java_export = config['java_export']
             self.package_name = config['package_name']
             self.package_desc = config['package_desc']
-            self.build_for = config['build_for']
 
             self.package_timestamp = formatdate(localtime=True)
 
@@ -47,6 +45,9 @@ class PackageConfiguration(object):
                 .substitute(self.__dict__)
             self.package_exe_file = LawfulTemplate('\n'.join(config['package_exe_file'])) \
                 .substitute(self.__dict__)
+
+            for k, v in extra_args.items():
+                setattr(self, k, v)
 
     def add(self, release_info):
         self.release_date = release_info['date']
@@ -58,7 +59,7 @@ class PackageConfiguration(object):
         self.release_link = release_info['link']
         self.release_size = release_info['size']
         self.release_checksum = release_info['checksum']
-        returns self
+        return self
 
 
 class PackageFinder(object):
@@ -84,9 +85,10 @@ class PackageFinder(object):
                     break
 
             if not invalid:
-                packages.append(FoundPackage(Path(path, filename)))
+                packages.append(FoundPackage(Path(path, self.filename)))
 
         return packages
+
 
 class FoundPackage(object):
     def __init__(self, config_file):
@@ -97,7 +99,8 @@ class JetbrainsAPI(object):
     def __init__(self, jetbrains_api_url) -> None:
         self.url = jetbrains_api_url
 
-    def _get_checksum(self, url):
+    @staticmethod
+    def _get_checksum(url):
         resource = urllib.request.urlopen(url)
         if resource.code != 200:
             raise BuildException(
@@ -140,11 +143,11 @@ class JetbrainsAPI(object):
         return latest_version
 
 
-class DebianPackageBuilder(object, artifact_destination='dist'):
-    def __init__(self, config) -> None:
+class DebianPackageBuilder(object):
+    def __init__(self, config, artifact_destination) -> None:
         self.config = config
         self.package_name = self.config.package_name
-        self.distribution = self.config.build_for
+        self.distribution = self.config.distribution
         self.artifact_destination = artifact_destination
 
     def generate_packaging_folder(self):
@@ -222,32 +225,33 @@ class Package(object):
     def __init__(self, config) -> None:
         self.config = config
 
-    def build(self, signing_key=None):
-        packager = DebianPackageBuilder(self.config)
+    def build(self, artifact_destination='dist', signing_key=None):
+        packager = DebianPackageBuilder(self.config, artifact_destination)
         packager.generate_packaging_folder()
         packager.copy_template_files()
         packager.write_files_from_config()
         packager.build_source_package(signing_key)
         packager.move_generated_files()
-        packager.clean()
+        #packager.clean()
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('k', help='GPG Key ID to sign the generated packages with.', metavar="GPG_KEY_ID")
+    parser.add_argument('signing_key', help='GPG Key ID to sign the generated packages with.', metavar="GPG_KEY_ID")
+    parser.add_argument('distribution', help='The distribution to build the package for.', metavar="DISTRIBUTION")
     args = parser.parse_args()
 
-    gpg_key_id = args.k
+    gpg_key_id = args.signing_key
+    distribution = args.distribution
 
     found_packages = PackageFinder(".", 'project.json').find()
     for found_package in found_packages:
-        config = PackageConfiguration(found_package)
+        config = PackageConfiguration(found_package, {'distribution': distribution})
         release_info = JetbrainsAPI(JETBRAINS_API_URL).get_latest_release_info(config.product_code)
         config = config.add(release_info)
 
         package = Package(config)
-        package.build(signing_key=gpg_key_id)
-
+        package.build(artifact_destination='dist', signing_key=gpg_key_id)
 
 
 if __name__ == '__main__':
