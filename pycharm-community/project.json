@@ -21,6 +21,6 @@
   "package_exe_file": [
     "#!/bin/sh",
     "export §{java_export}=\"$JAVA_HOME\"",
-    "exec \"/usr/share/§{package_name}/§{exe_file}\" \"$@\""
+    "exec \"/opt/§{package_name}/§{exe_file}\" \"$@\""
   ]
 }

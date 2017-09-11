@@ -12,15 +12,10 @@ mv "§{package_name}-§{release_version}.tar.gz" "§{package_name}"
 
 cd "§{package_name}"
 
-## Extract the package
+# Extract the package
 tar -xzf "§{package_name}-§{release_version}.tar.gz" --strip-components 1
 
-## Remove the tar.gz package
+# Remove the tar.gz package
 rm -f "§{package_name}-§{release_version}.tar.gz"
-
-## Install the .desktop file, if necessary
-if [ -x "/usr/bin/desktop-file-install" ]; then
-    desktop-file-install /usr/share/applications/§{package_name}.desktop
-fi
 
 ##DEBHELPER##
