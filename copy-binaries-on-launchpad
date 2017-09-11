@@ -1,6 +1,8 @@
 #!/bin/bash
 
-PPA="~jonas-groeger/ubuntu/jetbrains"
+LP_NAME="jonas-groeger"
+LP_PPA_NAME="jetbrains"
+PPA="~${LP_NAME}/ubuntu/${LP_PPA_NAME}"
 
 copy_package() {
 	python lib/copy-package --from="$PPA" --to="$PPA" --from-suite=artful -b -y --to-suite=zesty "$1"

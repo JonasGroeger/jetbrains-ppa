@@ -79,7 +79,9 @@ the `-S` flag.
 Since outdated packages are of no use, [a CircleCI job was created](TODO: Add)
 to monitor the JetBrains API for new releases. Once a new release is available
 it automatically uploaded to the PPA in no more than 5-10 minutes (depending on
-how fast CirleCI is).
+how fast CirleCI / Launchpad is).
+
+
 
 # Why this was written
 
