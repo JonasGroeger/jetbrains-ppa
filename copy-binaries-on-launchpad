@@ -1,0 +1,17 @@
+#!/bin/bash
+
+PPA="~jonas-groeger/ubuntu/jetbrains"
+
+copy_package() {
+	python lib/copy-package --from="$PPA" --to="$PPA" --from-suite=artful -b -y --to-suite=zesty "$1"
+	python lib/copy-package --from="$PPA" --to="$PPA" --from-suite=artful -b -y --to-suite=xenial "$1"
+	python lib/copy-package --from="$PPA" --to="$PPA" --from-suite=artful -b -y --to-suite=vivid "$1"
+	python lib/copy-package --from="$PPA" --to="$PPA" --from-suite=artful -b -y --to-suite=trusty "$1"
+	python lib/copy-package --from="$PPA" --to="$PPA" --from-suite=artful -b -y --to-suite=precise "$1"
+}
+
+copy_package intellij-idea-community
+copy_package intellij-idea-ultimate
+copy_package pycharm-education
+copy_package pycharm-community
+copy_package pycharm-professional
