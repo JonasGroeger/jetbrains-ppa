@@ -1,0 +1,25 @@
+{
+  "product_code": "RM",
+  "exe_file": "bin/rubymine.sh",
+  "app_name": "RubyMine",
+  "startup_wm_class": "jetbrains-rubymine",
+  "java_export": "RUBYMINE_JDK",
+  "package_name": "rubymine",
+  "package_desc": "Ruby and Rails IDE with first-class support for Ruby and Rails, JavaScript and CoffeeScript, ERB and HAML, CSS, Sass and Less, and more.",
+  "package_desktop_file": [
+    "[Desktop Entry]",
+    "Name=§{app_name}",
+    "Comment=§{package_desc}",
+    "Exec=§{package_name} %u",
+    "Icon=§{package_name}",
+    "Terminal=false",
+    "Type=Application",
+    "Categories=Development;IDE;",
+    "StartupWMClass=§{startup_wm_class}"
+  ],
+  "package_exe_file": [
+    "#!/bin/sh",
+    "export §{java_export}=\"$JAVA_HOME\"",
+    "exec \"/opt/§{package_name}/§{exe_file}\" \"$@\""
+  ]
+}
