@@ -55,4 +55,4 @@ JetBrains website to get an IDE update. Unfortunately JetBrains does not have a
 Debian repository so here is this PPA.
 
 There are already [existing PPAs](https://launchpad.net/~mmk2410/+archive/ubuntu/intellij-idea).
-However, none have continuous delivery or provides a wide range of JetBrains products.
+However, none have continuous delivery or provide a wide range of JetBrains products.
