@@ -1,0 +1,3 @@
+#!/bin/sh
+export PYCHARM_JDK="$JAVA_HOME"
+exec "/opt/pycharm-education/bin/pycharm.sh" "$@"

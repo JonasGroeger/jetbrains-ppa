@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=IntelliJ IDEA Ultimate
+Comment=Web, mobile and enterprise development.
+Exec=intellij-idea-ultimate %u
+Icon=intellij-idea-ultimate
+Terminal=false
+Type=Application
+Categories=Development;IDE;
+StartupWMClass=jetbrains-idea

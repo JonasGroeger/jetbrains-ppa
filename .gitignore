@@ -1,4 +1,8 @@
 .idea/
-dist/
-**/debian/
 gpg-passphrase
+launchpad_credentials.cfg
+packages/*.dsc
+packages/*.xz
+packages/*.build
+packages/*.changes
+

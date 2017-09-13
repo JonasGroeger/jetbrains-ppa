@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+wget -c https://download.jetbrains.com/python/pycharm-professional-2017.2.3.tar.gz -O "pycharm-professional-2017.2.3.tar.gz"
+
+##DEBHELPER##

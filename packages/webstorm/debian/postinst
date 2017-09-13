@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+
+# Create folder
+mkdir -p "webstorm"
+
+# Move downloaded .tar.gz
+mv "webstorm-2017.2.4.tar.gz" "webstorm"
+
+cd "webstorm"
+
+# Extract the package
+tar -xzf "webstorm-2017.2.4.tar.gz" --strip-components 1
+
+# Remove the tar.gz package
+rm -f "webstorm-2017.2.4.tar.gz"
+
+##DEBHELPER##

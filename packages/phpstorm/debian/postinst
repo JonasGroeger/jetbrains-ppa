@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+
+# Create folder
+mkdir -p "phpstorm"
+
+# Move downloaded .tar.gz
+mv "phpstorm-2017.2.3.tar.gz" "phpstorm"
+
+cd "phpstorm"
+
+# Extract the package
+tar -xzf "phpstorm-2017.2.3.tar.gz" --strip-components 1
+
+# Remove the tar.gz package
+rm -f "phpstorm-2017.2.3.tar.gz"
+
+##DEBHELPER##

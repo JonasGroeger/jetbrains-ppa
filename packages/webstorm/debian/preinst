@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+wget -c https://download.jetbrains.com/webstorm/WebStorm-2017.2.4.tar.gz -O "webstorm-2017.2.4.tar.gz"
+
+##DEBHELPER##

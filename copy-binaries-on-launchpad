@@ -1,19 +1,22 @@
 #!/bin/bash
 
+if [ "$#" -lt 1 ]; then
+    echo "Which package should I copy on Launchpad?"
+    exit 1
+fi
+
+PACKAGE_NAME="$1"
+
 LP_NAME="jonas-groeger"
 LP_PPA_NAME="jetbrains"
 PPA="~${LP_NAME}/ubuntu/${LP_PPA_NAME}"
 
 copy_package() {
-	python lib/copy-package --from="$PPA" --to="$PPA" --from-suite=artful -b -y --to-suite=zesty "$1"
-	python lib/copy-package --from="$PPA" --to="$PPA" --from-suite=artful -b -y --to-suite=xenial "$1"
-	python lib/copy-package --from="$PPA" --to="$PPA" --from-suite=artful -b -y --to-suite=vivid "$1"
-	python lib/copy-package --from="$PPA" --to="$PPA" --from-suite=artful -b -y --to-suite=trusty "$1"
-	python lib/copy-package --from="$PPA" --to="$PPA" --from-suite=artful -b -y --to-suite=precise "$1"
+    python copy-package --from="$PPA" --to="$PPA" --from-suite=artful -b -y --to-suite=zesty "$1"
+    python copy-package --from="$PPA" --to="$PPA" --from-suite=artful -b -y --to-suite=xenial "$1"
+    python copy-package --from="$PPA" --to="$PPA" --from-suite=artful -b -y --to-suite=vivid "$1"
+    python copy-package --from="$PPA" --to="$PPA" --from-suite=artful -b -y --to-suite=trusty "$1"
+    python copy-package --from="$PPA" --to="$PPA" --from-suite=artful -b -y --to-suite=precise "$1"
 }
 
-copy_package intellij-idea-community
-copy_package intellij-idea-ultimate
-copy_package pycharm-education
-copy_package pycharm-community
-copy_package pycharm-professional
+copy_package "$PACKAGE_NAME"

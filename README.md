@@ -7,8 +7,11 @@ This project builds Debian packages for various JetBrains products. Currently:
 * PyCharm Professional (`pycharm-professional`)
 * PyCharm Community (`pycharm-community`)
 * PyCharm Education (`pycharm-education`)
+* RubyMine (`rubymine`)
+* WebStorm (`webstorm`)
+* PhpStorm (`phpstorm`)
 
-Installing for example `intellij-idea-ultimate` is ezpz:
+Installing, for example `intellij-idea-ultimate` is easy:
 
     sudo apt-add repository ppa:jonas-groeger/jetbrains-ppa
     sudo apt-get update
@@ -16,72 +19,34 @@ Installing for example `intellij-idea-ultimate` is ezpz:
 
 # I want another package
 
-If you want another package (RubyMine anyone?), please create an issue. Doing
-it yourself is also pretty easy:
-
-    mkdir rubymine
-    cd rubymine
-
-    # Download the program icon from https://www.jetbrains.com/company/press/
-    # See section "Product Logos"
-    ls rubymine.png
-
-    # Create project config
-    cp ../pycharm-professional/project.json .
-    vim project.json
-
-To get the correct values for some things it is useful to install the program
-manually and then look at the files (for example the `startup_wm_class`).
-
-The next build will have rubymine in it then.
+If you want a package for another Jetbrains product please [create a GitHub issue](https://github.com/JonasGroeger/jetbrains-ppa/issues/new)
 
 # Building the packages
 
-To build the packages, run `./build-all`. Selective building is currently not
-supported. Every package is contained in a folder with its respective name. On
-completion, you can find all built packages in the `dist` directory:
+To build a package, run the `build` script with a package folder:
 
-    $ tree dist
-    dist
-    ├── intellij-idea-community
-    │   ├── intellij-idea-community_2017.2.3.dsc
-    │   ├── intellij-idea-community_2017.2.3_source.build
-    │   ├── intellij-idea-community_2017.2.3_source.changes
-    │   └── intellij-idea-community_2017.2.3.tar.xz
-    ├── intellij-idea-ultimate
-    │   ├── intellij-idea-ultimate_2017.2.3.dsc
-    │   ├── intellij-idea-ultimate_2017.2.3_source.build
-    │   ├── intellij-idea-ultimate_2017.2.3_source.changes
-    │   └── intellij-idea-ultimate_2017.2.3.tar.xz
-    ├── pycharm-community
-    │   ├── pycharm-community_2017.2.3.dsc
-    │   ├── pycharm-community_2017.2.3_source.build
-    │   ├── pycharm-community_2017.2.3_source.changes
-    │   └── pycharm-community_2017.2.3.tar.xz
-    ├── pycharm-education
-    │   ├── pycharm-education_4.0.dsc
-    │   ├── pycharm-education_4.0_source.build
-    │   ├── pycharm-education_4.0_source.changes
-    │   └── pycharm-education_4.0.tar.xz
-    └── pycharm-professional
-        ├── pycharm-professional_2017.2.3.dsc
-        ├── pycharm-professional_2017.2.3_source.build
-        ├── pycharm-professional_2017.2.3_source.changes
-        └── pycharm-professional_2017.2.3.tar.xz
+    ./build packages/intellij-idea-ultimate --signing_key GPG_KEY_ID --dist DISTRIBUTION_NAME
 
-Currently, only source packages are built since they are then uploaded to
-[the Launchpad PPA repository](https://launchpad.net/~jonas-groeger/+archive/ubuntu/jetbrains).
-If you want to build binary packages (`.deb` files), look for `debuild` in `build-all` and remove
+To build intellij-idea-ultimate for Ubuntu `artful` for example use:
+
+    ./build packages/intellij-idea-ultimate --signing_key CCA0C0C4EA16B4EEA2D5720ABECD4B5B330D89B5 --dist artful
+
+Since Launchpad only accepts source packages, we are only creating source packages. These are
+uploaded to the [`jetbrains-ppa` on launchpad.net](https://launchpad.net/~jonas-groeger/+archive/ubuntu/jetbrains).
+
+If you want to build binary packages (`.deb` files), look for `debuild` in `build` and remove
 the `-S` flag.
 
 # Continuous Delivery
 
-Since outdated packages are of no use, [a CircleCI job was created](TODO: Add)
-to monitor the JetBrains API for new releases. Once a new release is available
-it automatically uploaded to the PPA in no more than 5-10 minutes (depending on
-how fast CirleCI / Launchpad is).
+Since outdated packages are a pain, [a TravisCI job with scheduled builds has been created](LINK). It:
 
+1. Checks daily (TravisCI CronJob) for new package versions (Jetbrains API)
+2. Checks if the version on Launchpad is older
+3. If it is, the package is updated, build and pushed to Launchpad
+4. The package is copied to all other distributions
 
+Step 4 sucks a little bit: Launchpad is slow and sometimes we have to wait for a complete build there for 1-2 hours. Only then the binaries are ready to be copied. This is why when there is a new version of a package, it will not actually be copied in step 4 since the binaries are not built yet. We could stall the TravisCI build to wait but we'll face timeout problems. The result is that it might take one additional run (aka. one more day) to also copy the packages to other distributions.
 
 # Why this was written
 
@@ -89,6 +54,5 @@ I hate manually downloading, extracting and moving the `*.tar.gz` from the
 JetBrains website to get an IDE update. Unfortunately JetBrains does not have a
 Debian repository so here is this PPA.
 
-There are already
-[existing PPAs](https://launchpad.net/~mmk2410/+archive/ubuntu/intellij-idea).
-However, nothing is built automatically and provides a wide range of JetBrains product. 
+There are already [existing PPAs](https://launchpad.net/~mmk2410/+archive/ubuntu/intellij-idea).
+However, none have continuous delivery or provides a wide range of JetBrains products.

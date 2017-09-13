@@ -1,261 +1,33 @@
 #!/usr/bin/env python3
 import argparse
-import glob
-import json
 import os
-import shutil
 import subprocess
-import urllib.request
-from email.utils import formatdate
 from pathlib import Path
-from string import Template
 
 HERE = os.path.abspath(os.path.dirname(__file__))
-JETBRAINS_API_URL = 'https://data.services.jetbrains.com/products/releases?code={}'
 
 
-class BuildException(Exception):
-    pass
+def build(package_directory, signing_key):
+    cmd = ['debuild', '-S', '-k' + signing_key]
 
+    env_copy = os.environ.copy()
+    env_copy['DEBUILD_DPKG_BUILDPACKAGE_OPTS'] = '"--passphrase-file {} --batch --no-tty --no-use-agent"'.format(
+        Path(HERE, 'gpg-passphrase').as_posix()
+    )
 
-class LawfulTemplate(Template):
-    delimiter = '§'
-
-
-class PackageConfiguration(object):
-    def __init__(self, found_package, extra_args) -> None:
-        self.package = found_package
-        self._read_configuration(extra_args)
-
-    def _read_configuration(self, extra_args):
-        with open(self.package.config_file.as_posix(), encoding='UTF-8') as config_file:
-            config = json.load(config_file)
-            self.product_code = config['product_code']
-            self.exe_file = config['exe_file']
-            self.app_name = config['app_name']
-            self.startup_wm_class = config['startup_wm_class']
-            self.java_export = config['java_export']
-            self.package_name = config['package_name']
-            self.package_desc = config['package_desc']
-
-            self.package_timestamp = formatdate(localtime=True)
-
-            # Need variable insertion
-            self.package_desktop_file = LawfulTemplate('\n'.join(config['package_desktop_file'])) \
-                .substitute(self.__dict__)
-            self.package_exe_file = LawfulTemplate('\n'.join(config['package_exe_file'])) \
-                .substitute(self.__dict__)
-
-            for k, v in extra_args.items():
-                setattr(self, k, v)
-
-    def add(self, release_info):
-        self.release_date = release_info['date']
-        self.release_type = release_info['type']
-        self.release_version = release_info['version']
-        self.release_major_version = release_info['majorVersion']
-        self.release_build = release_info['build']
-        self.release_notes_link = release_info.get('notesLink', "No changelog included")
-        self.release_link = release_info['link']
-        self.release_size = release_info['size']
-        self.release_checksum = release_info['checksum']
-        return self
-
-
-class PackageFinder(object):
-    def __init__(self, folder: str, filename: str = 'project.json') -> None:
-        self.folder = Path(os.path.abspath(folder))
-        self.filename = filename
-
-    def find(self):
-        filters = [
-            lambda s: s.is_dir(),
-            lambda s: not s.name.startswith("."),
-            lambda s: Path(self.folder, s, self.filename).is_file(),
-        ]
-
-        iterator = self.folder.iterdir()
-
-        packages = []
-        for path in iterator:
-            invalid = False
-            for filter_func in filters:
-                if not filter_func(path):
-                    invalid = True
-                    break
-
-            if not invalid:
-                packages.append(FoundPackage(Path(path, self.filename)))
-
-        return packages
-
-
-class FoundPackage(object):
-    def __init__(self, config_file):
-        self.config_file = config_file
-
-
-class JetbrainsAPI(object):
-    def __init__(self, jetbrains_api_url) -> None:
-        self.url = jetbrains_api_url
-
-    @staticmethod
-    def _get_checksum(url):
-        resource = urllib.request.urlopen(url)
-        if resource.code != 200:
-            raise BuildException(
-                "Requesting {} (code={}) failed with the following reason: {}".format(url, resource.code,
-                                                                                      resource.reason)
-            )
-
-        content = resource.read().decode('utf-8')
-        sha256_hash, _ = content.split(' ')
-        return sha256_hash
-
-    def get_latest_release_info(self, product_code):
-        url = self.url.format(product_code)
-
-        resource = urllib.request.urlopen(url)
-        if resource.code != 200:
-            raise BuildException(
-                "Requesting {} (code={}) failed with the following reason: {}".format(
-                    url, resource.code, resource.reason
-                )
-            )
-
-        content = resource.read().decode('UTF-8')
-        versions = json.loads(content)[product_code]
-
-        latest_version = versions[0]
-
-        if latest_version['type'] != 'release':
-            raise BuildException('Latest version of {} is not a release.'.format(product_code))
-
-        # Keep only Linux
-        for k in ['link', 'size', 'checksumLink']:
-            latest_version[k] = latest_version['downloads']['linux'][k]
-        del latest_version['downloads']
-
-        # Get checksum
-        latest_version['checksum'] = self._get_checksum(latest_version['checksumLink'])
-        del latest_version['checksumLink']
-
-        return latest_version
-
-
-class DebianPackageBuilder(object):
-    def __init__(self, config, artifact_destination) -> None:
-        self.config = config
-        self.package_name = self.config.package_name
-        self.distribution = self.config.distribution
-        self.artifact_destination = artifact_destination
-
-    def generate_packaging_folder(self):
-        os.makedirs('{}/{}/debian/source'.format(HERE, self.package_name), exist_ok=True)
-
-    def _copy_template(self, filename):
-        full_filename_read = '{}/templates/{}.tmpl'.format(HERE, filename)
-        full_filename_write = '{}/{}/debian/{}'.format(HERE, self.package_name, filename)
-
-        with open(full_filename_read, mode='r', encoding="utf-8") as f_read:
-            content = f_read.read()
-
-            content_after_templating = self.do_templating(content)
-
-            with open(full_filename_write, mode='w', encoding='utf-8') as f_write:
-                f_write.write(content_after_templating)
-
-    def do_templating(self, content):
-        template = LawfulTemplate(content)
-        return template.substitute(self.config.__dict__)
-
-    def copy_template_files(self):
-        template_files = [
-            'source/format',
-            'source/include-binaries',
-            'changelog',
-            'compat',
-            'control',
-            'copyright',
-            'install',
-            'postinst',
-            'postrm',
-            'preinst',
-            'rules',
-        ]
-
-        for f in template_files:
-            self._copy_template(f)
-
-    def build_source_package(self, signing_key=None):
-        cmd = ['debuild', '-S']
-
-        env_copy = os.environ.copy()
-        env_copy['DEBUILD_DPKG_BUILDPACKAGE_OPTS'] = '"--passphrase-file {} --batch --no-tty --no-use-agent"'.format(
-            Path(HERE, 'gpg-passphrase').as_posix()
-        )
-
-        if signing_key:
-            cmd += ['-k' + signing_key]
-        else:
-            cmd += ['-us', '-uc']
-
-        print("Running in " + '{}/{} :: '.format(HERE, self.package_name))
-        print(' '.join(cmd))
-        subprocess.Popen(cmd, cwd='{}/{}'.format(HERE, self.package_name), env=env_copy).wait()
-
-    def move_generated_files(self):
-        for file in glob.glob('{}/{}_*'.format(HERE, self.package_name)):
-            destination = Path(HERE, self.artifact_destination, self.package_name).as_posix()
-            os.makedirs(destination, exist_ok=True)
-            shutil.move(file, destination)
-
-    def clean(self):
-        subprocess.Popen(['git', 'clean', '-fdx', '--exclude', 'gpg-passphrase', self.package_name]).wait()
-
-    def write_files_from_config(self):
-        with open('{}/{}/{}.desktop'.format(HERE, self.package_name, self.package_name), 'w', encoding='UTF-8') as f:
-            f.write(self.config.package_desktop_file)
-
-        with open('{}/{}/{}'.format(HERE, self.package_name, self.package_name), 'w', encoding='UTF-8') as f:
-            f.write(self.config.package_exe_file)
-
-
-class Package(object):
-    def __init__(self, config) -> None:
-        self.config = config
-
-    def build(self, artifact_destination='dist', signing_key=None):
-        packager = DebianPackageBuilder(self.config, artifact_destination)
-        packager.generate_packaging_folder()
-        packager.copy_template_files()
-        packager.write_files_from_config()
-        packager.build_source_package(signing_key)
-        packager.move_generated_files()
-        #  packager.clean()
+    subprocess.Popen(cmd, cwd=Path(HERE, package_directory).as_posix(), env=env_copy).wait()
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--signing-key-id', required=True)
-    parser.add_argument('--distribution', required=True)
-    parser.add_argument('--version-suffix', default='', required=False)
-    parser.add_argument('packages', nargs='+')
-    parser.parse_args()
-
+    parser.add_argument('package_directory')
+    parser.add_argument('signing_key')
     args = parser.parse_args()
 
-    key_id = args.signing_key_id
-    distribution = args.distribution
-    version_suffix = args.version_suffix
-    packages = args.packages
+    package_directory = args.package_directory
+    signing_key = args.signing_key
 
-    print(key_id)
-    print(distribution)
-    print(version_suffix)
-    print(', '.join(packages))
-
-
+    build(package_directory, signing_key)
 
 if __name__ == '__main__':
     main()

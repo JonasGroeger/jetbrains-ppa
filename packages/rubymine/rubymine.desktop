@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=RubyMine
+Comment=Ruby and Rails IDE with first-class support for Ruby and Rails, JavaScript and CoffeeScript, ERB and HAML, CSS, Sass and Less, and more.
+Exec=rubymine %u
+Icon=rubymine
+Terminal=false
+Type=Application
+Categories=Development;IDE;
+StartupWMClass=jetbrains-rubymine

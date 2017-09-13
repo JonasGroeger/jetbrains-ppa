@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=IntelliJ IDEA Community
+Comment=Java, Groovy, Scala and Android development.
+Exec=intellij-idea-community %u
+Icon=intellij-idea-community
+Terminal=false
+Type=Application
+Categories=Development;IDE;
+StartupWMClass=jetbrains-idea-ce

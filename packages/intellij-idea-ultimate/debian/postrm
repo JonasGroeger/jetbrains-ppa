@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+rm -rf /opt/intellij-idea-ultimate
+
+##DEBHELPER##

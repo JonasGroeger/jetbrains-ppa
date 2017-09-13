@@ -1,0 +1,3 @@
+#!/bin/sh
+export WEBIDE_JDK="$JAVA_HOME"
+exec "/opt/webstorm/bin/webstorm.sh" "$@"

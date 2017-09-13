@@ -1,0 +1,66 @@
+#!/usr/bin/env python
+
+from __future__ import print_function
+
+import argparse
+import launchpadlib
+import os
+from launchpadlib.launchpad import Launchpad
+from launchpadlib.credentials import Credentials
+from lazr.restfulclient.errors import HTTPError, NotFound
+
+
+class LaunchpadWrapper(object):
+    def __init__(self, launchpad):
+        self.launchpad = launchpad
+
+    def get_ppa(self, ppa_name):
+        try:
+            return self.launchpad.me.getPPAByName(name=ppa_name)
+        except NotFound:
+            return None
+
+    def get_series(self, ppa_name, series_name):
+        return self.get_ppa(ppa_name).distribution.getSeries(name_or_version=series_name)
+
+    def get_arch_series(self, ppa_name, series_name, archtag):
+        series = self.get_series(ppa_name, series_name)
+        return series.getDistroArchSeries(archtag=archtag)
+
+    def get_published_binaries(self, ppa_name, series_name, archtag):
+        ppa = self.get_ppa(ppa_name)
+        series = self.get_arch_series(ppa_name, series_name, archtag)
+        return ppa.getPublishedBinaries(distro_arch_series=series, status="Published")
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('credentials_file')
+    parser.add_argument('package_name')
+    parser.add_argument('ppa_name')
+    parser.add_argument('distribution', help='Example: artful')
+    parser.add_argument('architecture', help='Example: amd64')
+    parser.add_argument('--environment', default='production', help='production or staging')
+    args = parser.parse_args()
+
+    credentials_file = args.credentials_file
+    package_name = args.package_name
+    ppa_name = args.ppa_name
+    distribution = args.distribution
+    architecture = args.architecture
+    environment = args.environment
+
+    with open(os.path.abspath(credentials_file)) as f:
+        text_credentials = f.read().strip()
+
+    credentials = Credentials.from_string(text_credentials)
+    launchpad = Launchpad(credentials, None, '/tmp/launchpad-cache-dir', service_root=environment)
+
+    lpw = LaunchpadWrapper(launchpad)
+    binaries = lpw.get_published_binaries(ppa_name, distribution, architecture)
+    for binary in binaries:
+        if package_name == binary.binary_package_name:
+        	print(binary.binary_package_version)
+
+
+if __name__ == '__main__':
+    main()
