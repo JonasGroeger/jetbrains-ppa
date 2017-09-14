@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+import argparse
+import os
+import subprocess
+from pathlib import Path
+
+
+HERE = os.path.abspath(os.path.dirname(__file__))
+
+
+def get_git_version(package_directory):
+	working_dir = Path(HERE, package_directory).as_posix()
+	command = ['dpkg-parsechangelog', '-S', 'Version']
+	return subprocess.check_output(command, cwd=working_dir).decode('UTF-8').strip()
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('package_directory')
+    args = parser.parse_args()
+
+    package_directory = args.package_directory
+
+    print(get_git_version(package_directory))
