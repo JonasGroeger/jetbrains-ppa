@@ -11,12 +11,14 @@ LP_NAME="jonas-groeger"
 LP_PPA_NAME="jetbrains"
 PPA="~${LP_NAME}/ubuntu/${LP_PPA_NAME}"
 
+NEWEST_SUITE="artful"
+
 copy_package() {
-    python copy-package --from="$PPA" --to="$PPA" --from-suite=artful -b -y --to-suite=zesty "$1"
-    python copy-package --from="$PPA" --to="$PPA" --from-suite=artful -b -y --to-suite=xenial "$1"
-    python copy-package --from="$PPA" --to="$PPA" --from-suite=artful -b -y --to-suite=vivid "$1"
-    python copy-package --from="$PPA" --to="$PPA" --from-suite=artful -b -y --to-suite=trusty "$1"
-    python copy-package --from="$PPA" --to="$PPA" --from-suite=artful -b -y --to-suite=precise "$1"
+    python copy-package --from="$PPA" --to="$PPA" --from-suite="${NEWEST_SUITE}" -b -y --to-suite=zesty "$1"
+    python copy-package --from="$PPA" --to="$PPA" --from-suite="${NEWEST_SUITE}" -b -y --to-suite=xenial "$1"
+    python copy-package --from="$PPA" --to="$PPA" --from-suite="${NEWEST_SUITE}" -b -y --to-suite=vivid "$1"
+    python copy-package --from="$PPA" --to="$PPA" --from-suite="${NEWEST_SUITE}" -b -y --to-suite=trusty "$1"
+    python copy-package --from="$PPA" --to="$PPA" --from-suite="${NEWEST_SUITE}" -b -y --to-suite=precise "$1"
 }
 
 copy_package "$PACKAGE_NAME"
