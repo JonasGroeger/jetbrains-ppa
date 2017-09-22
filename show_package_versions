@@ -108,9 +108,10 @@ def main():
     ppa = get_ppa_version(args.package_directory)
 
     if len(set([jb, git, ppa])) > 1:
-        print("Jetbrains: {}".format(jb))
-        print("Git:       {}".format(git))
-        print("Launchpad: {}".format(ppa))
+        print(args.package_directory.split("/")[1])
+        print("  Jetbrains: {}".format(jb))
+        print("  Git:       {}".format(git))
+        print("  Launchpad: {}".format(ppa))
 
 
 if __name__ == '__main__':
