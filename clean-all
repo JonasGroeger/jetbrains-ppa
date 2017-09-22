@@ -2,4 +2,4 @@
 
 git clean -fdx \
     --exclude gpg-passphrase \
-    --exclude launchpad_credentials.cfg
+    --exclude launchpad.cfg
