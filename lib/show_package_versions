@@ -14,7 +14,7 @@ from launchpadlib.launchpad import Launchpad
 from launchpadlib.credentials import Credentials
 from lazr.restfulclient.errors import HTTPError, NotFound
 
-HERE = os.path.abspath(os.path.dirname(__file__))
+HERE = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
 class BuildException(Exception):
     pass
@@ -49,7 +49,7 @@ def _read_product_code(package_directory):
             api_code = f.read().strip()
             return api_code
     except Exception:
-        raise BuildException('Make sure the file ${api_code_file} exists.')
+        raise BuildException('Make sure the file {} exists.'.format(api_code_file))
 
 def get_jetbrains_version(package_directory):
     product_code = _read_product_code(package_directory)
