@@ -3,6 +3,6 @@
 set -e
 
 cd /opt/
-wget -c https://download.jetbrains.com/webide/PhpStorm-2017.2.3.tar.gz -O "phpstorm-2017.2.3.tar.gz"
+wget -c https://download.jetbrains.com/webide/PhpStorm-2017.2.4.tar.gz -O "phpstorm-2017.2.4.tar.gz"
 
 ##DEBHELPER##

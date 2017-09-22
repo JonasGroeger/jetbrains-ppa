@@ -34,19 +34,15 @@ class LaunchpadWrapper(object):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('credentials_file')
     parser.add_argument('package_name')
-    parser.add_argument('ppa_name')
-    parser.add_argument('distribution', help='Example: artful')
-    parser.add_argument('architecture', help='Example: amd64')
     parser.add_argument('--environment', default='production', help='production or staging')
     args = parser.parse_args()
 
-    credentials_file = args.credentials_file
-    package_name = args.package_name
-    ppa_name = args.ppa_name
-    distribution = args.distribution
-    architecture = args.architecture
+    credentials_file = 'launchpad.cfg'
+    package_name = args.package_name.split("/")[1]
+    ppa_name = 'jetbrains'
+    distribution = "artful"
+    architecture = "amd64"
     environment = args.environment
 
     with open(os.path.abspath(credentials_file)) as f:
