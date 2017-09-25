@@ -10,6 +10,8 @@ This project builds Debian packages for various JetBrains products. Currently:
 * RubyMine (`rubymine`)
 * WebStorm (`webstorm`)
 * PhpStorm (`phpstorm`)
+* DataGrip (`datagrip`)
+* CLion (`clion`)
 
 Installing, for example `intellij-idea-ultimate` is easy:
 
@@ -25,11 +27,11 @@ If you want a package for another Jetbrains product please [create a GitHub issu
 
 To build a package, run the `build` script with a package folder:
 
-    ./build packages/intellij-idea-ultimate --signing_key GPG_KEY_ID --dist DISTRIBUTION_NAME
+    ./build packages/intellij-idea-ultimate GPG_KEY_ID
 
-To build intellij-idea-ultimate for Ubuntu `artful` for example use:
+To build intellij-idea-ultimate for example use:
 
-    ./build packages/intellij-idea-ultimate --signing_key CCA0C0C4EA16B4EEA2D5720ABECD4B5B330D89B5 --dist artful
+    ./build packages/intellij-idea-ultimate CCA0C0C4EA16B4EEA2D5720ABECD4B5B330D89B5
 
 Since Launchpad only accepts source packages, we are only creating source packages. These are
 uploaded to the [`jetbrains-ppa` on launchpad.net](https://launchpad.net/~jonas-groeger/+archive/ubuntu/jetbrains).
