@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+
+# Create folder
+mkdir -p "datagrip"
+
+# Move downloaded .tar.gz
+mv "datagrip-2017.2.2.tar.gz" "datagrip"
+
+cd "datagrip"
+
+# Extract the package
+tar -xzf "datagrip-2017.2.2.tar.gz" --strip-components 1
+
+# Remove the tar.gz package
+rm -f "datagrip-2017.2.2.tar.gz"
+
+##DEBHELPER##

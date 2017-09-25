@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=clion
+Comment=A Cross-Platform IDE for C and C++ by JetBrains
+Exec=clion %u
+Icon=clion
+Terminal=false
+Type=Application
+Categories=Development;IDE;
+StartupWMClass=jetbrains-clion

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+
+# Create folder
+mkdir -p "clion"
+
+# Move downloaded .tar.gz
+mv "clion-2017.2.2.tar.gz" "clion"
+
+cd "clion"
+
+# Extract the package
+tar -xzf "clion-2017.2.2.tar.gz" --strip-components 1
+
+# Remove the tar.gz package
+rm -f "clion-2017.2.2.tar.gz"
+
+##DEBHELPER##

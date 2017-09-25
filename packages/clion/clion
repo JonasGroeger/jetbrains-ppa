@@ -1,0 +1,3 @@
+#!/bin/sh
+export CLION_JDK="$JAVA_HOME"
+exec "/opt/clion/bin/clion.sh" "$@"
