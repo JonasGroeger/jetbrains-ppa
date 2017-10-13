@@ -3,6 +3,6 @@
 set -e
 
 cd /opt/
-wget -c https://download.jetbrains.com/cpp/CLion-2017.2.2.tar.gz -O "clion-2017.2.2.tar.gz"
+wget -c https://download.jetbrains.com/cpp/CLion-2017.2.3.tar.gz -O "clion-2017.2.3.tar.gz"
 
 ##DEBHELPER##
