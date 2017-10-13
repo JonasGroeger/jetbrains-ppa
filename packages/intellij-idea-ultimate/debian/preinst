@@ -3,6 +3,6 @@
 set -e
 
 cd /opt/
-wget -c https://download.jetbrains.com/idea/ideaIU-2017.2.4.tar.gz -O "intellij-idea-ultimate-2017.2.4.tar.gz"
+wget -c https://download.jetbrains.com/idea/ideaIU-2017.2.5.tar.gz -O "intellij-idea-ultimate-2017.2.5.tar.gz"
 
 ##DEBHELPER##
