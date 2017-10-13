@@ -16,7 +16,6 @@ NEWEST_SUITE="artful"
 copy_package() {
     python lib/copy-package --from="$PPA" --to="$PPA" --from-suite="${NEWEST_SUITE}" -b -y --to-suite=zesty "$1"
     python lib/copy-package --from="$PPA" --to="$PPA" --from-suite="${NEWEST_SUITE}" -b -y --to-suite=xenial "$1"
-    python lib/copy-package --from="$PPA" --to="$PPA" --from-suite="${NEWEST_SUITE}" -b -y --to-suite=vivid "$1"
     python lib/copy-package --from="$PPA" --to="$PPA" --from-suite="${NEWEST_SUITE}" -b -y --to-suite=trusty "$1"
     python lib/copy-package --from="$PPA" --to="$PPA" --from-suite="${NEWEST_SUITE}" -b -y --to-suite=precise "$1"
 }
