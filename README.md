@@ -1,4 +1,4 @@
-# jetbrians-ppa
+# PPA for JetBrains products
 
 This project builds Debian packages for various JetBrains products. Currently:
 
@@ -12,6 +12,7 @@ This project builds Debian packages for various JetBrains products. Currently:
 * PhpStorm (`phpstorm`)
 * DataGrip (`datagrip`)
 * CLion (`clion`)
+* Rider ( rider )
 
 Installing, for example `intellij-idea-ultimate` is easy:
 
@@ -38,17 +39,6 @@ uploaded to the [`jetbrains-ppa` on launchpad.net](https://launchpad.net/~jonas-
 
 If you want to build binary packages (`.deb` files), look for `debuild` in `build` and remove
 the `-S` flag.
-
-# Continuous Delivery
-
-Since outdated packages are a pain, [a TravisCI job with scheduled builds has been created](LINK). It:
-
-1. Checks daily (TravisCI CronJob) for new package versions (Jetbrains API)
-2. Checks if the version on Launchpad is older
-3. If it is, the package is updated, build and pushed to Launchpad
-4. The package is copied to all other distributions
-
-Step 4 sucks a little bit: Launchpad is slow and sometimes we have to wait for a complete build there for 1-2 hours. Only then the binaries are ready to be copied. This is why when there is a new version of a package, it will not actually be copied in step 4 since the binaries are not built yet. We could stall the TravisCI build to wait but we'll face timeout problems. The result is that it might take one additional run (aka. one more day) to also copy the packages to other distributions.
 
 # Why this was written
 
