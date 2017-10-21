@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Rider
+Comment=Develop .NET, ASP.NET, .NET Core, Xamarin or Unity applications on Windows, Mac, Linux
+Exec=rider %u
+Icon=rider
+Terminal=false
+Type=Application
+Categories=Development;IDE;
+StartupWMClass=jetbrains-rider

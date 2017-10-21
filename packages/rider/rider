@@ -1,0 +1,3 @@
+#!/bin/sh
+export RIDER_JDK="$JAVA_HOME"
+exec "/opt/rider/bin/rider.sh" "$@"

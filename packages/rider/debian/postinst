@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+
+# Create folder
+mkdir -p "rider"
+
+# Move downloaded .tar.gz
+mv "JetBrains.Rider-2017.2.tar.gz" "rider"
+
+cd "rider"
+
+# Extract the package
+tar -xzf "JetBrains.Rider-2017.2.tar.gz" --strip-components 1
+
+# Remove the tar.gz package
+rm -f "JetBrains.Rider-2017.2.tar.gz"
+
+##DEBHELPER##
