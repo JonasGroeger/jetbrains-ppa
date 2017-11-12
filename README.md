@@ -35,7 +35,7 @@ To build intellij-idea-ultimate for example use:
     ./build packages/intellij-idea-ultimate CCA0C0C4EA16B4EEA2D5720ABECD4B5B330D89B5
 
 Since Launchpad only accepts source packages, we are only creating source packages. These are
-uploaded to the [`jetbrains-ppa` on launchpad.net](https://launchpad.net/~jonas-groeger/+archive/ubuntu/jetbrains).
+uploaded to the [`jetbrains` PPA on launchpad.net](https://launchpad.net/~jonas-groeger/+archive/ubuntu/jetbrains).
 
 If you want to build binary packages (`.deb` files), look for `debuild` in `build` and remove
 the `-S` flag.
