@@ -8,14 +8,14 @@ cd /opt/
 mkdir -p "pycharm-community"
 
 # Move downloaded .tar.gz
-mv "pycharm-community-2017.2.3.tar.gz" "pycharm-community"
+mv "pycharm-community-2017.3.tar.gz" "pycharm-community"
 
 cd "pycharm-community"
 
 # Extract the package
-tar -xzf "pycharm-community-2017.2.3.tar.gz" --strip-components 1
+tar -xzf "pycharm-community-2017.3.tar.gz" --strip-components 1
 
 # Remove the tar.gz package
-rm -f "pycharm-community-2017.2.3.tar.gz"
+rm -f "pycharm-community-2017.3.tar.gz"
 
 ##DEBHELPER##
