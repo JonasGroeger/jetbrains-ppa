@@ -3,6 +3,6 @@
 set -e
 
 cd /opt/
-wget -c https://download.jetbrains.com/ruby/RubyMine-2017.2.4.tar.gz -O "rubymine-2017.2.4.tar.gz"
+wget -c https://download.jetbrains.com/ruby/RubyMine-2017.3.tar.gz -O "rubymine-2017.3.tar.gz"
 
 ##DEBHELPER##
