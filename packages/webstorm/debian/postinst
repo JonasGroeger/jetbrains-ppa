@@ -8,14 +8,14 @@ cd /opt/
 mkdir -p "webstorm"
 
 # Move downloaded .tar.gz
-mv "webstorm-2017.2.5.tar.gz" "webstorm"
+mv "webstorm-2017.3.tar.gz" "webstorm"
 
 cd "webstorm"
 
 # Extract the package
-tar -xzf "webstorm-2017.2.5.tar.gz" --strip-components 1
+tar -xzf "webstorm-2017.3.tar.gz" --strip-components 1
 
 # Remove the tar.gz package
-rm -f "webstorm-2017.2.5.tar.gz"
+rm -f "webstorm-2017.3.tar.gz"
 
 ##DEBHELPER##
