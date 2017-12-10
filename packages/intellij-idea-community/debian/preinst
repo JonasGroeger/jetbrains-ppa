@@ -3,6 +3,6 @@
 set -e
 
 cd /opt/
-wget -c https://download.jetbrains.com/idea/ideaIC-2017.2.5.tar.gz -O "intellij-idea-community-2017.2.5.tar.gz"
+wget -c https://download.jetbrains.com/idea/ideaIC-2017.3.tar.gz -O "intellij-idea-community-2017.3.tar.gz"
 
 ##DEBHELPER##
