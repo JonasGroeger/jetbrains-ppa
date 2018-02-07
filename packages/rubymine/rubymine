@@ -1,3 +1,2 @@
 #!/bin/sh
-export RUBYMINE_JDK="$JAVA_HOME"
 exec "/opt/rubymine/bin/rubymine.sh" "$@"

@@ -1,3 +1,2 @@
 #!/bin/sh
-export DATAGRIP_JDK="$JAVA_HOME"
 exec "/opt/datagrip/bin/datagrip.sh" "$@"

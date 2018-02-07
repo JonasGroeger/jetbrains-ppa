@@ -1,3 +1,2 @@
 #!/bin/sh
-export PYCHARM_JDK="$JAVA_HOME"
 exec "/opt/pycharm-community/bin/pycharm.sh" "$@"
