@@ -3,6 +3,6 @@
 set -e
 
 cd /opt/
-wget -c https://download.jetbrains.com/python/pycharm-professional-2017.3.tar.gz -O "pycharm-professional-2017.3.tar.gz"
+wget -c https://download.jetbrains.com/python/pycharm-professional-2017.3.tar.gz -O "pycharm-professional.tar.gz"
 
 ##DEBHELPER##
