@@ -108,8 +108,19 @@ def build_and_upload(package_directory, new_v):
     package_name = package_directory.split("/")[1]
     build_exec = working_dir.joinpath('build').as_posix()
     copy_exec = working_dir.joinpath('copy-binaries-on-launchpad').as_posix()
-    subprocess.call([build_exec, package_directory, '2E4A2F8E0D362CA0'], cwd=working_dir.as_posix())
-    subprocess.call(['dput', 'ppa:vantuz/jetbrains', '{}_{}_source.changes'.format(package_directory, new_v)], cwd=working_dir.as_posix())
+
+    conf = {}
+    with open("ppa-cfg.cfg", "r") as f:
+        for line in f.read().split("\n"):
+            (k, v) = line.split('=')
+            conf[k] = v
+    with open("gpg-id.cfg", 'r') as f:
+        conf['gpg_id'] = f.read()
+
+    subprocess.call([build_exec, package_directory, conf['gpg_id']], cwd=working_dir.as_posix())
+    subprocess.call(['dput',
+                     'ppa:{}/{}'.format(conf['LP_NAME'], conf['LP_PPA_NAME']),
+                     '{}_{}_source.changes'.format(package_directory, new_v)], cwd=working_dir.as_posix())
 
 def main():
     parser = argparse.ArgumentParser()
@@ -120,7 +131,7 @@ def main():
     git = get_git_version(args.package_directory)
     ppa = get_ppa_version(args.package_directory)
 
-    if len(set([jb, git, ppa])) > 1:
+    if len(set([jb, git, ppa])) > 0:
         pkg_name = args.package_directory.split("/")[1]
 
         print(pkg_name)
@@ -132,7 +143,7 @@ def main():
             print("Need to update git")
             update_git_version(args.package_directory, git, jb)
 
-        if ppa != jb:
+        if ppa == jb:
             print("Need to upload")
             build_and_upload(args.package_directory, jb)
 

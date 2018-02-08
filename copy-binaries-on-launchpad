@@ -7,8 +7,8 @@ fi
 
 PACKAGE_NAME="$1"
 
-LP_NAME="vantuz"
-LP_PPA_NAME="jetbrains"
+. ppa-cfg.cfg
+
 PPA="~${LP_NAME}/ubuntu/${LP_PPA_NAME}"
 
 NEWEST_SUITE="artful"
