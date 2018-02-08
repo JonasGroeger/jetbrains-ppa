@@ -13,6 +13,7 @@ This project builds Debian packages for various JetBrains products. Currently:
 * DataGrip (`datagrip`)
 * CLion (`clion`)
 * Rider ( `rider` )
+* GoLand ( `goland` )
 
 Installing, for example `intellij-idea-ultimate` is easy:
 
