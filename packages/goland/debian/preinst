@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+wget -c https://download.jetbrains.com/go/goland-2017.3.2.tar.gz -O "goland.tar.gz"
+
+##DEBHELPER##
