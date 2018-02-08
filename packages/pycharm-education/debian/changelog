@@ -1,4 +1,4 @@
-pycharm-education (4.1-1) artful; urgency=low
+pycharm-education (2017.3) artful; urgency=low
 
   * Upstream version: 4.0.2.
   * Fucked up build numbers so until v > 4.1 comes out, version numbers wont
