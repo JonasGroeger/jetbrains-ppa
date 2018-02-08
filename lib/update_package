@@ -131,7 +131,7 @@ def main():
     git = get_git_version(args.package_directory)
     ppa = get_ppa_version(args.package_directory)
 
-    if len(set([jb, git, ppa])) > 0:
+    if len(set([jb, git, ppa])) > 1:
         pkg_name = args.package_directory.split("/")[1]
 
         print(pkg_name)
@@ -143,7 +143,7 @@ def main():
             print("Need to update git")
             update_git_version(args.package_directory, git, jb)
 
-        if ppa == jb:
+        if ppa != jb:
             print("Need to upload")
             build_and_upload(args.package_directory, jb)
 
