@@ -12,8 +12,8 @@ This project builds Debian packages for various JetBrains products. Currently:
 * PhpStorm (`phpstorm`)
 * DataGrip (`datagrip`)
 * CLion (`clion`)
-* Rider ( `rider` )
-* GoLand ( `goland` )
+* Rider (`rider`)
+* GoLand (`goland`)
 
 Installing, for example `intellij-idea-ultimate` is easy:
 
