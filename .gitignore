@@ -1,6 +1,8 @@
 .idea/
 gpg-passphrase
 launchpad.cfg
+gpg-id.cfg
+ppa-cfg.cfg
 packages/*.dsc
 packages/*.xz
 packages/*.build

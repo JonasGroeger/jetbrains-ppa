@@ -5,17 +5,17 @@ set -e
 cd /opt/
 
 # Create folder
-mkdir -p "rubymine"
+mkdir -p "goland"
 
 # Move downloaded .tar.gz
-mv "rubymine.tar.gz" "rubymine"
+mv "goland.tar.gz" "goland"
 
-cd "rubymine"
+cd "goland"
 
 # Extract the package
-tar -xzf "rubymine.tar.gz" --strip-components 1
+tar -xzf "goland.tar.gz" --strip-components 1
 
 # Remove the tar.gz package
-rm -f "rubymine.tar.gz"
+rm -f "goland.tar.gz"
 
 ##DEBHELPER##

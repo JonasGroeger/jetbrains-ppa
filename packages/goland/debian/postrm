@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+rm -rf /opt/goland
+
+##DEBHELPER##

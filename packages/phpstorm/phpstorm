@@ -1,3 +1,2 @@
 #!/bin/sh
-export PHPSTORM_JDK="$JAVA_HOME"
 exec "/opt/phpstorm/bin/phpstorm.sh" "$@"

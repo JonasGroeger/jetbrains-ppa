@@ -1,3 +1,2 @@
 #!/bin/sh
-export IDEA_JDK="$JAVA_HOME"
 exec "/opt/intellij-idea-ultimate/bin/idea.sh" "$@"
