@@ -1,6 +1,6 @@
 #!/bin/bash
 
-find packages -maxdepth 1 -mindepth 1 -type d -print0 | while read -d $'\0' file
+find packages -maxdepth 1 -mindepth 1 -type d -print0 | while read -d $'\0' package
 do
-    ./lib/update_package "$file"
+    ./lib/update_package "$package"
 done

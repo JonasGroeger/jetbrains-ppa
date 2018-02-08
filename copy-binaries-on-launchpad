@@ -5,8 +5,6 @@ if [ "$#" -lt 1 ]; then
     exit 1
 fi
 
-PACKAGE_NAME="$1"
-
 . ppa-cfg.cfg
 
 PPA="~${LP_NAME}/ubuntu/${LP_PPA_NAME}"
@@ -14,10 +12,17 @@ PPA="~${LP_NAME}/ubuntu/${LP_PPA_NAME}"
 NEWEST_SUITE="artful"
 
 copy_package() {
-    # python lib/copy-package --from="$PPA" --to="$PPA" --from-suite="${NEWEST_SUITE}" -b -y --to-suite=zesty "$1"
+
+    # 17.10 (until July 2018)
+    # python lib/copy-package --from="$PPA" --to="$PPA" --from-suite="${NEWEST_SUITE}" -b -y --to-suite=artful "$1"
+
+    # 16.04 LTS (until April 2021)
     python lib/copy-package --from="$PPA" --to="$PPA" --from-suite="${NEWEST_SUITE}" -b -y --to-suite=xenial "$1"
+
+    # 14.04 LTS (until April 2019)
     python lib/copy-package --from="$PPA" --to="$PPA" --from-suite="${NEWEST_SUITE}" -b -y --to-suite=trusty "$1"
-    python lib/copy-package --from="$PPA" --to="$PPA" --from-suite="${NEWEST_SUITE}" -b -y --to-suite=precise "$1"
 }
 
-copy_package "$PACKAGE_NAME"
+for p in $@; do
+    copy_package "$p"
+done
