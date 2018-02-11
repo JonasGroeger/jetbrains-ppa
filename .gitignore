@@ -9,3 +9,4 @@ packages/*.xz
 packages/*.build
 packages/*.changes
 packages/*.upload
+packages/*.buildinfo
