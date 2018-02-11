@@ -2,6 +2,6 @@
 
 set -e
 
-rm -rf /opt/jetbrains-toolbox
+rm -rf /opt/jetbrains-toolbox-app
 
 ##DEBHELPER##

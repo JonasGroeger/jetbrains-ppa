@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=JetBrains Toolbox
-Comment=Jetbrains Toolbox with every Product from Jetbrains.
-Exec=jetbrains-toolbox %u
-Icon=jetbrains-toolbox
-Terminal=false
-Type=Application
-Categories=Development;IDE;
-StartupWMClass=jetbrains-toolbox
