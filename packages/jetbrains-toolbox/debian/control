@@ -1,0 +1,12 @@
+Source: jetbrains-toolbox
+Section: devel
+Priority: optional
+Maintainer: Martin Dünkelmann <nc-duenkekl3@netcologne.de>
+Build-Depends: debhelper (>=9)
+Standards-Version: 3.9.7
+
+
+Package: jetbrains-toolbox
+Architecture: all
+Depends: ${misc:Depends}, fuse
+Description: Jetbrains Toolbox with every Product from Jetbrains.

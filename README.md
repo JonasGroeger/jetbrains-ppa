@@ -2,7 +2,7 @@
 
 This project builds Debian packages for various JetBrains products. Currently:
 
-* IntelliJ IDEA Ultimate (`intellij-idea-ultimate`)
+* IntelliJ IDEA Ultimate (`jetbrains-toolbox`)
 * IntelliJ IDEA Community (`intellij-idea-community`)
 * PyCharm Professional (`pycharm-professional`)
 * PyCharm Community (`pycharm-community`)
@@ -15,7 +15,7 @@ This project builds Debian packages for various JetBrains products. Currently:
 * Rider (`rider`)
 * GoLand (`goland`)
 
-Installing, for example `intellij-idea-ultimate` is easy:
+Installing, for example `jetbrains-toolbox` is easy:
 
     sudo apt-add-repository ppa:jonas-groeger/jetbrains
     sudo apt-get update
@@ -31,7 +31,7 @@ To build a package, run the `build` script with a package folder:
 
     ./build packages/intellij-idea-ultimate GPG_KEY_ID
 
-To build intellij-idea-ultimate for example use:
+To build jetbrains-toolbox for example use:
 
     ./build packages/intellij-idea-ultimate CCA0C0C4EA16B4EEA2D5720ABECD4B5B330D89B5
 
