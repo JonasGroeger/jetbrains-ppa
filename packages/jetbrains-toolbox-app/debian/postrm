@@ -2,6 +2,7 @@
 
 set -e
 
+rm /opt/jetbrains-toolbox-app.tar.gz
 rm -rf /opt/jetbrains-toolbox-app
 
 ##DEBHELPER##
