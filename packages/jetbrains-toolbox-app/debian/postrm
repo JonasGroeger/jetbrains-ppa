@@ -2,7 +2,7 @@
 
 set -e
 
-rm /opt/jetbrains-toolbox-app.tar.gz
+rm -f /opt/jetbrains-toolbox-app.tar.gz #remove the empty file, if the download failed.
 rm -rf /opt/jetbrains-toolbox-app
 
 ##DEBHELPER##
