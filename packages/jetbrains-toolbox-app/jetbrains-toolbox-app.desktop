@@ -6,4 +6,4 @@ Icon=jetbrains-toolbox-app
 Terminal=false
 Type=Application
 Categories=Development;IDE;
-StartupWMClass=jetbrains-toolbox
+StartupWMClass=jetbrains-toolbox-app
