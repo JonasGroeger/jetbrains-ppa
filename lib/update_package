@@ -54,7 +54,10 @@ def _read_product_code(package_directory):
 def get_jetbrains_version(package_directory):
     product_code = _read_product_code(package_directory)
     latest_release_info = _get_latest_release_info(product_code)
-    return latest_release_info['version']
+    version = latest_release_info['version']
+    if product_code == 'TBA':
+        version += '.' + latest_release_info['build']
+    return version
 
 def get_git_version(package_directory):
     working_dir = Path(HERE, package_directory).as_posix()
