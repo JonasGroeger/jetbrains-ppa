@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=JetBrains Toolbox APP
+Comment=A control panel for your tools and projects.
+Exec=jetbrains-toolbox-app %u
+Icon=jetbrains-toolbox-app
+Terminal=false
+Type=Application
+Categories=Development;IDE;
+StartupWMClass=jetbrains-toolbox-app
