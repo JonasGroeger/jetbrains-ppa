@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e
+
+rm -f /opt/jetbrains-toolbox-app.tar.gz # Remove the empty file, if the download failed.
+rm -rf /opt/jetbrains-toolbox-app
+
+echo ###########!Attention!###########
+echo The installed IDEs are still untouched on your system.
+echo If you want to remove them, you need to uninstall the JetBrains by hand.
+echo If you did not change the path, it is located at
+echo ~/.local/share/JetBrains
+echo Also you may need to remove the application shortcuts by hand, too.
+echo Usually, they are located at
+echo ~/.local/share/applications/
+echo #################################
+
+##DEBHELPER##

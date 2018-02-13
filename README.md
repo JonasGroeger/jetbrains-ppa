@@ -2,6 +2,7 @@
 
 This project builds Debian packages for various JetBrains products. Currently:
 
+* JetBrains Toolbox APP (`jetbrains-toolbox-app`)
 * IntelliJ IDEA Ultimate (`intellij-idea-ultimate`)
 * IntelliJ IDEA Community (`intellij-idea-community`)
 * PyCharm Professional (`pycharm-professional`)

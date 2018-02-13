@@ -3,8 +3,10 @@ gpg-passphrase
 launchpad.cfg
 gpg-id.cfg
 ppa-cfg.cfg
+jetbrains-ppa.iml
 packages/*.dsc
 packages/*.xz
 packages/*.build
 packages/*.changes
 packages/*.upload
+packages/*.buildinfo

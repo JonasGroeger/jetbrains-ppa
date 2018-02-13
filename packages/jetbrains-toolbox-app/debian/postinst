@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+
+# Create folder
+mkdir -p "jetbrains-toolbox-app"
+
+# Move downloaded .tar.gz
+mv "jetbrains-toolbox-app.tar.gz" "jetbrains-toolbox-app"
+
+cd "jetbrains-toolbox-app"
+
+# Extract the package
+tar -xzf "jetbrains-toolbox-app.tar.gz" --strip-components 1
+
+# Remove the tar.gz package
+rm -f "jetbrains-toolbox-app.tar.gz"
+
+##DEBHELPER##
