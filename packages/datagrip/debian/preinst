@@ -3,6 +3,6 @@
 set -e
 
 cd /opt/
-wget -c https://download.jetbrains.com/datagrip/datagrip-2017.3.4.tar.gz -O "datagrip.tar.gz"
+wget -c https://download.jetbrains.com/datagrip/datagrip-2017.3.5.tar.gz -O "datagrip.tar.gz"
 
 ##DEBHELPER##
