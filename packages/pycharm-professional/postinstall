@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+
+# Create folder
+mkdir -p "pycharm-professional"
+
+# Move downloaded .tar.gz
+mv "pycharm-professional.tar.gz" "pycharm-professional"
+
+cd "pycharm-professional"
+
+# Extract the package
+tar -xzf "pycharm-professional.tar.gz" --strip-components 1
+
+# Remove the tar.gz package
+rm -f "pycharm-professional.tar.gz"

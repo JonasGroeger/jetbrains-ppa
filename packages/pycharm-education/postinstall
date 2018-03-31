@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+
+# Create folder
+mkdir -p "pycharm-education"
+
+# Move downloaded .tar.gz
+mv "pycharm-education.tar.gz" "pycharm-education"
+
+cd "pycharm-education"
+
+# Extract the package
+tar -xzf "pycharm-education.tar.gz" --strip-components 1
+
+# Remove the tar.gz package
+rm -f "pycharm-education.tar.gz"

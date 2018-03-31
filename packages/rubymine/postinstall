@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+
+# Create folder
+mkdir -p "rubymine"
+
+# Move downloaded .tar.gz
+mv "rubymine.tar.gz" "rubymine"
+
+cd "rubymine"
+
+# Extract the package
+tar -xzf "rubymine.tar.gz" --strip-components 1
+
+# Remove the tar.gz package
+rm -f "rubymine.tar.gz"

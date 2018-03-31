@@ -1,0 +1,57 @@
+#!/bin/bash
+
+set -e
+
+PACKAGE_DIR="$1"
+
+if [ -z "${PACKAGE_DIR}" ]; then
+    >&2 echo "[E] Cannot find folder ${PACKAGE_DIR}"
+    exit 1
+fi
+
+PACKAGE_JSON="${PACKAGE_DIR}/package.json"
+if [ ! -f "${PACKAGE_JSON}" ]; then
+    >&2 echo "[E] Cannot find ${PACKAGE_JSON}"
+    exit 1
+fi
+
+VERSION="$(cat "${PACKAGE_JSON}" | jq --raw-output --exit-status ".version")"
+DESCRIPTION="$(cat "${PACKAGE_JSON}" | jq --raw-output --exit-status ".description")"
+
+if [ -z "${VERSION}" ] || [ -z "${DESCRIPTION}" ]; then
+    >&2 echo "[E] Cannot find 'version' or 'description' key within ${PACKAGE_JSON}"
+    exit 1
+fi
+
+PACKAGE_NAME="$(echo "${PACKAGE_DIR}" | cut -d/ -f2)"
+
+fpm -t deb \
+    -s dir \
+    -C "${PACKAGE_DIR}" \
+    --name "${PACKAGE_NAME}" \
+    --architecture "all" \
+    --license "GPL-3" \
+    --maintainer "Jonas Gröger <jonas@huntun.de>" \
+    --vendor "https://www.jetbrains.com/" \
+    --url "https://www.jetbrains.com/" \
+    --version "${VERSION}" \
+    --depends "lib32ncurses5 | libncurses5" \
+    --depends "default-jdk | oracle-java7-installer | oracle-java8-installer" \
+    --depends "libc6-i386" \
+    --depends "lib32stdc++6" \
+    --depends "lib32gcc1" \
+    --depends "lib32z1" \
+    --depends "lib32z1-dev" \
+    --depends "unzip" \
+    --category "devel" \
+    --package "deb" \
+    --description "${DESCRIPTION}" \
+    --before-install "${PACKAGE_DIR}/preinstall" \
+    --after-install "${PACKAGE_DIR}/postinstall" \
+    --after-remove "${PACKAGE_DIR}/postremove" \
+    --deb-no-default-config-files \
+    --exclude "package.json" \
+    --exclude "postinstall" \
+    --exclude "postremove" \
+    --exclude "preinstall" \
+    .

@@ -2,18 +2,18 @@
 
 This project builds Debian packages for various JetBrains products. Currently:
 
-* IntelliJ IDEA Ultimate (`intellij-idea-ultimate`)
+* CLion (`clion`)
+* DataGrip (`datagrip`)
+* GoLand (`goland`)
 * IntelliJ IDEA Community (`intellij-idea-community`)
-* PyCharm Professional (`pycharm-professional`)
+* IntelliJ IDEA Ultimate (`intellij-idea-ultimate`)
+* PhpStorm (`phpstorm`)
 * PyCharm Community (`pycharm-community`)
 * PyCharm Education (`pycharm-education`)
+* PyCharm Professional (`pycharm-professional`)
+* Rider (`rider`)
 * RubyMine (`rubymine`)
 * WebStorm (`webstorm`)
-* PhpStorm (`phpstorm`)
-* DataGrip (`datagrip`)
-* CLion (`clion`)
-* Rider (`rider`)
-* GoLand (`goland`)
 
 Installing, for example `intellij-idea-ultimate` is easy:
 
@@ -29,23 +29,18 @@ If you want a package for another Jetbrains product please [create a GitHub issu
 
 To build a package, run the `build` script with a package folder:
 
-    ./build packages/intellij-idea-ultimate GPG_KEY_ID
+    ./build-single-deb packages/<package>
 
 To build intellij-idea-ultimate for example use:
 
-    ./build packages/intellij-idea-ultimate CCA0C0C4EA16B4EEA2D5720ABECD4B5B330D89B5
-
-Since Launchpad only accepts source packages, we are only creating source packages. These are
-uploaded to the [`jetbrains` PPA on launchpad.net](https://launchpad.net/~jonas-groeger/+archive/ubuntu/jetbrains).
-
-If you want to build binary packages (`.deb` files), look for `debuild` in `build` and remove
-the `-S` flag.
+    ./build-single-deb packages/intellij-idea-ultimate
 
 # Why this was written
 
 I hate manually downloading, extracting and moving the `*.tar.gz` from the
 JetBrains website to get an IDE update. Unfortunately JetBrains does not have a
-Debian repository so here is this PPA.
+Debian repository.
 
-There are already [existing PPAs](https://launchpad.net/~mmk2410/+archive/ubuntu/intellij-idea).
+There are already [existing](https://launchpad.net/~mmk2410/+archive/ubuntu/intellij-idea)
+ [PPAs](https://launchpad.net/~vantuz/+archive/ubuntu/jetbrains).
 However, none have continuous delivery or provide a wide range of JetBrains products.

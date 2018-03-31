@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+wget -c "https://download.jetbrains.com/python/pycharm-professional-2018.1.1.tar.gz" -O "pycharm-professional.tar.gz"

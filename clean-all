@@ -1,8 +1,0 @@
-#!/bin/sh
-
-git clean -fdx \
-    --exclude gpg-passphrase \
-    --exclude launchpad.cfg \
-    --exclude gpg-id.cfg \
-    --exclude ppa-cfg.cfg \
-

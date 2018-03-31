@@ -1,0 +1,8 @@
+#!/bin/bash
+
+find packages -maxdepth 1 -mindepth 1 -type d -print0 | while read -d $'\0' package_dir
+do
+    ./build-single-deb "${package_dir}"
+done
+
+ls deb/

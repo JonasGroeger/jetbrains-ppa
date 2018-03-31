@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+
+# Create folder
+mkdir -p "clion"
+
+# Move downloaded .tar.gz
+mv "clion.tar.gz" "clion"
+
+cd "clion"
+
+# Extract the package
+tar -xzf "clion.tar.gz" --strip-components 1
+
+# Remove the tar.gz package
+rm -f "clion.tar.gz"

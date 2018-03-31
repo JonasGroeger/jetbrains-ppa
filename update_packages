@@ -1,0 +1,81 @@
+#!/bin/bash
+
+function update_package_version {
+    local package
+    local version
+    local package_json
+    local preinstall
+    package="$1"
+    old_version="$2"
+    new_version="$3"
+    package_json="${package}/package.json"
+    preinstall="${package}/preinstall"
+
+    # package.json
+    jq ".version = \"${new_version}\"" "${package_json}" > version-update.json
+    mv version-update.json "${package_json}"
+
+    # preinstall
+    sed -i "s|${old_version}|${new_version}|" "${preinstall}"
+}
+
+function git_setup() {
+    git config --global user.email "travis@travis-ci.org"
+    git config --global user.name "Travis CI"
+}
+
+function git_push() {
+    local gh_token
+    gh_token="$1"
+
+    git remote add origin "https://${gh_token}@github.com/jonasgroeger/jetbrains-ppa.git" > /dev/null 2>&1
+    git push --quiet --set-upstream origin master:master
+}
+
+if [ -z "${GH_TOKEN}" ]; then
+    >&2 echo "Please set GH_TOKEN"
+    exit 1
+fi
+
+find packages -maxdepth 1 -mindepth 1 -type d -print0 | while read -d $'\0' PACKAGE_DIR
+do
+    PACKAGE_JSON="${PACKAGE_DIR}/package.json"
+    if [ ! -f "${PACKAGE_JSON}" ]; then
+        >&2 echo "[E] Cannot find ${PACKAGE_JSON}"
+        continue
+    fi
+
+    CODE="$(cat "${PACKAGE_JSON}" | jq --raw-output --exit-status ".code")"
+
+    if [ -z "${CODE}" ]; then
+        >&2 echo "[E] Cannot find 'code' key within ${PACKAGE_JSON}"
+        continue
+    fi
+
+    LOCAL_VERSION="$(cat "${PACKAGE_JSON}" | jq --raw-output --exit-status ".version")"
+    REMOTE_VERSION="$(curl -sL \
+        "https://data.services.jetbrains.com/products/releases?code=${CODE}&latest=true&type=release" \
+        | jq --raw-output --exit-status ".${CODE}[0].version" \
+    )"
+
+    if [ -z "${LOCAL_VERSION}" ] || [ -z "${REMOTE_VERSION}" ]; then
+        >&2 echo "[E] Both 'LOCAL_VERSION' and 'LOCAL_VERSION' must be set. Probably a curl / jq error."
+        continue
+    fi
+
+    if [ "${LOCAL_VERSION}" == "${REMOTE_VERSION}" ]; then
+        >&2 printf "%3s: Local (%10s) == Remote (%10s) -> Not updating.\n" "${CODE}" "${LOCAL_VERSION}" "${REMOTE_VERSION}"
+        continue
+    fi
+
+    printf "%3s: Local (%10s) != Remote (%10s) -> Updating.\n" "${CODE}" "${LOCAL_VERSION}" "${REMOTE_VERSION}"
+
+    update_package_version "${PACKAGE_DIR}" "${LOCAL_VERSION}" "${REMOTE_VERSION}"
+
+    git_setup
+    git add "${PACKAGE_DIR}"
+    git commit -m "Upgrade ${CODE}: ${LOCAL_VERSION} -> ${REMOTE_VERSION}"
+    git_push "${GH_TOKEN}"
+
+    ./build-single-deb "${PACKAGE_DIR}"
+done

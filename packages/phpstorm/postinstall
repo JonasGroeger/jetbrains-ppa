@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+
+# Create folder
+mkdir -p "phpstorm"
+
+# Move downloaded .tar.gz
+mv "phpstorm.tar.gz" "phpstorm/."
+
+cd "phpstorm"
+
+# Extract the package
+tar -xzf "phpstorm.tar.gz" --strip-components 1
+
+# Remove the tar.gz package
+rm -f "phpstorm.tar.gz"

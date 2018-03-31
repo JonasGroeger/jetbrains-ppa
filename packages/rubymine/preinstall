@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+wget -c "https://download.jetbrains.com/ruby/RubyMine-2018.1.1.tar.gz" -O "rubymine.tar.gz"

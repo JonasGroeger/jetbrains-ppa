@@ -1,8 +1,0 @@
-#!/bin/bash
-
-set -e
-
-cd /opt/
-wget -c https://download-cf.jetbrains.com/resharper/JetBrains.Rider-2018.1.tar.gz -O "JetBrains.Rider.tar.gz"
-
-##DEBHELPER##
