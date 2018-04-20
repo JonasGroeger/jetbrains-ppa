@@ -3,6 +3,6 @@
 set -e
 
 cd /opt/
-wget -c https://download.jetbrains.com/python/pycharm-edu-2018.1.tar.gz -O "pycharm-education.tar.gz"
+wget -c https://download.jetbrains.com/python/pycharm-edu-2018.1.1.tar.gz -O "pycharm-education.tar.gz"
 
 ##DEBHELPER##
