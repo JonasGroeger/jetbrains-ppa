@@ -3,6 +3,6 @@
 set -e
 
 cd /opt/
-wget -c https://download.jetbrains.com/webide/PhpStorm-2018.1.tar.gz -O "phpstorm.tar.gz"
+wget -c https://download.jetbrains.com/webide/PhpStorm-2018.1.1.tar.gz -O "phpstorm.tar.gz"
 
 ##DEBHELPER##
