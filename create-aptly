@@ -1,0 +1,32 @@
+#!/bin/bash
+
+REPO="jetbrains-ppa"
+ARCH="amd64,i386"
+DISTS=("bionic" "artful" "xenial" "trusty")
+
+# The labels for the selection of packages you wish to have available.
+# This is often a distinction provided by the repository maintainer to express something about the reliability or
+# licensing restrictions of the software it contains.
+COMP="main"
+
+# https://keybase.io/jonasgroeger
+GPG_KEY_ID="CCA0C0C4EA16B4EEA2D5720ABECD4B5B330D89B5"
+
+# Remove existing
+aptly repo drop "${REPO}"
+for DIST in ${DISTS[@]}; do
+    aptly publish drop "${DIST}"
+done
+
+# Create repo
+aptly repo create -architectures="${ARCH}" -component="${COMP}" "${REPO}"
+
+# Add *.deb files
+aptly repo add "${REPO}" deb
+
+# Publish repo to ~/.aptly/public
+for DIST in ${DISTS[@]}; do
+    aptly publish repo -gpg-key="${GPG_KEY_ID}" -architectures="${ARCH}" -distribution="${DIST}" "${REPO}"
+done
+
+echo "sudo add-apt-repository 'TODO'"
