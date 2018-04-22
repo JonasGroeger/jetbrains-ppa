@@ -20,13 +20,22 @@ function update_package_version {
 }
 
 function git_setup() {
+    if [ -z "${CI}" ]; then
+        return
+    fi
+
     git config --global user.email "travis@travis-ci.org"
     git config --global user.name "Travis CI"
+
 }
 
 function git_push() {
     local gh_token
     gh_token="$1"
+
+    if [ -z "${CI}" ]; then
+        return
+    fi
 
     git remote add origin "https://${gh_token}@github.com/jonasgroeger/jetbrains-ppa.git" > /dev/null 2>&1
     git push --quiet --set-upstream origin master:master
@@ -35,6 +44,10 @@ function git_push() {
 if [ -z "${GH_TOKEN}" ]; then
     >&2 echo "Please set GH_TOKEN"
     exit 1
+fi
+
+if [ ! -z "${TRAVIS_BRANCH}" ]; then
+    git checkout "${TRAVIS_BRANCH}"
 fi
 
 find packages -maxdepth 1 -mindepth 1 -type d -print0 | while read -d $'\0' PACKAGE_DIR
