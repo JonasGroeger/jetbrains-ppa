@@ -37,9 +37,8 @@ function git_push() {
         return
     fi
 
-    # git remote rm origin
-    git remote add origin "https://${gh_token}@github.com/jonasgroeger/jetbrains-ppa.git"
-    git push --set-upstream origin master
+    git remote set-url origin "https://${gh_token}@github.com/jonasgroeger/jetbrains-ppa.git" > /dev/null 2>&1
+    git push --quiet --set-upstream origin master
 }
 
 if [ -z "${GH_TOKEN}" ]; then
@@ -48,6 +47,7 @@ if [ -z "${GH_TOKEN}" ]; then
 fi
 
 if [ ! -z "${TRAVIS_BRANCH}" ]; then
+    # TravisCI does a git checkout <hash> which we can't work on
     git checkout "${TRAVIS_BRANCH}"
 fi
 
