@@ -2,7 +2,8 @@
 
 function update_package_version {
     local package
-    local version
+    local old_version
+    local new_version
     local package_json
     local preinstall
     package="$1"
@@ -20,36 +21,32 @@ function update_package_version {
 }
 
 function git_setup() {
-    if [ -z "${CI}" ]; then
-        return
-    fi
-
     git config --global user.email "travis@travis-ci.org"
     git config --global user.name "Travis CI"
-
 }
 
 function git_push() {
     local gh_token
     gh_token="$1"
 
-    if [ -z "${CI}" ]; then
-        return
+    if [ -z "${gh_token}" ]; then
+        >&2 echo "Please set GH_TOKEN"
+        exit 1
     fi
 
     git remote set-url origin "https://${gh_token}@github.com/jonasgroeger/jetbrains-ppa.git" > /dev/null 2>&1
     git push --quiet --set-upstream origin master
 }
 
-if [ -z "${GH_TOKEN}" ]; then
-    >&2 echo "Please set GH_TOKEN"
-    exit 1
-fi
+function git_checkout() {
+    if [ -z "${TRAVIS_BRANCH}" ]; then
+        >&2 echo "Env var TRAVIS_BRANCH not set."
+        exit 1
+    fi
 
-if [ ! -z "${TRAVIS_BRANCH}" ]; then
     # TravisCI does a git checkout <hash> which we can't work on
     git checkout "${TRAVIS_BRANCH}"
-fi
+}
 
 find packages -maxdepth 1 -mindepth 1 -type d -print0 | while read -d $'\0' PACKAGE_DIR
 do
@@ -86,10 +83,13 @@ do
 
     update_package_version "${PACKAGE_DIR}" "${LOCAL_VERSION}" "${REMOTE_VERSION}"
 
-    git_setup
-    git add "${PACKAGE_DIR}"
-    git commit -m "Upgrade ${CODE}: ${LOCAL_VERSION} -> ${REMOTE_VERSION}"
-    git_push "${GH_TOKEN}"
+    if [ -n "${CI}" ]; then
+        git_setup
+        git_checkout
+        git add "${PACKAGE_DIR}"
+        git commit -m "Upgrade ${CODE}: ${LOCAL_VERSION} -> ${REMOTE_VERSION}"
+        git_push "${GH_TOKEN}"
+    fi
 
     ./build-single-deb "${PACKAGE_DIR}"
 done
