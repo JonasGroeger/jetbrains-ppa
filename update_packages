@@ -48,6 +48,7 @@ fi
 
 if [ ! -z "${TRAVIS_BRANCH}" ]; then
     git checkout "${TRAVIS_BRANCH}"
+    git remote -v
 fi
 
 find packages -maxdepth 1 -mindepth 1 -type d -print0 | while read -d $'\0' PACKAGE_DIR
