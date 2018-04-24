@@ -1,4 +1,4 @@
-# PPA for JetBrains products
+# PPA for JetBrains products [![Build Status](https://travis-ci.org/JonasGroeger/jetbrains-ppa.svg?branch=master)](https://travis-ci.org/JonasGroeger/jetbrains-ppa)
 
 This project builds Debian packages for various JetBrains products. Currently:
 
