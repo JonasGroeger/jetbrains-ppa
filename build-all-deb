@@ -5,4 +5,4 @@ do
     ./build-single-deb "${package_dir}"
 done
 
-ls deb/
+ls -l deb/

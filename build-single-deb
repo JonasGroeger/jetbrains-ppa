@@ -24,6 +24,9 @@ if [ -z "${VERSION}" ] || [ -z "${DESCRIPTION}" ]; then
 fi
 
 PACKAGE_NAME="$(echo "${PACKAGE_DIR}" | cut -d/ -f2)"
+OUTPUT_DIR="deb"
+
+mkdir -p "${OUTPUT_DIR}"
 
 fpm -t deb \
     -s dir \
@@ -44,7 +47,7 @@ fpm -t deb \
     --depends "lib32z1-dev" \
     --depends "unzip" \
     --category "devel" \
-    --package "deb" \
+    --package "${OUTPUT_DIR}" \
     --description "${DESCRIPTION}" \
     --before-install "${PACKAGE_DIR}/preinstall" \
     --after-install "${PACKAGE_DIR}/postinstall" \
