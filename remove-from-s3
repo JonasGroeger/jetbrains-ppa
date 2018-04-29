@@ -1,0 +1,11 @@
+#!/bin/bash
+
+REPO="jetbrains-ppa"
+DISTS=("bionic" "artful" "xenial" "trusty")
+S3_BUCKET="s3:jetbrains-ppa:"
+
+# Remove existing
+for DIST in ${DISTS[@]}; do
+    aptly publish drop "${DIST}" "${S3_BUCKET}"
+done
+aptly repo drop "${REPO}"

@@ -12,12 +12,6 @@ COMP="main"
 # https://keybase.io/jonasgroeger
 GPG_KEY_ID="CCA0C0C4EA16B4EEA2D5720ABECD4B5B330D89B5"
 
-# Remove existing
-for DIST in ${DISTS[@]}; do
-    aptly publish drop "${DIST}" "${S3_BUCKET}"
-done
-aptly repo drop "${REPO}"
-
 # Create repo
 aptly repo create -config=aptly.conf -component="${COMP}" "${REPO}"
 
