@@ -86,7 +86,7 @@ do
     if [ -n "${CI}" ]; then
         git_setup
         git_checkout
-        git add "${PACKAGE_DIR}"
+        git add "${PACKAGE_DIR}" deb
         git commit -m "Upgrade ${CODE}: ${LOCAL_VERSION} -> ${REMOTE_VERSION}"
         git_push "${GH_TOKEN}"
     fi
