@@ -36,10 +36,10 @@
         <p>This is the inofficial Jetbrains PPA which you can use to get the latest and greatest products from Jetbrains.</p>
 
         <p>First, we need to add the jetbrains-ppa GPG Key to your Keyring:</p>
-        <pre>curl -s https://s3.eu-central-1.amazonaws.com/jetbrains-ppa/0xBECD4B5B330D89B5.pub.asc | sudo apt-key add -</pre>
+        <pre>curl -s https://s3.eu-central-1.amazonaws.com/jetbrains-ppa/0xA6E8698A.pub.asc | sudo apt-key add -</pre>
 
         <p>Then, we need to add this repository to your system:</p>
-        <pre>echo "deb http://jetbrains-ppa.s3-website.eu-central-1.amazonaws.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/jetbrains-ppa.list > /dev/null</pre>
+	<pre>echo "deb http://jetbrains-ppa.s3-website.eu-central-1.amazonaws.com bionic main" | sudo tee /etc/apt/sources.list.d/jetbrains-ppa.list > /dev/null</pre>
 
         <p>If you still have the sources from my <a href="https://launchpad.net/~jonas-groeger/+archive/ubuntu/jetbrains">Launchpad PPA</a>, please run:</p>
         <pre>sudo rm -f /etc/apt/sources.list.d/jetbrains.list{,.distUpgrade,.save}</pre>
