@@ -10,24 +10,23 @@
         <style type="text/css">
             body {
                 margin: 1em auto;
-                max-width: 40em;
+                max-width: 45em;
                 padding: 0 1em;
                 font: 1.2em/1.5 sans-serif;
             }
 
-            h1,
-            h2,
-            h3 {
+            h1 {
                 line-height: 1.2;
             }
 
-            pre{
+            pre {
                 overflow: auto;
                 padding: 15px;
-                background-color: #f6f8fa;
+                background-color: #e8edf2;
                 line-height: 2em;
             }
-            .small{font-size: 0.8em; text-align: right}
+            .small{ font-size: 0.8em; text-align: right; }
+            .code { background-color: #e8edf2; padding: 3px; font-family: monospace; }
         </style>
     </head>
 
@@ -35,11 +34,32 @@
         <h1>Inofficial Jetbrains PPA</h1>
         <p>This is the inofficial Jetbrains PPA which you can use to get the latest and greatest products from Jetbrains.</p>
 
-        <p>First, we need to add the jetbrains-ppa GPG Key to your Keyring:</p>
-        <pre>curl -s https://s3.eu-central-1.amazonaws.com/jetbrains-ppa/0xA6E8698A.pub.asc | sudo apt-key add -</pre>
+        <p>
+            Currently, the following packages are supported and automatically updated using <a href="https://travis-ci.org/JonasGroeger/jetbrains-ppa">TravisCI</a>.
+            <ul>
+                <li>CLion <span class="code">clion</span></li>
+                <li>DataGrip <span class="code">datagrip</span></li>
+                <li>GoLand <span class="code">goland</span></li>
+                <li>IntelliJ IDEA Community <span class="code">intellij-idea-community</span></li>
+                <li>IntelliJ IDEA Ultimate <span class="code">intellij-idea-ultimate</span></li>
+                <li>PhpStorm <span class="code">phpstorm</span></li>
+                <li>PyCharm Community <span class="code">pycharm-community</span></li>
+                <li>PyCharm Education <span class="code">pycharm-education</span></li>
+                <li>PyCharm Professional <span class="code">pycharm-professional</span></li>
+                <li>Rider <span class="code">rider</span></li>
+                <li>RubyMine <span class="code">rubymine</span></li>
+                <li>WebStorm <span class="code">webstorm</span></li>
+            </ul>
+        </p>
 
-        <p>Then, we need to add this repository to your system:</p>
-	<pre>echo "deb http://jetbrains-ppa.s3-website.eu-central-1.amazonaws.com bionic main" | sudo tee /etc/apt/sources.list.d/jetbrains-ppa.list > /dev/null</pre>
+
+        <p>To use it, enter the commands below, one by one. They download the correct GPG Key and add this repositories sources to your system sources.</p>
+        <pre>curl -s https://s3.eu-central-1.amazonaws.com/jetbrains-ppa/0xA6E8698A.pub.asc | sudo apt-key add -
+echo "deb http://jetbrains-ppa.s3-website.eu-central-1.amazonaws.com bionic main" | sudo tee /etc/apt/sources.list.d/jetbrains-ppa.list &gt; /dev/null
+sudo apt-get update</pre>
+
+        <p>To install for example IntelliJ Idea Ultimate, you can now run</p>
+        <pre>sudo apt-get install intellij-idea-ultimate</pre>
 
         <p>If you still have the sources from my <a href="https://launchpad.net/~jonas-groeger/+archive/ubuntu/jetbrains">Launchpad PPA</a>, please run:</p>
         <pre>sudo rm -f /etc/apt/sources.list.d/jetbrains.list{,.distUpgrade,.save}</pre>
