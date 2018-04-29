@@ -2,8 +2,11 @@ lang: bash
 before_install:
 - sudo apt-get install curl jq sed git
 - gem install fpm
+- openssl aes-256-cbc -K $encrypted_e60e2d0d0ca0_key -iv $encrypted_e60e2d0d0ca0_iv -in jetbrains-ppa.gpg.enc -out jetbrains-ppa.gpg -d
+- gpg --import jetbrains-ppa.gpg
 script:
 - "./update-packages"
+- "./publish-to-s3"
 env:
   global:
   - secure: RRuQlOK9xAaY70fU4S7zSuYavj+kVSJWpMhlbe1CxblMNTHLbBu5d4nkIoXXls7FiKDFCHZqJU0Fptyk6dzdmt7hhyvgkFKJzZfarNVt3gnsZjWwLT6VHrxsDCJtMEzVFS/fFAg0E6D+pe6BtmHTQ5nV03qk87wTblVcMjyGe9LeQU6/NkS1Dg0onAGAKdiGFeMzZ836tyAPn0OlME7D8hjN7IdsD/m3gzUFxE+isGzCJU9QZq0Jp23TNK6zRGX71/FZCoLHXa5hPY9tbKDqJUcVVRJS7+s+Y/G1Sgpt2RN+OSR0aNp5+jl6R0KIUU5xZ2ghuTSMYRxqApflnHbnddPE0lHsx2e/IDWYFrJSKS4zdXIroZLpkYiQhdBv/4TNeftQKSkeYwNYW6lOABaY079Ey1u+c3v/M8WkXgFYTYrMrRMgJrqOwOEc5uSIV8qUQ5GLBcUjDK1/A44Bu6HkVPNxifkwzHhNfirqO+J9x/9B/CaoniEIufTsxdrhIrWK65mP/sPk3j/0qd9f6ep/g+kVCVghgbEb4/B3bclPKsDkG3E+QzRvn1nqSfsB6nlUO3ExPSRD/uNPJ+80lOiQC/Bw7sAeMctcwkd/0OlaEvd7xOQLRJ3cozJ7RnfV1hLBMhJbDTcYdRazql0WI2sdMMamJvdzgrcFviXoUrEhBPk=
