@@ -6,6 +6,7 @@ before_install:
 - gpg --import jetbrains-ppa.gpg
 script:
 - "./update-packages"
+- "./install-aptly"
 - "./publish-to-s3"
 env:
   global:
