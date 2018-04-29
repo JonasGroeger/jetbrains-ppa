@@ -2,6 +2,7 @@
 
 REPO="jetbrains-ppa"
 DISTS=("bionic" "artful" "xenial" "trusty")
+ARCH="amd64,i386"
 S3_BUCKET="s3:jetbrains-ppa:"
 
 # The labels for the selection of packages you wish to have available.
@@ -12,14 +13,14 @@ COMP="main"
 GPG_KEY_ID="C647DF711B0CCC6A9F8769D0F3A767B5A6E8698A"
 
 # Create repo
-aptly repo create -config=aptly.conf -component="${COMP}" "${REPO}"
+aptly repo create -config=aptly.conf -architectures="${ARCH}" -component="${COMP}" "${REPO}"
 
 # Add *.deb files
 aptly repo add -config=aptly.conf "${REPO}" deb
 
 # Publish repo to ~/.aptly/public
 for DIST in ${DISTS[@]}; do
-    aptly publish repo -config=aptly.conf -gpg-key="${GPG_KEY_ID}" -distribution="${DIST}" "${REPO}" "${S3_BUCKET}"
+    aptly publish repo -config=aptly.conf -gpg-key="${GPG_KEY_ID}" -distribution="${DIST}" -architectures="${ARCH}" "${REPO}" "${S3_BUCKET}"
 done
 
 aptly publish list
