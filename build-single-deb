@@ -33,7 +33,7 @@ fpm -t deb \
     -C "${PACKAGE_DIR}" \
     --name "${PACKAGE_NAME}" \
     --architecture "all" \
-    --license "GPL-3" \
+    --license "Proprietary" \
     --maintainer "Jonas Gröger <jonas@huntun.de>" \
     --vendor "https://www.jetbrains.com/" \
     --url "https://www.jetbrains.com/" \
@@ -46,7 +46,7 @@ fpm -t deb \
     --depends "lib32z1" \
     --depends "lib32z1-dev" \
     --depends "unzip" \
-    --deb-build-depends "wget" \
+    --deb-pre-depends "wget" \
     --category "devel" \
     --package "${OUTPUT_DIR}" \
     --description "${DESCRIPTION}" \
