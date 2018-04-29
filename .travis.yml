@@ -7,6 +7,7 @@ before_install:
 - gem install fpm
 - openssl aes-256-cbc -K $encrypted_e60e2d0d0ca0_key -iv $encrypted_e60e2d0d0ca0_iv -in jetbrains-ppa.gpg.enc -out jetbrains-ppa.gpg -d
 - gpg --import jetbrains-ppa.gpg
+- gpg --list-keys
 script:
 - "./update-packages"
 - "./publish-to-s3"
