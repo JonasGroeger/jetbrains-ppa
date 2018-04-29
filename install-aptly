@@ -1,7 +1,0 @@
-#!/bin/bash
-
-echo "deb http://repo.aptly.info/ squeeze main" >> /etc/apt/sources.list
-apt-key adv --keyserver pool.sks-keyservers.net --recv-keys ED75B5A4483DA07C
-
-apt-get update
-apt-get install aptly

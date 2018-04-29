@@ -1,12 +1,14 @@
 lang: bash
 before_install:
+- echo "deb http://repo.aptly.info/ squeeze main" | sudo tee -a /etc/apt/sources.list
+- sudo apt-key adv --keyserver pool.sks-keyservers.net --recv-keys ED75B5A4483DA07C
+- sudo apt-get update
 - sudo apt-get install curl jq sed git aptly
 - gem install fpm
 - openssl aes-256-cbc -K $encrypted_e60e2d0d0ca0_key -iv $encrypted_e60e2d0d0ca0_iv -in jetbrains-ppa.gpg.enc -out jetbrains-ppa.gpg -d
 - gpg --import jetbrains-ppa.gpg
 script:
 - "./update-packages"
-- "./install-aptly"
 - "./publish-to-s3"
 env:
   global:
