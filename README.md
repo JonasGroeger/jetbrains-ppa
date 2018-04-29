@@ -1,31 +1,51 @@
-# PPA for JetBrains products [![Build Status](https://travis-ci.org/JonasGroeger/jetbrains-ppa.svg?branch=master)](https://travis-ci.org/JonasGroeger/jetbrains-ppa)
+# Inofficial Jetbrains PPA
 
-This project builds Debian packages for various JetBrains products. Currently:
+This is the inofficial Jetbrains PPA which you can use to get the latest and greatest products from Jetbrains.
 
-* CLion (`clion`)
-* DataGrip (`datagrip`)
-* GoLand (`goland`)
-* IntelliJ IDEA Community (`intellij-idea-community`)
-* IntelliJ IDEA Ultimate (`intellij-idea-ultimate`)
-* PhpStorm (`phpstorm`)
-* PyCharm Community (`pycharm-community`)
-* PyCharm Education (`pycharm-education`)
-* PyCharm Professional (`pycharm-professional`)
-* Rider (`rider`)
-* RubyMine (`rubymine`)
-* WebStorm (`webstorm`)
+Currently, the following packages are supported and automatically updated using [TravisCI](https://travis-ci.org/JonasGroeger/jetbrains-ppa).
 
-Installing, for example `intellij-idea-ultimate` is easy:
+* CLion `clion`
+* DataGrip `datagrip`
+* GoLand `goland`
+* IntelliJ IDEA Community `intellij-idea-community`
+* IntelliJ IDEA Ultimate `intellij-idea-ultimate`
+* PhpStorm `phpstorm`
+* PyCharm Community `pycharm-community`
+* PyCharm Education `pycharm-education`
+* PyCharm Professional `pycharm-professional`
+* Rider `rider`
+* RubyMine `rubymine`
+* WebStorm `webstorm`
 
-    sudo add-apt-repository ppa:jonas-groeger/jetbrains
-    sudo apt-get update
-    sudo apt-get install intellij-idea-ultimate
+# Usage
 
-# I want another package
+To use it, enter the commands below, one by one. They download the correct GPG Key and add this repositories sources to your system sources.
+
+```
+curl -s https://s3.eu-central-1.amazonaws.com/jetbrains-ppa/0xA6E8698A.pub.asc | sudo apt-key add -
+echo "deb http://jetbrains-ppa.s3-website.eu-central-1.amazonaws.com bionic main" | sudo tee /etc/apt/sources.list.d/jetbrains-ppa.list > /dev/null
+sudo apt-get update
+```
+
+To install for example IntelliJ Idea Ultimate, you can now run
+
+```
+sudo apt-get install intellij-idea-ultimate
+```
+
+If you still have the sources from [my Launchpad PPA](https://launchpad.net/~jonas-groeger/+archive/ubuntu/jetbrains), please run:
+
+```
+sudo rm -f /etc/apt/sources.list.d/jetbrains.list{,.distUpgrade,.save}
+```
+
+If you have any issues, please report at github.com/jonasgroeger/jetbrains-ppa.
+
+## I want another package
 
 If you want a package for another Jetbrains product please [create a GitHub issue](https://github.com/JonasGroeger/jetbrains-ppa/issues/new)
 
-# Building the packages
+## Building the packages
 
 To build a package, run the `build` script with a package folder:
 
@@ -35,7 +55,7 @@ To build intellij-idea-ultimate for example use:
 
     ./build-single-deb packages/intellij-idea-ultimate
 
-# Why this was written
+## Why this was written
 
 I hate manually downloading, extracting and moving the `*.tar.gz` from the
 JetBrains website to get an IDE update. Unfortunately JetBrains does not have a
@@ -44,3 +64,7 @@ Debian repository.
 There are already [existing](https://launchpad.net/~mmk2410/+archive/ubuntu/intellij-idea)
  [PPAs](https://launchpad.net/~vantuz/+archive/ubuntu/jetbrains).
 However, none have continuous delivery or provide a wide range of JetBrains products.
+
+---
+
+Maintained by Jonas Gröger. Automatically updated by [TravisCI](https://travis-ci.org/JonasGroeger/jetbrains-ppa).
