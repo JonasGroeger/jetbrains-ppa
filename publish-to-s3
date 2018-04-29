@@ -9,8 +9,7 @@ S3_BUCKET="s3:jetbrains-ppa:"
 # licensing restrictions of the software it contains.
 COMP="main"
 
-# https://keybase.io/jonasgroeger
-GPG_KEY_ID="CCA0C0C4EA16B4EEA2D5720ABECD4B5B330D89B5"
+GPG_KEY_ID="C647DF711B0CCC6A9F8769D0F3A767B5A6E8698A"
 
 # Create repo
 aptly repo create -config=aptly.conf -component="${COMP}" "${REPO}"
