@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=clion
+Name=CLion
 Comment=A Cross-Platform IDE for C and C++ by JetBrains
 Exec=clion %u
 Icon=clion
