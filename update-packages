@@ -70,7 +70,7 @@ do
     )"
 
     if [ -z "${LOCAL_VERSION}" ] || [ -z "${REMOTE_VERSION}" ]; then
-        >&2 echo "[E] Both 'LOCAL_VERSION' and 'LOCAL_VERSION' must be set. Probably a curl / jq error."
+        >&2 echo "[E] Both 'LOCAL_VERSION' and 'REMOTE_VERSION' must be set. Probably a curl / jq error."
         continue
     fi
 
@@ -83,13 +83,13 @@ do
 
     update_package_version "${PACKAGE_DIR}" "${LOCAL_VERSION}" "${REMOTE_VERSION}"
 
+    ./build-single-deb "${PACKAGE_DIR}"
+
     if [ -n "${CI}" ]; then
         git_setup
         git_checkout
         git add "${PACKAGE_DIR}" deb
         git commit -m "Upgrade ${CODE}: ${LOCAL_VERSION} -> ${REMOTE_VERSION}"
         git_push "${GH_TOKEN}"
-    fi
-
-    ./build-single-deb "${PACKAGE_DIR}"
+    fi    
 done
