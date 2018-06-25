@@ -45,6 +45,10 @@ If you have any issues, please report at github.com/jonasgroeger/jetbrains-ppa.
 
 If you want a package for another Jetbrains product please [create a GitHub issue](https://github.com/JonasGroeger/jetbrains-ppa/issues/new)
 
+## Why not use the [official snap packages](https://snapcraft.io/search?q=jetbrains)?
+
+Sure! If you like snap packages, go ahead. However, not all packages contained in this repository are already available as snap packages. And maybe you don't like snaps? :)
+
 ## Building the packages
 
 To build a package, run the `build` script with a package folder:
