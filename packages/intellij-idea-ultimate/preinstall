@@ -3,4 +3,4 @@
 set -e
 
 cd /opt/
-wget -c "https://download.jetbrains.com/idea/ideaIU-2018.1.6.tar.gz" -O "intellij-idea-ultimate.tar.gz"
+wget -c "https://download.jetbrains.com/idea/ideaIU-2018.2.tar.gz" -O "intellij-idea-ultimate.tar.gz"
