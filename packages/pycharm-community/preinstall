@@ -3,4 +3,4 @@
 set -e
 
 cd /opt/
-wget -c "https://download.jetbrains.com/python/pycharm-community-2018.3.4.tar.gz" -O "pycharm-community.tar.gz"
+wget -c "https://download.jetbrains.com/python/pycharm-community-2018.3.5.tar.gz" -O "pycharm-community.tar.gz"
