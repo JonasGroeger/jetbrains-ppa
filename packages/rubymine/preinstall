@@ -3,4 +3,4 @@
 set -e
 
 cd /opt/
-wget -c "https://download.jetbrains.com/ruby/RubyMine-2018.3.4.tar.gz" -O "rubymine.tar.gz"
+wget -c "https://download.jetbrains.com/ruby/RubyMine-2018.3.5.tar.gz" -O "rubymine.tar.gz"
