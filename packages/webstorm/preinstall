@@ -3,4 +3,4 @@
 set -e
 
 cd /opt/
-wget -c "https://download.jetbrains.com/webstorm/WebStorm-2018.3.5.tar.gz" -O "webstorm.tar.gz"
+wget -c "https://download.jetbrains.com/webstorm/WebStorm-2019.1.tar.gz" -O "webstorm.tar.gz"
