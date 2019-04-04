@@ -3,4 +3,4 @@
 set -e
 
 cd /opt/
-wget -c "https://download.jetbrains.com/datagrip/datagrip-2018.3.4.tar.gz" -O "datagrip.tar.gz"
+wget -c "https://download.jetbrains.com/datagrip/datagrip-2019.1.tar.gz" -O "datagrip.tar.gz"
