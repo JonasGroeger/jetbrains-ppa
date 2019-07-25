@@ -3,4 +3,4 @@
 set -e
 
 cd /opt/
-wget -c "https://download.jetbrains.com/cpp/CLion-2019.1.4.tar.gz" -O "clion.tar.gz"
+wget -c "https://download.jetbrains.com/cpp/CLion-2019.2.tar.gz" -O "clion.tar.gz"
