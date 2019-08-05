@@ -39,11 +39,11 @@ If you still have the sources from [my Launchpad PPA](https://launchpad.net/~jon
 sudo rm -f /etc/apt/sources.list.d/jetbrains.list{,.distUpgrade,.save}
 ```
 
-If you have any issues, please report at github.com/jonasgroeger/jetbrains-ppa.
+If you have any issues, please [create a GitHub issue](https://github.com/JonasGroeger/jetbrains-ppa/issues/new).
 
 ## I want another package
 
-If you want a package for another Jetbrains product please [create a GitHub issue](https://github.com/JonasGroeger/jetbrains-ppa/issues/new)
+If you want a package for another Jetbrains product please [create a GitHub issue](https://github.com/JonasGroeger/jetbrains-ppa/issues/new).
 
 ## Why not use the [official snap packages](https://snapcraft.io/search?q=jetbrains)?
 
