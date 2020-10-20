@@ -42,7 +42,6 @@ fpm -t deb \
     --depends "default-jdk | oracle-java7-installer | oracle-java8-installer" \
     --depends "libc6-i386" \
     --depends "lib32stdc++6" \
-    --depends "lib32gcc1" \
     --depends "lib32z1" \
     --depends "lib32z1-dev" \
     --depends "unzip" \
