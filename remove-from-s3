@@ -1,7 +1,7 @@
 #!/bin/bash
 
 REPO="jetbrains-ppa"
-DISTS=("cosmic" "bionic" "artful" "xenial" "trusty")
+DISTS=("groovy" "focal" "eoan" "disco" "cosmic" "bionic" "artful" "xenial" "trusty")
 S3_BUCKET="s3:jetbrains-ppa:"
 
 # Remove existing
