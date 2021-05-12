@@ -1,12 +1,3 @@
-# Deprecation notice!
-
-I will no longer maintain this project. I don't see it serving a purpose anymore since
-
-* Jetbrains [has added all their products as snaps on snapcraft.io](https://snapcraft.io/search?q=jetbrains) now (I'm using that now)
-* travis-ci.org is now in readonly mode and will be removed at some point (would need investment that I don't think is worth my time)
-
-If anyone would like to adopt it, feel free to fork.
-
 # Inofficial Jetbrains PPA
 
 This is the inofficial Jetbrains PPA which you can use to get the latest and greatest products from Jetbrains.
