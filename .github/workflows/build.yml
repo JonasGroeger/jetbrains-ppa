@@ -1,7 +1,7 @@
 name: Build & Publish new versions
-on: workflow_dispatch
-#  schedule:
-#    - cron: "30 23 * * *"
+on:
+  schedule:
+    - cron: "0 4/6 * * *"
 
 jobs:
     build:
