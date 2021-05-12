@@ -35,6 +35,9 @@ jobs:
             
             - name: Import private key
               run: gpg --import jetbrains-ppa.gpg
+
+            - name: Update distributions.txt
+              run: curl -sL https://changelogs.ubuntu.com/meta-release | grep "Dist: " | awk '{ print $2 }' | tail -n5 > distributions.txt
             
             - name: Update packages
               run: ./update-packages
