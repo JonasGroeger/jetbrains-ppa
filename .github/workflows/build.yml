@@ -44,3 +44,16 @@ jobs:
 
             - name: Publish packages
               run: ./publish-to-s3
+
+            - name: Create commit variable
+              run: |
+                  echo 'GIT_COMMIT_MSG<<EOF' >> $GITHUB_ENV
+                  echo -e 'Package updates!\n' >> $GITHUB_ENV
+                  cat commit.txt >> $GITHUB_ENV
+                  echo 'EOF' >> $GITHUB_ENV
+
+            - name: Update Repo
+              uses: stefanzweifel/git-auto-commit-action@v4
+                commit_message: "${{ env.GIT_COMMIT_MSG }}"
+                branch: master
+                file_pattern: deb packages

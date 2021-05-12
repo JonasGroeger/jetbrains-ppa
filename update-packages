@@ -20,11 +20,6 @@ function update_package_version {
     sed -i "s|${old_version}|${new_version}|" "${preinstall}"
 }
 
-function git_setup() {
-    git config --global user.email "travis@travis-ci.org"
-    git config --global user.name "Travis CI"
-}
-
 function git_push() {
     local gh_token
     gh_token="$1"
@@ -38,15 +33,8 @@ function git_push() {
     git push --quiet --set-upstream origin master
 }
 
-function git_checkout() {
-    if [ -z "${TRAVIS_BRANCH}" ]; then
-        >&2 echo "Env var TRAVIS_BRANCH not set."
-        exit 1
-    fi
-
-    # TravisCI does a git checkout <hash> which we can't work on
-    git checkout "${TRAVIS_BRANCH}"
-}
+COMMIT_FILE=commit.txt
+rm "$COMMIT_FILE"
 
 find packages -maxdepth 1 -mindepth 1 -type d -print0 | while read -d $'\0' PACKAGE_DIR
 do
@@ -85,11 +73,5 @@ do
 
     ./build-single-deb "${PACKAGE_DIR}"
 
-    if [ -n "${CI}" ]; then
-        git_setup
-        git_checkout
-        git add "${PACKAGE_DIR}" deb
-        git commit -m "Upgrade ${CODE}: ${LOCAL_VERSION} -> ${REMOTE_VERSION}"
-        git_push "${GH_TOKEN}"
-    fi    
+    echo "Upgrade ${CODE}: ${LOCAL_VERSION} -> ${REMOTE_VERSION}" >> "$COMMIT_FILE"
 done
