@@ -1,7 +1,7 @@
 lang: bash
 before_install:
 - echo "deb http://repo.aptly.info/ squeeze main" | sudo tee -a /etc/apt/sources.list
-- sudo apt-key adv --keyserver pool.sks-keyservers.net --recv-keys ED75B5A4483DA07C
+- wget -qO - https://www.aptly.info/pubkey.txt | sudo apt-key add -
 - sudo apt-get update
 - sudo apt-get install curl jq sed git aptly
 - gem install fpm
