@@ -1,5 +1,8 @@
-name: Build
-on: [push]
+name: Build & Publish new versions
+on:
+  schedule:
+    - cron: "30 23 * * *"
+
 jobs:
     build:
         runs-on: ubuntu-latest
@@ -49,7 +52,7 @@ jobs:
               run: |
                 echo 'GIT_COMMIT_MSG<<EOF' >> $GITHUB_ENV
                 echo -e 'Package updates!\n' >> $GITHUB_ENV
-                cat commit.txt >> $GITHUB_ENV
+                [ -f commit.txt ] && cat commit.txt >> $GITHUB_ENV
                 echo 'EOF' >> $GITHUB_ENV
 
             - name: Update Repo
