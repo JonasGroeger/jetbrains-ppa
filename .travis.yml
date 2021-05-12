@@ -5,6 +5,17 @@ before_install:
 - sudo apt-get update
 - sudo apt-get install curl jq sed git aptly
 - gem install fpm
+- |-
+  echo "-----BEGIN PUBLIC KEY-----
+  MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqpefbnVyzKLH76MNUxET
+  O9oNOxxeHOQRX6C2AzXL5kitPYh2FuEFAqsmmahdzdHZ5mGSi5bjiNciz3GlOJ06
+  f6GAVKpRVWQ36s9sXMc2j1F1NGuf1tYLTykvFuLlgXtL0nxLQGW/JLmTEU9Nnc5B
+  /EkF71XWzZR9jKN/yf1XVxpmPl3uWMICXEFp29ZIDlOcWap7X2AZMX57JJXxIK04
+  Zr9rfkFM2omgBtT0hNbv56Wz2UTG9dYroALVmDqUp2iLsT6rdxRGCTUk9Ed5zkYp
+  vhKKUyHIAHViyxV3ifmGroJeGQEGCrfm4pLxbhXMhvMOKyrkyy26xR+mdgtEMCmr
+  CwIDAQAB
+  -----END PUBLIC KEY-----" > public_key.pem
+- cat public_key.pem
 - openssl aes-256-cbc -K $encrypted_e60e2d0d0ca0_key -iv $encrypted_e60e2d0d0ca0_iv -in jetbrains-ppa.gpg.enc -out jetbrains-ppa.gpg -d
 - gpg --import jetbrains-ppa.gpg
 - gpg --list-keys
