@@ -3,7 +3,7 @@
 
 This is the inofficial Jetbrains PPA which you can use to get the latest and greatest products from Jetbrains.
 
-Currently, the following packages are supported and automatically updated using [TravisCI](https://travis-ci.org/JonasGroeger/jetbrains-ppa).
+Currently, the following packages are supported and automatically updated using [GitHub Actions](https://github.com/JonasGroeger/jetbrains-ppa/actions).
 
 * CLion `clion`
 * DataGrip `datagrip`
@@ -72,4 +72,4 @@ However, none have continuous delivery or provide a wide range of JetBrains prod
 
 ---
 
-Maintained by Jonas Gröger. Automatically updated by [TravisCI](https://travis-ci.org/JonasGroeger/jetbrains-ppa).
+Maintained by Jonas Gröger. Automatically updated by [GitHub Actions](https://github.com/JonasGroeger/jetbrains-ppa/actions).
