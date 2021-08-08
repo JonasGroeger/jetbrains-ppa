@@ -1,4 +1,4 @@
-name: Build & Publish new versions
+name: Build & Publish
 on:
   schedule:
     - cron: "0 4/6 * * *"
