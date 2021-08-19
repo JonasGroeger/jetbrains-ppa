@@ -3,4 +3,4 @@
 set -e
 
 cd /opt/
-wget -c "https://download.jetbrains.com/python/pycharm-edu-2021.1.3.tar.gz" -O "pycharm-education.tar.gz"
+wget -c "https://download.jetbrains.com/python/pycharm-edu-2021.2.tar.gz" -O "pycharm-education.tar.gz"
