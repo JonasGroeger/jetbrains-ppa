@@ -18,13 +18,13 @@ Currently, the following packages are supported and automatically updated using 
 * RubyMine `rubymine`
 * WebStorm `webstorm`
 
-# Usage
+## Installation
 
 To use it, enter the commands below, one by one. They download the correct GPG Key and add this repositories sources to your system sources.
 
 ```
-curl -s https://s3.eu-central-1.amazonaws.com/jetbrains-ppa/0xA6E8698A.pub.asc | sudo apt-key add -
-echo "deb http://jetbrains-ppa.s3-website.eu-central-1.amazonaws.com focal main" | sudo tee /etc/apt/sources.list.d/jetbrains-ppa.list > /dev/null
+curl -s https://s3.eu-central-1.amazonaws.com/jetbrains-ppa/0xA6E8698A.pub.asc | gpg --dearmor | sudo tee /usr/share/keyrings/jetbrains-ppa-archive-keyring.gpg > /dev/null
+echo "deb [signed-by=/usr/share/keyrings/jetbrains-ppa-archive-keyring.gpg] http://jetbrains-ppa.s3-website.eu-central-1.amazonaws.com focal main" | sudo tee /etc/apt/sources.list.d/jetbrains-ppa.list > /dev/null
 sudo apt-get update
 ```
 
@@ -34,13 +34,27 @@ To install for example IntelliJ Idea Ultimate, you can now run
 sudo apt-get install intellij-idea-ultimate
 ```
 
+## I still have the old Launchpad PPA sources
 If you still have the sources from [my Launchpad PPA](https://launchpad.net/~jonas-groeger/+archive/ubuntu/jetbrains), please run:
 
 ```
 sudo rm -f /etc/apt/sources.list.d/jetbrains.list{,.distUpgrade,.save}
 ```
 
+Then, follow the installation instructions under `Installation`.
+
 If you have any issues, please [create a GitHub issue](https://github.com/JonasGroeger/jetbrains-ppa/issues/new).
+
+# I used the old instructions with `apt-key` to add this repository
+
+Run the two commands below to remove the `jetbrains-ppa` repository.
+
+```
+sudo rm /etc/apt/sources.list.d/jetbrains-ppa.list
+apt-key del "C647 DF71 1B0C CC6A 9F87  69D0 F3A7 67B5 A6E8 698A"
+```
+
+Then, follow the installation instructions under `Installation`.
 
 ## I want another package
 
