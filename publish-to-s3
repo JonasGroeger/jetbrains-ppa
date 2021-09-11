@@ -1,7 +1,6 @@
 #!/bin/bash
 
 REPO="jetbrains-ppa"
-readarray -t DISTS < distributions.txt
 ARCH="amd64,i386"
 S3_BUCKET="s3:jetbrains-ppa:"
 
@@ -19,8 +18,6 @@ aptly repo create -config=aptly.conf -architectures="${ARCH}" -component="${COMP
 aptly repo add -config=aptly.conf "${REPO}" deb
 
 # Publish repo to ~/.aptly/public
-for DIST in ${DISTS[@]}; do
-    aptly publish repo -config=aptly.conf -gpg-key="${GPG_KEY_ID}" -distribution="${DIST}" -architectures="${ARCH}" "${REPO}" "${S3_BUCKET}"
-done
+aptly publish repo -config=aptly.conf -gpg-key="${GPG_KEY_ID}" -distribution=any -architectures="${ARCH}" "${REPO}" "${S3_BUCKET}"
 
 aptly publish list

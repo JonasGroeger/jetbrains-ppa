@@ -39,9 +39,6 @@ jobs:
             - name: Import private key
               run: gpg --import jetbrains-ppa.gpg
 
-            - name: Update distributions.txt
-              run: distro-info --supported > distributions.txt
-            
             - name: Update packages
               run: ./update-packages
 
