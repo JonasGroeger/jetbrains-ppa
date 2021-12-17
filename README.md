@@ -10,6 +10,7 @@ Currently, the following packages are supported and automatically updated using 
 * GoLand `goland`
 * IntelliJ IDEA Community `intellij-idea-community`
 * IntelliJ IDEA Ultimate `intellij-idea-ultimate`
+* JetBrains Gateway `jetbrains-gateway`
 * PhpStorm `phpstorm`
 * PyCharm Community `pycharm-community`
 * PyCharm Education `pycharm-education`

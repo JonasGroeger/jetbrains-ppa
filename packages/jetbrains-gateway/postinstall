@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+
+# Create folder
+mkdir -p "jetbrains-gateway"
+
+# Move downloaded .tar.gz
+mv "jetbrains-gateway.tar.gz" "jetbrains-gateway"
+
+cd "jetbrains-gateway"
+
+# Extract the package
+tar -xzf "jetbrains-gateway.tar.gz" --strip-components 1
+
+# Remove the tar.gz package
+rm -f "jetbrains-gateway.tar.gz"
