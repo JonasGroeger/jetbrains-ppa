@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+
+# Create folder
+mkdir -p "android-studio-beta"
+
+# Move downloaded .tar.gz
+mv "android-studio-beta.tar.gz" "android-studio-beta"
+
+cd "android-studio-beta"
+
+# Extract the package
+tar -xzf "android-studio-beta.tar.gz" --strip-components 1
+
+# Remove the tar.gz package
+rm -f "android-studio-beta.tar.gz"

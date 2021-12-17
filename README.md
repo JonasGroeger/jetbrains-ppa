@@ -1,10 +1,13 @@
 # Inofficial Jetbrains PPA
 [![Build](https://github.com/JonasGroeger/jetbrains-ppa/actions/workflows/build.yml/badge.svg)](https://github.com/JonasGroeger/jetbrains-ppa/actions/workflows/build.yml)
 
-This is the inofficial Jetbrains PPA which you can use to get the latest and greatest products from Jetbrains.
+This is the unofficial Jetbrains PPA which you can use to get the latest and greatest products from Jetbrains.
 
 Currently, the following packages are supported and automatically updated using [GitHub Actions](https://github.com/JonasGroeger/jetbrains-ppa/actions).
 
+* Android Studio `android-studio`
+* Android Studio Beta `android-studio-beta`
+* Android Studio Preview `android-studio-preview`
 * CLion `clion`
 * DataGrip `datagrip`
 * GoLand `goland`
