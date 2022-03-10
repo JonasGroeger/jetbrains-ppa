@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=Android Studio
-Comment=A Cross-Platform IDE for Android by Google
-Exec=studio %u
-Icon=studio
-Terminal=false
-Type=Application
-Categories=Development;IDE;
-StartupWMClass=android-studio
