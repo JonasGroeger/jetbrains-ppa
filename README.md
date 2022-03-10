@@ -46,7 +46,7 @@ Then, follow the installation instructions under `Installation`.
 
 If you have any issues, please [create a GitHub issue](https://github.com/JonasGroeger/jetbrains-ppa/issues/new).
 
-# I used the old instructions with `apt-key` to add this repository
+## I used the old instructions with `apt-key` to add this repository
 
 Run the two commands below to remove the `jetbrains-ppa` repository.
 
