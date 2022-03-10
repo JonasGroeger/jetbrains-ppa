@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+
+# Create folder
+mkdir -p "android-studio-preview"
+
+# Move downloaded .tar.gz
+mv "android-studio-preview.tar.gz" "android-studio-preview"
+
+cd "android-studio-preview"
+
+# Extract the package
+tar -xzf "android-studio-preview.tar.gz" --strip-components 1
+
+# Remove the tar.gz package
+rm -f "android-studio-preview.tar.gz"
