@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+wget -c "https://download.jetbrains.com/python/dataspell-2021.3.3.tar.gz" -O "dataspell.tar.gz"
