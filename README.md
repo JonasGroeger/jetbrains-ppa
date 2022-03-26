@@ -7,6 +7,7 @@ Currently, the following packages are supported and automatically updated using 
 
 * CLion `clion`
 * DataGrip `datagrip`
+* DataSpell `dataspell`
 * GoLand `goland`
 * IntelliJ IDEA Community `intellij-idea-community`
 * IntelliJ IDEA Ultimate `intellij-idea-ultimate`
