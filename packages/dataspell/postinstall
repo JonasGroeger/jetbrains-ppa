@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+
+# Create folder
+mkdir -p "dataspell"
+
+# Move downloaded .tar.gz
+mv "dataspell.tar.gz" "dataspell"
+
+cd "dataspell"
+
+# Extract the package
+tar -xzf "dataspell.tar.gz" --strip-components 1
+
+# Remove the tar.gz package
+rm -f "dataspell.tar.gz"
