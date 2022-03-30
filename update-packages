@@ -44,14 +44,14 @@ do
         continue
     fi
 
-    CODE="$(cat "${PACKAGE_JSON}" | jq --raw-output --exit-status ".code")"
+    CODE="$(jq --raw-output --exit-status ".code" "${PACKAGE_JSON}")"
 
     if [ -z "${CODE}" ]; then
         >&2 echo "[E] Cannot find 'code' key within ${PACKAGE_JSON}"
         continue
     fi
 
-    LOCAL_VERSION="$(cat "${PACKAGE_JSON}" | jq --raw-output --exit-status ".version")"
+    LOCAL_VERSION="$(jq --raw-output --exit-status ".version" "${PACKAGE_JSON}")"
     REMOTE_VERSION="$(curl -sL \
         "https://data.services.jetbrains.com/products/releases?code=${CODE}&latest=true&type=release" \
         | jq --raw-output --exit-status ".${CODE}[0].version" \

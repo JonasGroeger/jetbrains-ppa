@@ -15,8 +15,8 @@ if [ ! -f "${PACKAGE_JSON}" ]; then
     exit 1
 fi
 
-VERSION="$(cat "${PACKAGE_JSON}" | jq --raw-output --exit-status ".version")"
-DESCRIPTION="$(cat "${PACKAGE_JSON}" | jq --raw-output --exit-status ".description")"
+VERSION="$(jq --raw-output --exit-status ".version" "${PACKAGE_JSON}")"
+DESCRIPTION="$(jq --raw-output --exit-status ".description" "${PACKAGE_JSON}")"
 
 if [ -z "${VERSION}" ] || [ -z "${DESCRIPTION}" ]; then
     >&2 echo "[E] Cannot find 'version' or 'description' key within ${PACKAGE_JSON}"
