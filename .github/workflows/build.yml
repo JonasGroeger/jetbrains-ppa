@@ -10,34 +10,17 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          ENCRYPTED_E60E2D0D0CA0_KEY: ${{ secrets.ENCRYPTED_E60E2D0D0CA0_KEY }}
+          ENCRYPTED_E60E2D0D0CA0_IV: ${{ secrets.ENCRYPTED_E60E2D0D0CA0_IV }}
         steps:
             - name: Checkout CV
               uses: actions/checkout@v2
 
-            - name: Add aptly as source
-              run: echo "deb http://repo.aptly.info/ squeeze main" | sudo tee -a /etc/apt/sources.list
-
-            - name: Add aptly key
-              run: wget -qO - https://www.aptly.info/pubkey.txt | sudo apt-key add -
-
-            - name: Update sources
-              run: sudo apt-get update
-
             - name: Install dependencies
-              run: sudo apt-get install curl jq sed git aptly
-            
-            - uses: ruby/setup-ruby@v1
-              with:
-                ruby-version: 2.5
+              run: sudo ./docker/install-dependencies
 
-            - name: Install fpm
-              run: gem install fpm
-
-            - name: Decrypt repo private key
-              run: openssl aes-256-cbc -K ${{ secrets.ENCRYPTED_E60E2D0D0CA0_KEY }} -iv ${{ secrets.ENCRYPTED_E60E2D0D0CA0_IV }} -in jetbrains-ppa.gpg.enc -out jetbrains-ppa.gpg -d
-            
-            - name: Import private key
-              run: gpg --import jetbrains-ppa.gpg
+            - name: Do key handling
+              run: ./docker/decrypt
 
             - name: Update packages
               run: ./update-packages

@@ -86,6 +86,16 @@ There are already [existing](https://launchpad.net/~mmk2410/+archive/ubuntu/inte
  [PPAs](https://launchpad.net/~vantuz/+archive/ubuntu/jetbrains).
 However, none have continuous delivery or provide a wide range of JetBrains products.
 
+## Maintainers note
+
+```
+# Create the build container
+docker build -f docker/Dockerfile -t jetbrains-ppa-builder:latest .
+
+# Use the build container
+docker run -it --env-file build.env -v "$(pwd):/app" jetbrains-ppa-builder:latest
+```
+
 ---
 
 Maintained by Jonas Gröger. Automatically updated by [GitHub Actions](https://github.com/JonasGroeger/jetbrains-ppa/actions).

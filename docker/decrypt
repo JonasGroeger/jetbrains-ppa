@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+openssl aes-256-cbc -K "$ENCRYPTED_E60E2D0D0CA0_KEY" -iv "$ENCRYPTED_E60E2D0D0CA0_IV" -in jetbrains-ppa.gpg.enc -out jetbrains-ppa.gpg -d
+gpg --import jetbrains-ppa.gpg

@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euxo pipefail
 
 REPO="jetbrains-ppa"
 ARCH="amd64,i386"
@@ -12,12 +13,12 @@ COMP="main"
 GPG_KEY_ID="C647DF711B0CCC6A9F8769D0F3A767B5A6E8698A"
 
 # Create repo
-aptly repo create -config=aptly.conf -architectures="${ARCH}" -component="${COMP}" "${REPO}"
+aptly -config=aptly.conf repo create -architectures="${ARCH}" -component="${COMP}" "${REPO}"
 
 # Add *.deb files
-aptly repo add -config=aptly.conf "${REPO}" deb
+aptly -config=aptly.conf repo add "${REPO}" deb
 
-# Publish repo to ~/.aptly/public
-aptly publish repo -config=aptly.conf -gpg-key="${GPG_KEY_ID}" -distribution=any -architectures="${ARCH}" "${REPO}" "${S3_BUCKET}"
+# Publish repo
+aptly -config=aptly.conf publish repo -gpg-key="${GPG_KEY_ID}" -distribution=any -architectures="${ARCH}" "${REPO}" "${S3_BUCKET}"
 
-aptly publish list
+aptly -config=aptly.conf publish list
