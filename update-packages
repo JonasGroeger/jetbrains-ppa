@@ -2,13 +2,13 @@
 
 function update_package_version {
     local package
-    local old_version
     local new_version
+    local download_url
     local package_json
     local preinstall
     package="$1"
-    old_version="$2"
-    new_version="$3"
+    new_version="$2"
+    download_url="$3"
     package_json="${package}/package.json"
     preinstall="${package}/preinstall"
 
@@ -17,7 +17,7 @@ function update_package_version {
     mv version-update.json "${package_json}"
 
     # preinstall
-    sed -i "s|${old_version}|${new_version}|" "${preinstall}"
+    sed -i "/wget/s|https://[^\"]*|${download_url}|" "${preinstall}"
 }
 
 function git_push() {
@@ -39,23 +39,24 @@ rm "$COMMIT_FILE"
 find packages -maxdepth 1 -mindepth 1 -type d -print0 | while read -d $'\0' PACKAGE_DIR
 do
     PACKAGE_JSON="${PACKAGE_DIR}/package.json"
+    RELEASES_JSON="releases-${CODE}.json"
     if [ ! -f "${PACKAGE_JSON}" ]; then
         >&2 echo "[E] Cannot find ${PACKAGE_JSON}"
         continue
     fi
 
-    CODE="$(cat "${PACKAGE_JSON}" | jq --raw-output --exit-status ".code")"
+    CODE="$(jq --raw-output --exit-status ".code" "${PACKAGE_JSON}")"
 
     if [ -z "${CODE}" ]; then
         >&2 echo "[E] Cannot find 'code' key within ${PACKAGE_JSON}"
         continue
     fi
 
-    LOCAL_VERSION="$(cat "${PACKAGE_JSON}" | jq --raw-output --exit-status ".version")"
-    REMOTE_VERSION="$(curl -sL \
-        "https://data.services.jetbrains.com/products/releases?code=${CODE}&latest=true&type=release" \
-        | jq --raw-output --exit-status ".${CODE}[0].version" \
-    )"
+    curl -sfLo "${RELEASES_JSON}" "https://data.services.jetbrains.com/products/releases?code=${CODE}&latest=true&type=release"
+    LOCAL_VERSION="$(jq --raw-output --exit-status ".version" "${PACKAGE_JSON}")"
+    REMOTE_VERSION="$(jq --raw-output --exit-status ".${CODE}[0].version" "${RELEASES_JSON}")"
+    DOWNLOAD_URL="$(jq --raw-output --exit-status ".${CODE}[0].downloads.linux.link" "${RELEASES_JSON}")"
+    rm -f "${RELEASES_JSON}"
 
     if [ -z "${LOCAL_VERSION}" ] || [ -z "${REMOTE_VERSION}" ]; then
         >&2 echo "[E] Both 'LOCAL_VERSION' and 'REMOTE_VERSION' must be set. Probably a curl / jq error."
@@ -69,7 +70,7 @@ do
 
     printf "%3s: Local (%10s) != Remote (%10s) -> Updating.\n" "${CODE}" "${LOCAL_VERSION}" "${REMOTE_VERSION}"
 
-    update_package_version "${PACKAGE_DIR}" "${LOCAL_VERSION}" "${REMOTE_VERSION}"
+    update_package_version "${PACKAGE_DIR}" "${REMOTE_VERSION}" "${DOWNLOAD_URL}"
 
     ./build-single-deb "${PACKAGE_DIR}"
 
