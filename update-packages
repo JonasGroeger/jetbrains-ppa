@@ -36,21 +36,21 @@ function git_push() {
 }
 
 COMMIT_FILE=commit.txt
-rm "$COMMIT_FILE"
+rm -f "$COMMIT_FILE"
 
 find packages -maxdepth 1 -mindepth 1 -type d -print0 | while read -d $'\0' PACKAGE_DIR
 do
     PACKAGE_JSON="${PACKAGE_DIR}/package.json"
-    RELEASES_JSON="releases-${CODE}.json"
-    if [ ! -f "${PACKAGE_JSON}" ]; then
-        >&2 echo "[E] Cannot find ${PACKAGE_JSON}"
+
+    CODE="$(jq --raw-output --exit-status ".code" "${PACKAGE_JSON}")"
+    if [ -z "${CODE}" ]; then
+        >&2 echo "[E] Cannot find 'code' key within ${PACKAGE_JSON}"
         continue
     fi
 
-    CODE="$(jq --raw-output --exit-status ".code" "${PACKAGE_JSON}")"
-
-    if [ -z "${CODE}" ]; then
-        >&2 echo "[E] Cannot find 'code' key within ${PACKAGE_JSON}"
+    RELEASES_JSON="releases-${CODE}.json"
+    if [ ! -f "${PACKAGE_JSON}" ]; then
+        >&2 echo "[E] Cannot find ${PACKAGE_JSON}"
         continue
     fi
 
