@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+set -euxo pipefail
 
 function update_package_version {
     local package

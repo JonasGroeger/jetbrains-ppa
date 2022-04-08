@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+set -euxo pipefail
 
 find packages -maxdepth 1 -mindepth 1 -type d -print0 | while read -d $'\0' package_dir
 do
