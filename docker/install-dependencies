@@ -2,7 +2,7 @@
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
-apt-get upgrade
+apt-get --yes upgrade
 apt-get install --yes --no-install-recommends \
     aptly curl binutils git gnupg2 jq ruby sed
 
