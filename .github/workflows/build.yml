@@ -13,11 +13,17 @@ jobs:
           ENCRYPTED_E60E2D0D0CA0_KEY: ${{ secrets.ENCRYPTED_E60E2D0D0CA0_KEY }}
           ENCRYPTED_E60E2D0D0CA0_IV: ${{ secrets.ENCRYPTED_E60E2D0D0CA0_IV }}
         steps:
-            - name: Checkout CV
+            - name: Checkout
               uses: actions/checkout@v2
 
+            - name: Aptly sources
+              run: echo "deb http://repo.aptly.info/ squeeze main" | tee -a /etc/apt/sources.list
+
+            - name: Aptly key
+              run: wget -qO - https://www.aptly.info/pubkey.txt | apt-key add -
+
             - name: Install dependencies
-              run: sudo ./docker/install-dependencies
+              run: ./docker/install-dependencies
 
             - name: Do key handling
               run: ./docker/decrypt
@@ -35,7 +41,7 @@ jobs:
                 [ -f commit.txt ] && cat commit.txt >> $GITHUB_ENV
                 echo 'EOF' >> $GITHUB_ENV
 
-            - name: Update Repo
+            - name: Update repo
               uses: stefanzweifel/git-auto-commit-action@v4
               with:
                 commit_message: "${{ env.GIT_COMMIT_MSG }}"

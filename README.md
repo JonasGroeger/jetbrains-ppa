@@ -94,6 +94,9 @@ docker build -f docker/Dockerfile -t jetbrains-ppa-builder:latest .
 
 # Use the build container
 docker run -it --env-file build.env -v "$(pwd):/app" jetbrains-ppa-builder:latest
+
+# Test GH action
+act --secret-file build.env schedule
 ```
 
 ---
