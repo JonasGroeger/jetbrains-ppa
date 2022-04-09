@@ -1,7 +1,6 @@
 name: Build & Publish
 on:
-  schedule:
-    - cron: "0 4/6 * * *"
+    workflow_dispatch:
 
 jobs:
     build:
