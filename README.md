@@ -30,7 +30,7 @@ echo "deb [signed-by=/usr/share/keyrings/jetbrains-ppa-archive-keyring.gpg] http
 sudo apt-get update
 ```
 
-To install for example IntelliJ Idea Ultimate, you can now run
+To install for example IntelliJ IDEA Ultimate, you can now run
 
 ```
 sudo apt-get install intellij-idea-ultimate
