@@ -47,6 +47,15 @@ Then, follow the installation instructions under `Installation`.
 
 If you have any issues, please [create a GitHub issue](https://github.com/JonasGroeger/jetbrains-ppa/issues/new).
 
+## I'm not getting any updates
+
+Check your apt policy. It should say `any/main` after the URL. If it doesen't (like below), please redo the installation instructions.
+
+```shell-session
+$ apt show pycharm-professional | grep "APT-Sources"
+APT-Sources: http://jetbrains-ppa.s3-website.eu-central-1.amazonaws.com bionic/main amd64 Packages
+```
+
 ## I used the old instructions with `apt-key` to add this repository
 
 Run the two commands below to remove the `jetbrains-ppa` repository.
