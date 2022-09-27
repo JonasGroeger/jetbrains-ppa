@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+
+# Create folder
+mkdir -p "phpstorm-eap"
+
+# Move downloaded .tar.gz
+mv "phpstorm-eap.tar.gz" "phpstorm-eap/."
+
+cd "phpstorm-eap"
+
+# Extract the package
+tar -xzf "phpstorm-eap.tar.gz" --strip-components 1
+
+# Remove the tar.gz package
+rm -f "phpstorm-eap.tar.gz"
