@@ -2,12 +2,9 @@
 
 set -euxo pipefail
 
-export DEBIAN_FRONTEND=noninteractive
 apt-get update
-apt-get --yes upgrade
-apt-cache policy aptly
-apt-get install --yes --no-install-recommends \
-    aptly curl binutils git gnupg2 jq ruby sed
-
+DEBIAN_FRONTEND=noninteractive apt-get -qq --yes upgrade
+DEBIAN_FRONTEND=noninteractive apt-get -qq install --yes --no-install-recommends \
+  aptly curl binutils git gnupg2 jq ruby sed
 
 gem install fpm
