@@ -16,12 +16,6 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v2
 
-            - name: Aptly sources
-              run: echo "deb http://repo.aptly.info/ squeeze main" | sudo tee -a /etc/apt/sources.list
-
-            - name: Aptly key
-              run: wget -qO - https://www.aptly.info/pubkey.txt | sudo apt-key add -
-
             - name: Install dependencies
               run: sudo ./docker/install-dependencies
 
