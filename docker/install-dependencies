@@ -3,7 +3,7 @@
 set -euxo pipefail
 
 apt-get update
-DEBIAN_FRONTEND=noninteractive apt-get -qq --yes upgrade
+# DEBIAN_FRONTEND=noninteractive apt-get -qq --yes upgrade
 DEBIAN_FRONTEND=noninteractive apt-get -qq install --yes --no-install-recommends \
   aptly curl binutils git gnupg2 jq ruby sed
 
