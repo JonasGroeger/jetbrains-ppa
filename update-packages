@@ -42,6 +42,17 @@ find packages -maxdepth 1 -mindepth 1 -type d -print0 | while read -d $'\0' PACK
 do
     PACKAGE_JSON="${PACKAGE_DIR}/package.json"
 
+    # Default for released applications
+    VERSION_FIELD="version"
+    RELEASE_TYPE="release"
+
+    # Handle EAP packages
+    EAP="$(jq --raw-output ".eap // false" "${PACKAGE_JSON}")"
+    if [[ "${EAP}" == "true" ]]; then
+      VERSION_FIELD="build"     # EAP have duplicates for the version, so we need to use build instead
+      RELEASE_TYPE="eap"
+    fi
+
     CODE="$(jq --raw-output --exit-status ".code" "${PACKAGE_JSON}")"
     if [ -z "${CODE}" ]; then
         >&2 echo "[E] Cannot find 'code' key within ${PACKAGE_JSON}"
@@ -54,9 +65,9 @@ do
         continue
     fi
 
-    curl -sfLo "${RELEASES_JSON}" "https://data.services.jetbrains.com/products/releases?code=${CODE}&latest=true&type=release"
-    LOCAL_VERSION="$(jq --raw-output --exit-status ".version" "${PACKAGE_JSON}")"
-    REMOTE_VERSION="$(jq --raw-output --exit-status ".${CODE}[0].version" "${RELEASES_JSON}")"
+    curl -sfLo "${RELEASES_JSON}" "https://data.services.jetbrains.com/products/releases?code=${CODE}&latest=true&type=${RELEASE_TYPE}"
+    LOCAL_VERSION="$(jq --raw-output --exit-status ".version" "${PACKAGE_JSON}")"     # still use .version locally
+    REMOTE_VERSION="$(jq --raw-output --exit-status ".${CODE}[0].${VERSION_FIELD}" "${RELEASES_JSON}")"
     DOWNLOAD_URL="$(jq --raw-output --exit-status ".${CODE}[0].downloads.linux.link" "${RELEASES_JSON}")"
     rm -f "${RELEASES_JSON}"
 
