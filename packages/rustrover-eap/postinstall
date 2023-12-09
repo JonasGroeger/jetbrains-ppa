@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+
+# Create folder
+mkdir -p "rustrover-eap"
+
+# Move downloaded .tar.gz
+mv "rustrover-eap.tar.gz" "rustrover-eap"
+
+cd "rustrover-eap"
+
+# Extract the package
+tar -xzf "rustrover-eap.tar.gz" --strip-components 1
+
+# Remove the tar.gz package
+rm -f "rustrover-eap.tar.gz"
