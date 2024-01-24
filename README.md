@@ -77,6 +77,11 @@ Sure! If you like snap packages, go ahead. However, not all packages contained i
 
 ## Building the packages
 
+You will need fpm (based on ruby) and jq installed:
+
+    sudo apt install jq ruby ruby-dev rubygems build-essential
+    sudo gem install fpm
+
 To build a package, run the `build` script with a package folder:
 
     ./build-single-deb packages/<package>
