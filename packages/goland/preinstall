@@ -3,4 +3,4 @@
 set -e
 
 cd /opt/
-wget -c "https://download.jetbrains.com/go/goland-2023.3.4.tar.gz" -O "goland.tar.gz"
+wget -c "https://download.jetbrains.com/go/goland-2023.3.5.tar.gz" -O "goland.tar.gz"
