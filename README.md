@@ -18,6 +18,7 @@ Currently, the following packages are supported and automatically updated using 
 * PyCharm Professional `pycharm-professional`
 * Rider `rider`
 * RubyMine `rubymine`
+* RustRover (Early Access Program) `rustrover-eap`
 * WebStorm `webstorm`
 
 ## Installation
