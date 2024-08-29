@@ -3,4 +3,4 @@
 set -e
 
 cd /opt/
-wget -c "https://download.jetbrains.com/python/dataspell-2024.2.tar.gz" -O "dataspell.tar.gz"
+wget -c "https://download.jetbrains.com/python/dataspell-2024.2.1.tar.gz" -O "dataspell.tar.gz"
