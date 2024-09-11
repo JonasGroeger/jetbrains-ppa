@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+
+# Create folder
+mkdir -p "rustrover"
+
+# Move downloaded .tar.gz
+mv "rustrover.tar.gz" "rustrover"
+
+cd "rustrover"
+
+# Extract the package
+tar -xzf "rustrover.tar.gz" --strip-components 1
+
+# Remove the tar.gz package
+rm -f "rustrover.tar.gz"
