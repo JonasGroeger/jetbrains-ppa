@@ -1,6 +1,0 @@
-#!/bin/bash
-
-set -e
-
-cd /opt/
-wget -c "https://download.jetbrains.com/rustrover/RustRover-242.21829.114.tar.gz" -O "rustrover-eap.tar.gz"
