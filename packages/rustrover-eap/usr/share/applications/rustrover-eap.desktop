@@ -2,7 +2,7 @@
 Name=RustRover EAP
 Comment=Full-featured IDE for Rust (EAP)
 Exec=rustrover-eap %u
-Icon=rustrover-eap
+Icon=/opt/rustrover-eap/bin/rustrover-eap.svg
 Terminal=false
 Type=Application
 Categories=Development;IDE;
