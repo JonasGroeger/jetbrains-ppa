@@ -1,2 +1,2 @@
 #!/bin/sh
-exec "/opt/phpstorm/bin/phpstorm.sh" "$@"
+exec "/opt/phpstorm/bin/phpstorm" "$@"

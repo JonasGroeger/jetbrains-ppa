@@ -1,2 +1,2 @@
 #!/bin/sh
-exec "/opt/rubymine/bin/rubymine.sh" "$@"
+exec "/opt/rubymine/bin/rubymine" "$@"

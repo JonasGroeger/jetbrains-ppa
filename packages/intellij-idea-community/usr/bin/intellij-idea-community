@@ -1,2 +1,2 @@
 #!/bin/sh
-exec "/opt/intellij-idea-community/bin/idea.sh" "$@"
+exec "/opt/intellij-idea-community/bin/idea" "$@"

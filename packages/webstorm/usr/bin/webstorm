@@ -1,2 +1,2 @@
 #!/bin/sh
-exec "/opt/webstorm/bin/webstorm.sh" "$@"
+exec "/opt/webstorm/bin/webstorm" "$@"
