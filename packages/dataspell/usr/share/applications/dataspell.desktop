@@ -2,7 +2,7 @@
 Name=DataSpell
 Comment=The IDE for Professional Data Scientists by JetBrains
 Exec=dataspell %u
-Icon=dataspell
+Icon=/opt/dataspell/bin/dataspell.svg
 Terminal=false
 Type=Application
 Categories=Development;IDE;

@@ -2,7 +2,7 @@
 Name=DataGrip
 Comment=Cross-Platform IDE for Databases & SQL by JetBrains
 Exec=datagrip %u
-Icon=datagrip
+Icon=/opt/datagrip/bin/datagrip.svg
 Terminal=false
 Type=Application
 Categories=Development;IDE;

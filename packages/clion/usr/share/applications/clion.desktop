@@ -2,7 +2,7 @@
 Name=CLion
 Comment=A Cross-Platform IDE for C and C++ by JetBrains
 Exec=clion %u
-Icon=clion
+Icon=/opt/clion/bin/clion.svg
 Terminal=false
 Type=Application
 Categories=Development;IDE;
