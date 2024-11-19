@@ -1,2 +1,2 @@
 #!/bin/sh
-exec "/opt/clion/bin/clion.sh" "$@"
+exec "/opt/clion/bin/clion" "$@"

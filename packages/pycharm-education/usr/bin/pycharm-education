@@ -1,2 +1,2 @@
 #!/bin/sh
-exec "/opt/pycharm-education/bin/pycharm.sh" "$@"
+exec "/opt/pycharm-education/bin/pycharm" "$@"
