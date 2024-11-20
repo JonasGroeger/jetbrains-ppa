@@ -1,2 +1,2 @@
 #!/bin/sh
-exec "/opt/rustrover/bin/rustrover.sh" "$@"
+exec "/opt/rustrover/bin/rustrover" "$@"
