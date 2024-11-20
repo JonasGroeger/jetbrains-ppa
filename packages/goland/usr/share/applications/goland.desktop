@@ -2,7 +2,7 @@
 Name=GoLand
 Comment=Capable and Ergonomic Go IDE
 Exec=goland %u
-Icon=goland
+Icon=/opt/goland/bin/goland.svg
 Terminal=false
 Type=Application
 Categories=Development;IDE;

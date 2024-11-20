@@ -1,2 +1,2 @@
 #!/bin/sh
-exec "/opt/goland/bin/goland.sh" "$@"
+exec "/opt/goland/bin/goland" "$@"

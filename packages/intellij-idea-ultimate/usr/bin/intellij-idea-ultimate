@@ -1,2 +1,2 @@
 #!/bin/sh
-exec "/opt/intellij-idea-ultimate/bin/idea.sh" "$@"
+exec "/opt/intellij-idea-ultimate/bin/idea" "$@"

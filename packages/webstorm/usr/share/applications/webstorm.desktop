@@ -2,7 +2,7 @@
 Name=WebStorm
 Comment=The smartest JavaScript IDE.
 Exec=webstorm %u
-Icon=webstorm
+Icon=/opt/webstorm/bin/webstorm.svg
 Terminal=false
 Type=Application
 Categories=Development;IDE;

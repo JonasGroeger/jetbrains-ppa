@@ -2,7 +2,7 @@
 Name=PhpStorm
 Comment=Lightning-smart PHP IDE.
 Exec=phpstorm %u
-Icon=phpstorm
+Icon=/opt/phpstorm/bin/phpstorm.svg
 Terminal=false
 Type=Application
 Categories=Development;IDE;

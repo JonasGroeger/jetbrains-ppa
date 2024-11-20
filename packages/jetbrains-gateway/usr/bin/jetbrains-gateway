@@ -1,2 +1,2 @@
 #!/bin/sh
-exec "/opt/jetbrains-gateway/bin/gateway.sh" "$@"
+exec "/opt/jetbrains-gateway/bin/gateway" "$@"

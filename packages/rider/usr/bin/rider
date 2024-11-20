@@ -1,2 +1,2 @@
 #!/bin/sh
-exec "/opt/rider/bin/rider.sh" "$@"
+exec "/opt/rider/bin/rider" "$@"
