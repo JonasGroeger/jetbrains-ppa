@@ -3,4 +3,4 @@
 set -e
 
 cd /opt/
-wget -c "https://download.jetbrains.com/rustrover/RustRover-2024.3.1.tar.gz" -O "rustrover.tar.gz"
+wget -c "https://download.jetbrains.com/rustrover/RustRover-2024.3.2.tar.gz" -O "rustrover.tar.gz"
