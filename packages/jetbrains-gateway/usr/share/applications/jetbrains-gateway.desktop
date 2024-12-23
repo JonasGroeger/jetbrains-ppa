@@ -2,7 +2,7 @@
 Name=JetBrains Gateway
 Comment=JetBrains Gateway is a lightweight launcher that connects a remote server with your local machine.
 Exec=jetbrains-gateway %u
-Icon=/opt/jetbrains-gateway/bin/jetbrains-gateway.svg
+Icon=/opt/jetbrains-gateway/bin/gateway.svg
 Terminal=false
 Type=Application
 Categories=Development;IDE;
