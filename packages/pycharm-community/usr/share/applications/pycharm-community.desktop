@@ -2,7 +2,7 @@
 Name=PyCharm Community Edition
 Comment=Lightweight IDE for Python & Scientific development
 Exec=pycharm-community %u
-Icon=/opt/pycharm-community/bin/pycharm-community.svg
+Icon=/opt/pycharm-community/bin/pycharm.svg
 Terminal=false
 Type=Application
 Categories=Development;IDE;

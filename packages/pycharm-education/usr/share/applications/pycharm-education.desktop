@@ -2,7 +2,7 @@
 Name=PyCharm Education Edition
 Comment=Easy and Professional Tool to Learn & Teach Programming with Python
 Exec=pycharm-education %u
-Icon=/opt/pycharm-education/bin/pycharm-education.svg
+Icon=/opt/pycharm-education/bin/pycharm.svg
 Terminal=false
 Type=Application
 Categories=Development;IDE;
