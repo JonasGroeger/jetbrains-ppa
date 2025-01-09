@@ -2,7 +2,7 @@
 Name=IntelliJ IDEA Ultimate
 Comment=Web, mobile and enterprise development.
 Exec=intellij-idea-ultimate %u
-Icon=/opt/intellij-idea-ultimate/bin/intellij-idea-ultimate.svg
+Icon=/opt/intellij-idea-ultimate/bin/idea.svg
 Terminal=false
 Type=Application
 Categories=Development;IDE;

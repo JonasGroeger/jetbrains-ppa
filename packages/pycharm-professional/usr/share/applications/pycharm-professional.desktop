@@ -2,7 +2,7 @@
 Name=PyCharm Professional Edition
 Comment=Full-featured IDE for Python & Web development
 Exec=pycharm-professional %u
-Icon=/opt/pycharm-professional/bin/pycharm-professional.svg
+Icon=/opt/pycharm-professional/bin/pycharm.svg
 Terminal=false
 Type=Application
 Categories=Development;IDE;
