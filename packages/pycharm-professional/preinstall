@@ -3,4 +3,4 @@
 set -e
 
 cd /opt/
-wget -c "https://download.jetbrains.com/python/pycharm-professional-2024.3.1.1.tar.gz" -O "pycharm-professional.tar.gz"
+wget -c "https://download.jetbrains.com/python/pycharm-professional-2024.3.2.tar.gz" -O "pycharm-professional.tar.gz"
