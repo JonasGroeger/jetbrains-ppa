@@ -53,6 +53,12 @@ do
       RELEASE_TYPE="eap"
     fi
 
+    # Handle preview packages
+    PREVIEW="$(jq --raw-output ".preview // false" "${PACKAGE_JSON}")"
+    if [[ "${PREVIEW}" == "true" ]]; then
+      RELEASE_TYPE="preview"
+    fi
+
     CODE="$(jq --raw-output --exit-status ".code" "${PACKAGE_JSON}")"
     if [ -z "${CODE}" ]; then
         >&2 echo "[E] Cannot find 'code' key within ${PACKAGE_JSON}"
@@ -75,6 +81,7 @@ do
 
     LOCAL_VERSION="$(jq --raw-output --exit-status ".version" "${PACKAGE_JSON}")"     # still use .version locally
     REMOTE_VERSION="$(jq --raw-output --exit-status ".${CODE}[0].${VERSION_FIELD}" "${RELEASES_JSON}")"
+    # TODO: Fleet has linux_x64 and linux_aarch64 but no linux
     DOWNLOAD_URL="$(jq --raw-output --exit-status ".${CODE}[0].downloads.linux.link" "${RELEASES_JSON}")"
     rm -f "${RELEASES_JSON}"
 

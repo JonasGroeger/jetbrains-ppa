@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+wget -c "https://download.jetbrains.com/fleet/installers/linux_x64/Fleet-1.46.97.tar.gz" -O "fleet-preview.tar.gz"
