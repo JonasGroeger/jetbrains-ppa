@@ -45,6 +45,7 @@ do
     # Default for released applications
     VERSION_FIELD="version"
     RELEASE_TYPE="release"
+    RELEASE_KEY="$(jq --raw-output ".releaseNameOverride // \"linux\"" "${PACKAGE_JSON}")"
 
     # Handle EAP packages
     EAP="$(jq --raw-output ".eap // false" "${PACKAGE_JSON}")"
