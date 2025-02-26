@@ -15,5 +15,8 @@ cd "fleet-preview"
 # Extract the package
 tar -xzf "fleet-preview.tar.gz" --strip-components 1
 
+# Special for Fleet: fix permissions of archived files (Fleet should be able to start without sudo)
+chmod -R +r lib/app/code-cache
+
 # Remove the tar.gz package
 rm -f "fleet-preview.tar.gz"
