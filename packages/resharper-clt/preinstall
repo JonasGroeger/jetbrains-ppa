@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+wget -c "https://download.jetbrains.com/resharper/dotUltimate.2024.3.5/JetBrains.ReSharper.CommandLineTools.2024.3.5.zip" -O "JetBrains.ReSharper.CommandLineTools.tar.gz"
