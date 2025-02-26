@@ -5,6 +5,7 @@ This is the unofficial Jetbrains PPA which you can use to get the latest and gre
 
 Currently, the following packages are supported and automatically updated using [GitHub Actions](https://github.com/JonasGroeger/jetbrains-ppa/actions).
 
+* Aqua `aqua`
 * CLion `clion`
 * DataGrip `datagrip`
 * DataSpell `dataspell`
