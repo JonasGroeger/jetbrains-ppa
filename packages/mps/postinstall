@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+
+# Create folder
+mkdir -p "mps"
+
+# Move downloaded .tar.gz
+mv "MPS.tar.gz" "mps"
+
+cd "mps"
+
+# Extract the package
+tar -xzf "MPS.tar.gz" --strip-components 1
+
+# Remove the tar.gz package
+rm -f "MPS.tar.gz"
