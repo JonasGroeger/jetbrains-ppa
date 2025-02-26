@@ -17,6 +17,3 @@ tar -xzf "JetBrains.dotTrace.CommandLineTools.tar.gz"
 
 # Remove the tar.gz package
 rm -f "JetBrains.dotTrace.CommandLineTools.tar.gz"
-
-# create symlink to binary
-ln -s /opt/dottrace-clt/dottrace /usr/bin/dottrace
