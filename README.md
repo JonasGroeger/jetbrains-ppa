@@ -8,6 +8,8 @@ Currently, the following packages are supported and automatically updated using 
 * CLion `clion`
 * DataGrip `datagrip`
 * DataSpell `dataspell`
+* dotTrace `dottrace`
+* dotTrace Command Line Tools `dottrace-clt`
 * GoLand `goland`
 * IntelliJ IDEA Community `intellij-idea-community`
 * IntelliJ IDEA Ultimate `intellij-idea-ultimate`
