@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=dotTrace
-Comment=.Net Performance Profiler
-Exec=dotTraceUI %u
-Icon=dottrace
-Terminal=false
-Type=Application
-Categories=Development;IDE;
-StartupWMClass=jetbrains-rider
