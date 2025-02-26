@@ -8,12 +8,12 @@ cd /opt/
 mkdir -p "resharper-clt"
 
 # Move downloaded .tar.gz
-mv "JetBrains.ReSharper.CommandLineTools.tar.gz" "resharper-clt"
+mv "JetBrains.ReSharper.CommandLineTools.zip" "resharper-clt"
 
 cd "resharper-clt"
 
 # Extract the package
-tar -xzf "JetBrains.ReSharper.CommandLineTools.tar.gz"
+unzip -qu "JetBrains.ReSharper.CommandLineTools.zip"
 
 # Remove the tar.gz package
-rm -f "JetBrains.ReSharper.CommandLineTools.tar.gz"
+rm -f "JetBrains.ReSharper.CommandLineTools.zip"
