@@ -6,4 +6,4 @@ Icon=dottrace
 Terminal=false
 Type=Application
 Categories=Development;IDE;
-StartupWMClass=jetbrains-rider
+StartupWMClass=jetbrains-dottrace
