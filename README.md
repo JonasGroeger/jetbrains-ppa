@@ -8,6 +8,8 @@ Currently, the following packages are supported and automatically updated using 
 * CLion `clion`
 * DataGrip `datagrip`
 * DataSpell `dataspell`
+* dotMemory `dotmemory`
+* dotMemory Command Line Tools `dotmemory-clt`
 * GoLand `goland`
 * IntelliJ IDEA Community `intellij-idea-community`
 * IntelliJ IDEA Ultimate `intellij-idea-ultimate`
