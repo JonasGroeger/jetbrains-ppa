@@ -45,12 +45,19 @@ do
     # Default for released applications
     VERSION_FIELD="version"
     RELEASE_TYPE="release"
+    RELEASE_KEY="$(jq --raw-output ".releaseNameOverride // \"linux\"" "${PACKAGE_JSON}")"
 
     # Handle EAP packages
     EAP="$(jq --raw-output ".eap // false" "${PACKAGE_JSON}")"
     if [[ "${EAP}" == "true" ]]; then
       VERSION_FIELD="build"     # EAP have duplicates for the version, so we need to use build instead
       RELEASE_TYPE="eap"
+    fi
+
+    # Handle preview packages
+    PREVIEW="$(jq --raw-output ".preview // false" "${PACKAGE_JSON}")"
+    if [[ "${PREVIEW}" == "true" ]]; then
+      RELEASE_TYPE="preview"
     fi
 
     CODE="$(jq --raw-output --exit-status ".code" "${PACKAGE_JSON}")"
@@ -75,7 +82,8 @@ do
 
     LOCAL_VERSION="$(jq --raw-output --exit-status ".version" "${PACKAGE_JSON}")"     # still use .version locally
     REMOTE_VERSION="$(jq --raw-output --exit-status ".${CODE}[0].${VERSION_FIELD}" "${RELEASES_JSON}")"
-    DOWNLOAD_URL="$(jq --raw-output --exit-status ".${CODE}[0].downloads.linux.link" "${RELEASES_JSON}")"
+    # TODO: Fleet has linux_x64 and linux_aarch64 but no linux
+    DOWNLOAD_URL="$(jq --raw-output --exit-status ".${CODE}[0].downloads.${RELEASE_KEY}.link" "${RELEASES_JSON}")"
     rm -f "${RELEASES_JSON}"
 
     if [ -z "${LOCAL_VERSION}" ] || [ -z "${REMOTE_VERSION}" ]; then
