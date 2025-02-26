@@ -3,5 +3,3 @@
 set -e
 
 rm -rf /opt/dottrace
-
-rm -f /usr/bin/dottrace
