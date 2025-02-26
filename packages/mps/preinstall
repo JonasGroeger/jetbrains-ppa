@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+wget -c "https://download.jetbrains.com/mps/2024.3/MPS-2024.3.tar.gz" -O "MPS.tar.gz"
