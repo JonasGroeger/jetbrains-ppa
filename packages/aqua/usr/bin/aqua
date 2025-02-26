@@ -1,0 +1,2 @@
+#!/bin/sh
+exec "/opt/aqua/bin/aqua" "$@"
