@@ -83,7 +83,7 @@ do
     LOCAL_VERSION="$(jq --raw-output --exit-status ".version" "${PACKAGE_JSON}")"     # still use .version locally
     REMOTE_VERSION="$(jq --raw-output --exit-status ".${CODE}[0].${VERSION_FIELD}" "${RELEASES_JSON}")"
     # TODO: Fleet has linux_x64 and linux_aarch64 but no linux
-    DOWNLOAD_URL="$(jq --raw-output --exit-status ".${CODE}[0].downloads.linux.link" "${RELEASES_JSON}")"
+    DOWNLOAD_URL="$(jq --raw-output --exit-status ".${CODE}[0].downloads.${RELEASE_KEY}.link" "${RELEASES_JSON}")"
     rm -f "${RELEASES_JSON}"
 
     if [ -z "${LOCAL_VERSION}" ] || [ -z "${REMOTE_VERSION}" ]; then
