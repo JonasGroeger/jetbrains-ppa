@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Writerside EAP
+Comment=The most powerful development environment – now adapted for writing documentation (EAP)
+Exec=writerside-eap %u
+Icon=/opt/writerside-eap/bin/writerside.svg
+Terminal=false
+Type=Application
+Categories=Development;IDE;
+StartupWMClass=jetbrains-writerside

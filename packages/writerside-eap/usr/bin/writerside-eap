@@ -1,0 +1,2 @@
+#!/bin/sh
+exec "/opt/writerside-eap/bin/writerside" "$@"
