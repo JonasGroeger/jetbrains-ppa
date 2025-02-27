@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -e
+
+cd /usr/share/fonts/truetype/
+
+# Create folder
+mkdir -p "jetbrains-mono"
+
+# Move downloaded .zip
+mv "JetBrainsMono.zip" "jebrains-mono"
+
+cd "jetbrains-mono"
+
+# Extract the package
+unzip -quj "JetBrainsMono.zip" fonts/ttf/*.ttf fonts/variable/*.ttf
+
+# TODO: needed? or done automatically by triggers etc?
+# fc-cache -f -v
+
+# Remove the zip package
+rm -f "JetBrainsMono.zip"
