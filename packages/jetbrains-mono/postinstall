@@ -8,15 +8,15 @@ cd /usr/share/fonts/truetype/
 mkdir -p "jetbrains-mono"
 
 # Move downloaded .zip
-mv "JetBrainsMono.zip" "jebrains-mono"
+mv "JetBrainsMono.zip" "jetbrains-mono"
 
 cd "jetbrains-mono"
 
 # Extract the package
 unzip -quj "JetBrainsMono.zip" fonts/ttf/*.ttf fonts/variable/*.ttf
 
-# TODO: needed? or done automatically by triggers etc?
-# fc-cache -f -v
+# Update font cache
+fc-cache -f -v
 
 # Remove the zip package
 rm -f "JetBrainsMono.zip"
