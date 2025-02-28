@@ -3,4 +3,4 @@
 set -e
 
 cd /opt/
-wget -c "https://download.jetbrains.com/ruby/RubyMine-2024.3.3.tar.gz" -O "rubymine.tar.gz"
+wget -c "https://download.jetbrains.com/ruby/RubyMine-2024.3.4.tar.gz" -O "rubymine.tar.gz"
