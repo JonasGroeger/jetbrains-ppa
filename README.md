@@ -8,10 +8,12 @@ Currently, the following packages are supported and automatically updated using 
 * CLion `clion`
 * DataGrip `datagrip`
 * DataSpell `dataspell`
+* Fleet (Public Preview) `fleet-preview`
 * GoLand `goland`
 * IntelliJ IDEA Community `intellij-idea-community`
 * IntelliJ IDEA Ultimate `intellij-idea-ultimate`
 * JetBrains Gateway `jetbrains-gateway`
+* JetBrains Mono Font `jetbrains-mono`
 * PhpStorm `phpstorm`
 * PyCharm Community `pycharm-community`
 * PyCharm Education `pycharm-education`
