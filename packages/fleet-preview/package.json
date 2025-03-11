@@ -1,6 +1,6 @@
 {
   "code": "FL",
-  "version": "none",
+  "version": "1.46.97",
   "description": "JetBrains Fleet - Public Preview",
   "preview": true,
   "releaseNameOverride": "linux_x64"
