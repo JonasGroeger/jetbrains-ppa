@@ -22,6 +22,7 @@ Currently, the following packages are supported and automatically updated using 
 * RustRover `rustrover`
 * RustRover (Early Access Program) `rustrover-eap`
 * WebStorm `webstorm`
+* Writerside (Early Access Program) `writerside-eap`
 
 ## Installation
 

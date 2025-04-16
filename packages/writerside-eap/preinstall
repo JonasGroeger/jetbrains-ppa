@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+wget -c "https://download.jetbrains.com/writerside/writerside-243.22562.371.tar.gz" -O "writerside-eap.tar.gz"
