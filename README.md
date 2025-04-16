@@ -17,6 +17,7 @@ Currently, the following packages are supported and automatically updated using 
 * PyCharm Community `pycharm-community`
 * PyCharm Education `pycharm-education`
 * PyCharm Professional `pycharm-professional`
+* ReSharper Command Line Tools `resharper-clt`
 * Rider `rider`
 * RubyMine `rubymine`
 * RustRover `rustrover`
