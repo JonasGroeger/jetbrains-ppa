@@ -3,4 +3,4 @@
 set -e
 
 cd /opt/
-wget -c "https://download.jetbrains.com/fleet/installers/linux_x64/Fleet-1.48.236.tar.gz" -O "fleet-preview.tar.gz"
+wget -c "https://download.jetbrains.com/fleet/installers/linux_x64/Fleet-1.48.261.tar.gz" -O "fleet-preview.tar.gz"
