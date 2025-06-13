@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+wget -c "https://download.jetbrains.com/aqua/aqua-2024.3.2.tar.gz" -O "aqua.tar.gz"
