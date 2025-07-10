@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Aqua
+Comment=The IDE for test automation
+Exec=aqua %u
+Icon=/opt/aqua/bin/aqua.svg
+Terminal=false
+Type=Application
+Categories=Development;IDE;
+StartupWMClass=jetbrains-aqua
