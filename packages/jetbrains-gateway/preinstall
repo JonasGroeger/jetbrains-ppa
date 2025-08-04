@@ -3,4 +3,4 @@
 set -e
 
 cd /opt/
-wget -c "https://download.jetbrains.com/idea/gateway/JetBrainsGateway-2025.1.2.tar.gz" -O "jetbrains-gateway.tar.gz"
+wget -c "https://download.jetbrains.com/idea/gateway/JetBrainsGateway-2025.2.tar.gz" -O "jetbrains-gateway.tar.gz"
