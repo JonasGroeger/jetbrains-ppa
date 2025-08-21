@@ -1,0 +1,2 @@
+#!/bin/sh
+exec "/opt/resharper-clt/inspectcode.sh" "$@"
