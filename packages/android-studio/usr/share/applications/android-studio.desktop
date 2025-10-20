@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Android Studio
+Comment=The official IDE for Google's Android platform
+Exec=android-studio %u
+Icon=/opt/android-studio/bin/studio.svg
+Terminal=false
+Type=Application
+Categories=Development;IDE;
+StartupWMClass=jetbrains-studio

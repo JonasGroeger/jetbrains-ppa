@@ -72,19 +72,25 @@ do
         continue
     fi
 
-    curl -sfLo "${RELEASES_JSON}" "https://data.services.jetbrains.com/products/releases?code=${CODE}&latest=true&type=${RELEASE_TYPE}"
-
-    if [ "$(jq 'length == 0' "${RELEASES_JSON}")" == "true" ]; then # checks if the returned ${RELEASES_JSON} isn't empty
-        >&2 echo "[E] ${RELEASES_JSON} is empty."
-        rm -f "${RELEASES_JSON}"
-        continue
-    fi
-
     LOCAL_VERSION="$(jq --raw-output --exit-status ".version" "${PACKAGE_JSON}")"     # still use .version locally
-    REMOTE_VERSION="$(jq --raw-output --exit-status ".${CODE}[0].${VERSION_FIELD}" "${RELEASES_JSON}")"
-    # TODO: Fleet has linux_x64 and linux_aarch64 but no linux
-    DOWNLOAD_URL="$(jq --raw-output --exit-status ".${CODE}[0].downloads.${RELEASE_KEY}.link" "${RELEASES_JSON}")"
-    rm -f "${RELEASES_JSON}"
+
+    if [ ${CODE} == "AI" ]; then
+        REMOTE_VERSION=$(curl -s https://developer.android.com/studio | grep -oP 'android-studio-\K[0-9.]+(?=-linux\.tar\.gz)' | sort -rV | uniq | head -n 1)
+
+        DOWNLOAD_URL="https://redirector.gvt1.com/edgedl/android/studio/ide-zips/${REMOTE_VERSION}/android-studio-${REMOTE_VERSION}-linux.tar.gz"
+    else
+        curl -sfLo "${RELEASES_JSON}" "https://data.services.jetbrains.com/products/releases?code=${CODE}&latest=true&type=${RELEASE_TYPE}"
+
+        if [ "$(jq 'length == 0' "${RELEASES_JSON}")" == "true" ]; then # checks if the returned ${RELEASES_JSON} isn't empty
+            >&2 echo "[E] ${RELEASES_JSON} is empty."
+            rm -f "${RELEASES_JSON}"
+            continue
+        fi
+        REMOTE_VERSION="$(jq --raw-output --exit-status ".${CODE}[0].${VERSION_FIELD}" "${RELEASES_JSON}")"
+        # TODO: Fleet has linux_x64 and linux_aarch64 but no linux
+        DOWNLOAD_URL="$(jq --raw-output --exit-status ".${CODE}[0].downloads.${RELEASE_KEY}.link" "${RELEASES_JSON}")"
+        rm -f "${RELEASES_JSON}"
+    fi
 
     if [ -z "${LOCAL_VERSION}" ] || [ -z "${REMOTE_VERSION}" ]; then
         >&2 echo "[E] Both 'LOCAL_VERSION' and 'REMOTE_VERSION' must be set. Probably a curl / jq error."
