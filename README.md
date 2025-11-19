@@ -22,6 +22,7 @@ Currently, the following packages are supported and automatically updated using 
 * RustRover `rustrover`
 * RustRover (Early Access Program) `rustrover-eap`
 * WebStorm `webstorm`
+* Android Studio `android-studio`
 
 ## Installation
 
