@@ -3,4 +3,4 @@
 set -e
 
 cd /opt/
-wget -c "https://download.jetbrains.com/rider/JetBrains.Rider-2025.3.0.2.tar.gz" -O "JetBrains.Rider.tar.gz"
+wget -c "https://download.jetbrains.com/rider/JetBrains.Rider-2025.3.0.3.tar.gz" -O "JetBrains.Rider.tar.gz"
