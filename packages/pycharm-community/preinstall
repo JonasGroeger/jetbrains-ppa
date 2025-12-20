@@ -1,6 +1,0 @@
-#!/bin/bash
-
-set -e
-
-cd /opt/
-wget -c "https://download.jetbrains.com/python/pycharm-community-2025.2.6.tar.gz" -O "pycharm-community.tar.gz"

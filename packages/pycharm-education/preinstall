@@ -1,6 +1,0 @@
-#!/bin/bash
-
-set -e
-
-cd /opt/
-wget -c "https://download.jetbrains.com/python/pycharm-edu-2022.2.2.tar.gz" -O "pycharm-education.tar.gz"
