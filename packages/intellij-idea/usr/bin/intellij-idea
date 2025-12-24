@@ -1,0 +1,2 @@
+#!/bin/sh
+exec "/opt/intellij-idea/bin/idea" "$@"

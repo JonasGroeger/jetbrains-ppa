@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+
+# Create folder
+mkdir -p "intellij-idea"
+
+# Move downloaded .tar.gz
+mv "intellij-idea.tar.gz" "intellij-idea"
+
+cd "intellij-idea"
+
+# Extract the package
+tar -xzf "intellij-idea.tar.gz" --strip-components 1
+
+# Remove the tar.gz package
+rm -f "intellij-idea.tar.gz"

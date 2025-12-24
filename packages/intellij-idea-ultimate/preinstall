@@ -1,6 +1,0 @@
-#!/bin/bash
-
-set -e
-
-cd /opt/
-wget -c "https://download.jetbrains.com/idea/idea-2025.3.1.tar.gz" -O "intellij-idea-ultimate.tar.gz"
