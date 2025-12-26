@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=PyCharm
+Comment=The only Python IDE you need
+Exec=pycharm %u
+Icon=/opt/pycharm/bin/pycharm.svg
+Terminal=false
+Type=Application
+Categories=Development;IDE;
+StartupWMClass=jetbrains-pycharm
