@@ -2,7 +2,7 @@
 Name=IntelliJ IDEA Community
 Comment=Java, Groovy, Scala and Android development.
 Exec=intellij-idea-community %u
-Icon=/opt/intellij-idea-community/bin/idea.svg
+Icon=idea
 Terminal=false
 Type=Application
 Categories=Development;IDE;
