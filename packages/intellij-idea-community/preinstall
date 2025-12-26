@@ -1,7 +1,0 @@
-#!/bin/bash
-
-set -e
-
-cd /opt/
-wget -c "https://download.jetbrains.com/idea/ideaIC-2025.2.6.tar.gz" -O "intellij-idea-community.tar.gz"
-

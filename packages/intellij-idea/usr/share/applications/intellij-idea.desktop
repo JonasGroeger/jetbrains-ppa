@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=IntelliJ IDEA
+Comment=The Leading IDE for Professional Development in Java and Kotlin
+Exec=intellij-idea %u
+Icon=/opt/intellij-idea/bin/idea.svg
+Terminal=false
+Type=Application
+Categories=Development;IDE;
+StartupWMClass=jetbrains-idea
