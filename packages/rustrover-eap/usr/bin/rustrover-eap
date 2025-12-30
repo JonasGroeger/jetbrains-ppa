@@ -1,2 +1,0 @@
-#!/bin/sh
-exec "/opt/rustrover-eap/bin/rustrover" "$@"

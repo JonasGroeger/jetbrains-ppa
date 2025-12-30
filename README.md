@@ -17,7 +17,6 @@ Currently, the following packages are supported and automatically updated using 
 * Rider `rider`
 * RubyMine `rubymine`
 * RustRover `rustrover`
-* RustRover (Early Access Program) `rustrover-eap`
 * WebStorm `webstorm`
 
 ## Installation
