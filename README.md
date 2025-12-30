@@ -3,7 +3,11 @@
 
 This is the unofficial JetBrains PPA which you can use to get the latest and greatest products from JetBrains.
 
-Currently, the following packages are supported and automatically updated using [GitHub Actions](https://github.com/JonasGroeger/jetbrains-ppa/actions).
+If you don't care about having a single place to update all your packages (via `apt`), you can also
+use the [JetBrains Toolbox](https://www.jetbrains.com/toolbox-app/).
+Its maintained by JetBrains, covers all JetBrains products, and offers some nice functionality on top.
+
+This PPA contains the following packages:
 
 * CLion `clion`
 * DataGrip `datagrip`
@@ -18,6 +22,8 @@ Currently, the following packages are supported and automatically updated using 
 * RubyMine `rubymine`
 * RustRover `rustrover`
 * WebStorm `webstorm`
+
+All packages are automatically updated using [GitHub Actions](https://github.com/JonasGroeger/jetbrains-ppa/actions).
 
 ## Installation
 
