@@ -15,7 +15,7 @@ function update_package_version {
     preinstall="${package}/preinstall"
 
     # package.json
-    jq ".version = \"${new_version}\"" "${package_json}" > version-update.json
+    jq ".version = \"${new_version}\"" "${package_json}" >version-update.json
     mv version-update.json "${package_json}"
 
     # preinstall
@@ -31,15 +31,14 @@ function git_push() {
         exit 1
     fi
 
-    git remote set-url origin "https://${gh_token}@github.com/jonasgroeger/jetbrains-ppa.git" > /dev/null 2>&1
+    git remote set-url origin "https://${gh_token}@github.com/jonasgroeger/jetbrains-ppa.git" >/dev/null 2>&1
     git push --quiet --set-upstream origin master
 }
 
 COMMIT_FILE=commit.txt
 rm -f "$COMMIT_FILE"
 
-find packages -maxdepth 1 -mindepth 1 -type d -print0 | while read -d $'\0' PACKAGE_DIR
-do
+find packages -maxdepth 1 -mindepth 1 -type d -print0 | while read -d $'\0' PACKAGE_DIR; do
     PACKAGE_JSON="${PACKAGE_DIR}/package.json"
 
     # Default for released applications
@@ -50,14 +49,14 @@ do
     # Handle EAP packages
     EAP="$(jq --raw-output ".eap // false" "${PACKAGE_JSON}")"
     if [[ "${EAP}" == "true" ]]; then
-      VERSION_FIELD="build"     # EAP have duplicates for the version, so we need to use build instead
-      RELEASE_TYPE="eap"
+        VERSION_FIELD="build" # EAP have duplicates for the version, so we need to use build instead
+        RELEASE_TYPE="eap"
     fi
 
     # Handle preview packages
     PREVIEW="$(jq --raw-output ".preview // false" "${PACKAGE_JSON}")"
     if [[ "${PREVIEW}" == "true" ]]; then
-      RELEASE_TYPE="preview"
+        RELEASE_TYPE="preview"
     fi
 
     CODE="$(jq --raw-output --exit-status ".code" "${PACKAGE_JSON}")"
@@ -80,9 +79,8 @@ do
         continue
     fi
 
-    LOCAL_VERSION="$(jq --raw-output --exit-status ".version" "${PACKAGE_JSON}")"     # still use .version locally
+    LOCAL_VERSION="$(jq --raw-output --exit-status ".version" "${PACKAGE_JSON}")"
     REMOTE_VERSION="$(jq --raw-output --exit-status ".${CODE}[0].${VERSION_FIELD}" "${RELEASES_JSON}")"
-    # TODO: Fleet has linux_x64 and linux_aarch64 but no linux
     DOWNLOAD_URL="$(jq --raw-output --exit-status ".${CODE}[0].downloads.${RELEASE_KEY}.link" "${RELEASES_JSON}")"
     rm -f "${RELEASES_JSON}"
 
@@ -102,5 +100,5 @@ do
 
     ./build-single-deb "${PACKAGE_DIR}"
 
-    echo "Upgrade ${CODE}: ${LOCAL_VERSION} -> ${REMOTE_VERSION}" >> "$COMMIT_FILE"
+    echo "Upgrade ${CODE}: ${LOCAL_VERSION} -> ${REMOTE_VERSION}" >>"$COMMIT_FILE"
 done
