@@ -17,6 +17,7 @@ fi
 
 VERSION="$(jq --raw-output --exit-status ".version" "${PACKAGE_JSON}")"
 DESCRIPTION="$(jq --raw-output --exit-status ".description" "${PACKAGE_JSON}")"
+FPMARGS="$(jq --raw-output ".fpmargs // empty" "${PACKAGE_JSON}")"
 
 if [ -z "${VERSION}" ] || [ -z "${DESCRIPTION}" ]; then
     >&2 echo "[E] Cannot find 'version' or 'description' key within ${PACKAGE_JSON}"
@@ -50,4 +51,5 @@ fpm -t deb \
     --exclude "postinstall" \
     --exclude "postremove" \
     --exclude "preinstall" \
+    ${FPMARGS} \
     .
