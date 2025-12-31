@@ -1,5 +1,6 @@
 {
   "code": "PCP",
-  "version": "2025.3.1",
-  "description": "The only Python IDE you need"
+  "version": "2025.3",
+  "description": "The only Python IDE you need",
+  "fpmargs": "--replaces pycharm-community --replaces pycharm-education --replaces pycharm-professional"
 }
