@@ -112,10 +112,10 @@ However, none have continuous delivery or provide a wide range of JetBrains prod
 
 ```shell
 # Create the build container
-docker build -f docker/Dockerfile -t jetbrains-ppa-builder:latest .
+docker buildx build -f docker/Dockerfile -t jetbrains-ppa-builder:latest .
 
 # Use the build container
-docker run -it --env-file build.env -v "$(pwd):/app" jetbrains-ppa-builder:latest
+docker run -it --env-file .env -v "$(pwd):/app" jetbrains-ppa-builder:latest
 
 # Test GH action
 act --secret-file build.env schedule
