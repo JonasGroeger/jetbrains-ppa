@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=Fleet Preview
-Comment=More Than a Code Editor (Public Preview)
-Exec=fleet-preview %u
-Icon=/opt/fleet-preview/lib/Fleet.png
-Terminal=false
-Type=Application
-Categories=Development;IDE;
-StartupWMClass=jetbrains-fleet
