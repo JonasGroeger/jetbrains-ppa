@@ -12,7 +12,6 @@ This PPA contains the following packages:
 * CLion `clion`
 * DataGrip `datagrip`
 * DataSpell `dataspell`
-* Fleet (Public Preview) `fleet-preview`
 * GoLand `goland`
 * IntelliJ IDEA (unified) `intellij-idea`
 * JetBrains Gateway `jetbrains-gateway`
@@ -31,29 +30,34 @@ To use it, enter the commands below, one by one. They download the correct GPG K
 
 ```shell
 curl -s https://s3.eu-central-1.amazonaws.com/jetbrains-ppa/0xA6E8698A.pub.asc | gpg --dearmor | sudo tee /usr/share/keyrings/jetbrains-ppa-archive-keyring.gpg > /dev/null
-echo "deb [signed-by=/usr/share/keyrings/jetbrains-ppa-archive-keyring.gpg] http://jetbrains-ppa.s3-website.eu-central-1.amazonaws.com any main" | sudo tee /etc/apt/sources.list.d/jetbrains-ppa.list > /dev/null
+
+echo "deb [signed-by=/usr/share/keyrings/jetbrains-ppa-archive-keyring.gpg] http://jetbrains-ppa.s3-website.eu-central-1.amazonaws.com any main" | sudo tee /etc/apt/sources.list.d/jetbrains-ppa.list >/dev/null
+
 sudo apt-get update
 ```
 
-To install IntelliJ IDEA for example, you can now run
-
-```
-sudo apt-get install intellij-idea
-```
-
-## I still have the old Launchpad PPA sources
-If you still have the sources from [my Launchpad PPA](https://launchpad.net/~jonas-groeger/+archive/ubuntu/jetbrains), please run:
+Alternatively, if you want to use the new [Deb822](https://repolib.readthedocs.io/en/latest/deb822-format.html) format, use the following.
+Note that you cannot have both active (old debian + Deb822 style).
 
 ```shell
-sudo rm -f \
-  /etc/apt/sources.list.d/jetbrains.list \
-  /etc/apt/sources.list.d/jetbrains.list.distUpgrade \
-  /etc/apt/sources.list.d/jetbrains.list.save
+curl -s https://s3.eu-central-1.amazonaws.com/jetbrains-ppa/0xA6E8698A.pub.asc | gpg --dearmor | sudo tee /usr/share/keyrings/jetbrains-ppa-archive-keyring.gpg > /dev/null
+
+cat <<EOF | sudo tee /etc/apt/sources.list.d/jetbrains-ppa.sources >/dev/null
+Types: deb
+URIs: http://jetbrains-ppa.s3-website.eu-central-1.amazonaws.com
+Components: main
+Architectures: any
+Signed-By: /usr/share/keyrings/jetbrains-ppa-archive-keyring.gpg
+EOF
+
+sudo apt-get update
 ```
 
-Then, follow the installation instructions under `Installation`.
+Then, to install IntelliJ IDEA for example, you can now run
 
-If you have any issues, please [create a GitHub issue](https://github.com/JonasGroeger/jetbrains-ppa/issues/new).
+```shell
+sudo apt-get install intellij-idea
+```
 
 ## I'm not getting any updates
 
@@ -64,24 +68,16 @@ $ apt show pycharm | grep "APT-Sources"
 APT-Sources: http://jetbrains-ppa.s3-website.eu-central-1.amazonaws.com bionic/main amd64 Packages
 ```
 
-## I used the old instructions with `apt-key` to add this repository
-
-Run the two commands below to remove the `jetbrains-ppa` repository.
-
-```shell
-sudo rm /etc/apt/sources.list.d/jetbrains-ppa.list
-apt-key del "C647 DF71 1B0C CC6A 9F87  69D0 F3A7 67B5 A6E8 698A"
-```
-
-Then, follow the installation instructions under `Installation`.
-
 ## I want another package
 
-If you want a package for another JetBrains product please [create a GitHub issue](https://github.com/JonasGroeger/jetbrains-ppa/issues/new). Ideally, also provide a Pull Request.
+If you want a package for another JetBrains product please [create a GitHub issue](https://github.com/JonasGroeger/jetbrains-ppa/issues/new).
+Ideally, also provide a Pull Request.
 
 ## Why not use the [official snap packages](https://snapcraft.io/search?q=jetbrains)?
 
-Sure! If you like snap packages, go ahead. However, not all packages contained in this repository are already available as snap packages. And maybe you don't like snaps? :)
+Sure! If you like snap packages, go ahead.
+However, not all packages contained in this repository are already available as snap packages.
+And maybe you don't like snaps? :)
 
 ## Building the packages
 
@@ -104,10 +100,6 @@ I hate manually downloading, extracting and moving the `*.tar.gz` from the
 JetBrains website to get an IDE update. Unfortunately JetBrains does not have a
 Debian repository.
 
-There are already [existing](https://launchpad.net/~mmk2410/+archive/ubuntu/intellij-idea)
- [PPAs](https://launchpad.net/~vantuz/+archive/ubuntu/jetbrains).
-However, none have continuous delivery or provide a wide range of JetBrains products.
-
 ## Maintainers note
 
 ```shell
@@ -118,7 +110,7 @@ docker buildx build -f docker/Dockerfile -t jetbrains-ppa-builder:latest .
 docker run -it --env-file .env -v "$(pwd):/app" jetbrains-ppa-builder:latest
 
 # Test GH action
-act --secret-file build.env schedule
+act --secret-file .env schedule
 ```
 
 ---
