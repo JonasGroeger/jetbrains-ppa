@@ -45,8 +45,8 @@ curl -s https://s3.eu-central-1.amazonaws.com/jetbrains-ppa/0xA6E8698A.pub.asc |
 cat <<EOF | sudo tee /etc/apt/sources.list.d/jetbrains-ppa.sources >/dev/null
 Types: deb
 URIs: http://jetbrains-ppa.s3-website.eu-central-1.amazonaws.com
+Suites: any
 Components: main
-Architectures: any
 Signed-By: /usr/share/keyrings/jetbrains-ppa-archive-keyring.gpg
 EOF
 
