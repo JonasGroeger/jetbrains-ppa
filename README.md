@@ -15,6 +15,7 @@ This PPA contains the following packages:
 * GoLand `goland`
 * IntelliJ IDEA (unified) `intellij-idea`
 * JetBrains Gateway `jetbrains-gateway`
+* JetBrains Mono Font `jetbrains-mono`
 * PhpStorm `phpstorm`
 * PyCharm (unified) `pycharm`
 * Rider `rider`
