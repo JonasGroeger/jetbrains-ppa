@@ -3,4 +3,4 @@
 set -e
 
 cd /opt/
-wget -c "https://download.jetbrains.com/idea/idea-2025.3.2.tar.gz" -O "intellij-idea.tar.gz"
+wget -c "https://download.jetbrains.com/idea/idea-2025.3.3.tar.gz" -O "intellij-idea.tar.gz"

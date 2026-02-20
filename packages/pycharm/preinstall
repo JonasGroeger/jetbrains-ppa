@@ -3,4 +3,4 @@
 set -e
 
 cd /opt/
-wget -c "https://download.jetbrains.com/python/pycharm-2025.3.2.1.tar.gz" -O "pycharm.tar.gz"
+wget -c "https://download.jetbrains.com/python/pycharm-2025.3.3.tar.gz" -O "pycharm.tar.gz"
