@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+
+# Create folder
+mkdir -p "dotmemory-clt"
+
+# Move downloaded .tar.gz
+mv "JetBrains.dotMemory.Console.tar.gz" "dotmemory-clt"
+
+cd "dotmemory-clt"
+
+# Extract the package
+tar -xzf "JetBrains.dotMemory.Console.tar.gz"
+
+# Remove the tar.gz package
+rm -f "JetBrains.dotMemory.Console.tar.gz"
