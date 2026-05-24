@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=dotMemory
+Comment=The .NET Memory Profiler
+Exec=dotMemoryUI %u
+Icon=dotmemory
+Terminal=false
+Type=Application
+Categories=Development;IDE;
+StartupWMClass=jetbrains-dotmemory
