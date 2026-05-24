@@ -1,0 +1,2 @@
+#!/bin/sh
+exec "/opt/dottrace/linux-x64/dotTrace" "$@"
