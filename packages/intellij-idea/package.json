@@ -1,6 +1,6 @@
 {
   "code": "IIU",
-  "version": "2026.1.2",
+  "version": "2026.1.3",
   "description": "The Leading IDE for Professional Development in Java and Kotlin",
   "fpmargs": "--replaces intellij-idea-community --replaces intellij-idea-ultimate"
 }
