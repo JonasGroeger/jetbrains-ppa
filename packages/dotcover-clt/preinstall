@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+wget -c "https://download.jetbrains.com/resharper/dotUltimate.2024.3.5/JetBrains.dotCover.CommandLineTools.linux-x64.2024.3.5.tar.gz" -O "JetBrains.dotCover.CommandLineTools.tar.gz"
