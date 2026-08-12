@@ -12,6 +12,7 @@ This PPA contains the following packages:
 * CLion `clion`
 * DataGrip `datagrip`
 * DataSpell `dataspell`
+* dotCover Command Line Tools `dotcover-clt`
 * GoLand `goland`
 * IntelliJ IDEA (unified) `intellij-idea`
 * JetBrains Gateway `jetbrains-gateway`
