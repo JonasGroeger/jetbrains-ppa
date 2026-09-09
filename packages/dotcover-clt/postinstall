@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+
+# Create folder
+mkdir -p "dotcover-clt"
+
+# Move downloaded .tar.gz
+mv "JetBrains.dotCover.CommandLineTools.tar.gz" "dotcover-clt"
+
+cd "dotcover-clt"
+
+# Extract the package
+tar -xzf "JetBrains.dotCover.CommandLineTools.tar.gz"
+
+# Remove the tar.gz package
+rm -f "JetBrains.dotCover.CommandLineTools.tar.gz"
