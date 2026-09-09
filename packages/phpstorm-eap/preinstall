@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+cd /opt/
+wget -c "https://download.jetbrains.com/webide/PhpStorm-223.4884.75.tar.gz" -O "phpstorm-eap.tar.gz"
