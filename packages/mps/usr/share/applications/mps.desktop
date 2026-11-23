@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=MPS
+Comment=Meta Programming System - Create your own domain-specific language
+Exec=mps %u
+Icon=/opt/mps/bin/mps.svg
+Terminal=false
+Type=Application
+Categories=Development;IDE;
+StartupWMClass=jetbrains-mps
