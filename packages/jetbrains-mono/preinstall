@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+cd /usr/share/fonts/truetype/
+wget -c "https://download.jetbrains.com/fonts/JetBrainsMono-2.304.zip" -O "JetBrainsMono.zip"
