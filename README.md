@@ -12,6 +12,8 @@ This PPA contains the following packages:
 * CLion `clion`
 * DataGrip `datagrip`
 * DataSpell `dataspell`
+* dotMemory `dotmemory`
+* dotMemory Command Line Tools `dotmemory-clt`
 * GoLand `goland`
 * IntelliJ IDEA (unified) `intellij-idea`
 * JetBrains Gateway `jetbrains-gateway`
